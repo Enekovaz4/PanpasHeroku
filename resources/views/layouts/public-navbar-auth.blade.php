@@ -13,20 +13,20 @@
                             <a class="nav-link js-scroll-trigger @if (Request::path() == 'users/'.Auth::user()->username) active @endif" href="/users/{{Auth::user()->username}}" title="Ir a tu página principal">Inicio</a>
                         </li>
                         <li class="nav-item p-2">
-                            <a class="nav-link js-scroll-trigger" href="{{ route('user_seguidos') }}" title="Ir a la sección de Seguidos">
+                            <a class="nav-link js-scroll-trigger @if (Request::path() == 'users/seguidos') active @endif" href="{{ route('user_seguidos') }}" title="Ir a la sección de Seguidos">
                                 Seguidos <span class="badge badge-info text-white" title="Total de seguidos" id="nav_seguidos">{{ count(Auth::user()->follows) }}</span>
                             </a>
                         </li>
                         <li class="nav-item p-2">
-                            <a class="nav-link js-scroll-trigger" href="{{ route('user_seguidores') }}" title="Ir a la sección de Seguidores">
+                            <a class="nav-link js-scroll-trigger @if (Request::path() == 'users/seguidores') active @endif" href="{{ route('user_seguidores') }}" title="Ir a la sección de Seguidores">
                                 Seguidores <span class="badge badge-info text-white" title="Total de seguidores" id="nav_seguidores">{{ count(Auth::user()->followers) }}</span>
                             </a>
                         </li>
                         <li class="nav-item p-2">
-                            <a class="nav-link js-scroll-trigger" href="{{ route('user_usuarios') }}" title="Ir a la sección de Usuarios">Usuarios</a>
+                            <a class="nav-link js-scroll-trigger @if (Request::path() == 'users/usuarios') active @endif" href="{{ route('user_usuarios') }}" title="Ir a la sección de Usuarios">Usuarios</a>
                         </li>
                         <li class="nav-item p-2">
-                            <a class="nav-link js-scroll-trigger" href="{{ route('user_recetas') }}" title="Ir a la sección de Recetas">Recetas</a>
+                            <a class="nav-link js-scroll-trigger @if (Request::path() == 'users/recetas') active @endif" href="{{ route('user_recetas') }}" title="Ir a la sección de Recetas">Recetas</a>
                         </li>
                         {{--
                             Deberá ser un DropdownMenu con las opciones de:
