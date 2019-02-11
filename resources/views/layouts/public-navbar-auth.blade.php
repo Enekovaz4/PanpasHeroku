@@ -10,7 +10,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ml-auto">
                         <li class="nav-item p-2">
-                            <a class="nav-link js-scroll-trigger " href="/users/dashboard" title="Ir a tu página principal">Inicio</a>
+                            <a class="nav-link js-scroll-trigger" href="/users/dashboard" title="Ir a tu página principal">{{Request::path()}}</a>
                         </li>
                         <li class="nav-item p-2">
                             <a class="nav-link js-scroll-trigger" href="{{ route('user_seguidos') }}" title="Ir a la sección de Seguidos">
