@@ -53,7 +53,7 @@ class UserPerfilController extends Controller
 
         $user = Auth::user();
 
-        $url = URL::asset("storage/avatar/".Auth::user()->username);
+        $url = URL::asset("public/avatar/".Auth::user()->username);
 
         $user->avatar = $url;
 
