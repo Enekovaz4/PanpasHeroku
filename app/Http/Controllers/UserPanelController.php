@@ -56,7 +56,7 @@ class UserPanelController extends Controller
 
         //recoger recetas por meses
 
-        $recetasUsuario =   Receta::select(DB::raw('count(*) as `totalRecetas`'), DB::raw('MONTH(created_at) month'))
+        $recetasUsuario =   Receta::select(DB::raw('count(*) as totalRecetas'), DB::raw('MONTH(created_at) month'))
             ->where('user_id', $user->id)
             ->groupby('month')
             ->get();
