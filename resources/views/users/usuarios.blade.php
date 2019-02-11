@@ -111,7 +111,7 @@
                                                     <i class="fas fa-minus fa-3x"></i>\
                                                 </div>\
                                             </div>\
-                                            <img class="img-fluid" src=" ' + users[i].avatar +' + " alt="Avatar de ' + users[i].username + ' ">\
+                                            <img class="img-fluid" src=" ' + users[i].avatar +'" alt="Avatar de ' + users[i].username + ' ">\
                                         </a>\
                                         <div class="ranking-caption">\
                                             <h4>\
@@ -134,7 +134,7 @@
                                                     <i class="fas fa-plus fa-3x"></i>\
                                                 </div>\
                                             </div>\
-                                            <img class="img-fluid" src=" ' + users[i].avatar +' + " alt="Avatar de ' + users[i].username + ' ">\
+                                            <img class="img-fluid" src=" ' + users[i].avatar +'" alt="Avatar de ' + users[i].username + ' ">\
                                         </a>\
                                         <div class="ranking-caption">\
                                             <h4>\
