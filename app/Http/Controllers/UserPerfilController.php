@@ -64,6 +64,25 @@ class UserPerfilController extends Controller
         //return view('layouts/user/perfilprivado');
     }
 
+     public function guardarFotoPerfilURL(Request $request)
+    {
+        $image = $request->input('newAvatar');
+
+        
+
+        $user = Auth::user();
+
+        $url = $image;
+
+        $user->avatar = $url;
+
+        $user->save();
+        Auth::login($user);
+
+        return redirect(route('user_perfil', Auth::user()->username));
+        //return view('layouts/user/perfilprivado');
+    }
+
     public function actualizarDatos(Request $request)
     {
         $input = $request->all();

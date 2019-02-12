@@ -55,6 +55,7 @@
 
                             <div class="card-body">
                                 <h2>Modificar Avatar:</h2>
+                                {{--
                                 <form action="/user/guardarFotoPerfil" method="post" enctype="multipart/form-data" class="centrado">
                                 <div><input type="file" name="newAvatar" class="btn btn-secondary col-12" required><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
                                 
@@ -63,7 +64,16 @@
                                          <canvas id="graph_recetas"></canvas>
                                     </div>
                                 </form>
+                                --}}
 
+                                <form action="/user/guardarFotoPerfilURL" method="post" enctype="multipart/form-data" class="centrado">
+                                <div><input type="text" name="newAvatar" class="btn btn-secondary col-12" required placeholder="inserta URL de imagen"><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
+                                
+                                    <img src="{{$user->avatar}}" class="avatar">
+                                    <div class="col-12" style="max-width: 390px; float: right;">
+                                         <canvas id="graph_recetas"></canvas>
+                                    </div>
+                                </form>
 
 
                                 <div class="col-12" style="margin-top: 200px">

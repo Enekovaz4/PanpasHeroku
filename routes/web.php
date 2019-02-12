@@ -70,6 +70,7 @@ Route::get('/{username}', 'UserPanelController@perfil')
 
 //rutas de usuario PRIVADAS
 Route::post('/user/guardarFotoPerfil', 'UserPerfilController@guardarFotoPerfil');
+Route::post('/user/guardarFotoPerfilURL', 'UserPerfilController@guardarFotoPerfilURL');
 Route::post('/user/actualizarDatos', 'UserPerfilController@actualizarDatos');
 
 //FOLLOW SYSTEM routes
