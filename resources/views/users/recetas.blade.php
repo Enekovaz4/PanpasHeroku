@@ -49,7 +49,7 @@
                     url:"/ajax/getSearchRecetas/" + buscador.val(),
                     dataType: "json",
                     success: function(recetas){
-                        console.log(recetas);
+                        //console.log(recetas);
                         listarRecetas(recetas);
                     }
                     });               
@@ -60,7 +60,7 @@
                     url:"/ajax/getRecetas",
                     dataType: "json",
                     success: function(recetas){
-                        console.log(recetas);
+                        //console.log(recetas);
                         listarRecetas(recetas);
 
                     }    
@@ -121,7 +121,7 @@
 
                     if(tieneFav(recetas[i].id)){ // si está en favs
                         $("#listaRecetas").html( $("#listaRecetas").html() + '\
-                         <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12 ranking-item"> \
+                         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 ranking-item"> \
                         <a class="ranking-link" href="/receta/' + recetas[i].titulo + '"> \
                             <div class="ranking-hover" title="Preparar ' + recetas[i].titulo + '"> \
                                 <div class="ranking-hover-content">\
@@ -145,7 +145,7 @@
                         ');
                     } else { // si no está en favs
                         $("#listaRecetas").html( $("#listaRecetas").html() + '\
-                         <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12 ranking-item"> \
+                         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 ranking-item"> \
                         <a class="ranking-link" href="/receta/' + recetas[i].titulo + '"> \
                             <div class="ranking-hover" title="Preparar ' + recetas[i].titulo + '"> \
                                 <div class="ranking-hover-content">\
