@@ -74,6 +74,21 @@ class UserController extends Controller
     }
 
     /**
+     * Listar usuarios conectados
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function onlineList()
+    {
+        return User::select ('id', 'username', 'name', 'lastname', 'avatar', 'last_access_at')
+                    ->orderBy('last_access_at', 'desc')->get()
+                    ->map(function ($user) {//Registrando si el usuario recorrido está conectado
+                        $user->isOnline = $user->isOnline();
+                        return $user;
+                    });
+    }
+
+    /**
      * Filtrar resultados del listado por el término enviado
      *
      * $termino => buscando por nombre, apellido, username, email
