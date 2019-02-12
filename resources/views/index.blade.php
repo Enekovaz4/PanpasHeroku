@@ -21,7 +21,7 @@
         ">
             <div>
                 <h2>{{ config('app.name', 'PaNPaS') }}</h2>
-                <span>Gestiona tu panadería con facilidad</span>
+                {{--<span>Gestiona tu panadería con facilidad</span>--}}
                 <span>Conserva y comparte tus recetas</span>
             </div>
         </header>
@@ -36,40 +36,44 @@
                     </div>
                 </div>
                 <div class="row text-center">
-                    <div class="col-md-6">
-                        <span class="fa-stack fa-4x" title="Icono de galleta">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-cookie fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="service-heading">Gestiona tu Panadería</h4>
-                        <p class="text-muted">Facilita la gestión de tu negocio.<br>Organiza bien tu almacén.</p>
-                    </div>
-                    <div class="col-md-6">
-                        <span class="fa-stack fa-4x" title="Icono de libro abierto">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-book-open fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="service-heading">Comparte Recetas</h4>
-                        <p class="text-muted">Crea recetas para compartirlas con otros.<br>Guardarlas, sino, en tu recitario privado.</p>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-6">
-                        <span class="fa-stack fa-4x" title="Icono de estrella">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-star fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="service-heading">Vota</h4>
-                        <p class="text-muted">Valora las recetas de otros usuarios.<br>Las 3 más votadas tendrán un premio.</p>
-                    </div>
-                    <div class="col-md-6">
-                        <span class="fa-stack fa-4x" title="Icono de dedos en v">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fab fa-angellist fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="service-heading">Ranking</h4>
-                        <p class="text-muted">Con las Votaciones habrá un ranking<br>¿Conseguirás llegar al primer puesto?</p>
-                    </div>
+                        {{--
+                        <div class="col-md-6">
+                            <span class="fa-stack fa-4x" title="Icono de galleta">
+                                <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fas fa-cookie fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <h4 class="service-heading">Gestiona tu Panadería</h4>
+                            <p class="text-muted">Facilita la gestión de tu negocio.<br>Organiza bien tu almacén.</p>
+                        </div>
+                        --}}
+                        <div class="col-md-4">
+                            <span class="fa-stack fa-4x" title="Icono de libro abierto">
+                                <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fas fa-book-open fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <h4 class="service-heading">Comparte</h4>
+                            <p class="text-muted">Crea recetas para compartirlas con otros Usuarios.</p>
+                        </div>
+                    
+
+                        <div class="col-md-4">
+                                <span class="fa-stack fa-4x" title="Icono de estrella">
+                                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                    <i class="fas fa-star fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <h4 class="service-heading">Vota</h4>
+                                <p class="text-muted">Valora las recetas de otros usuarios.<br>Las 3 más votadas aparecerán en esta misma página.</p>
+                            </div>
+
+                        <div class="col-md-4">
+                            <span class="fa-stack fa-4x" title="Icono de dedos en v">
+                                <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fab fa-angellist fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <h4 class="service-heading">Sigue</h4>
+                            <p class="text-muted">Sigue a usuarios para tener <br>sus recetas a mano</p>
+                        </div>
+
                 </div>
             </div>
         </section>
@@ -118,8 +122,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2 class="section-heading text-uppercase">Nuestros Clientes</h2>
-                        <h3 class="section-subheading text-muted">Empresas que mejoraron su gestión gracias al manejo de nuestra App</h3>
+                        <h2 class="section-heading text-uppercase">Nuestros Patrocinadores</h2>
+                        <h3 class="section-subheading text-muted">Empresas que apuestan por nuestra App</h3>
                     </div>
                 </div>
                 <div class="row">
