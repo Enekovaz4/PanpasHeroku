@@ -12,7 +12,7 @@
                     <div class="modal-body">
                         <div class="form-group row">
                             <div class="col-md-8 offset-md-2">
-                                <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" placeholder="{{ __('Nombre de Usuario *') }}" required autofocus alt="Inserta tu nombre de Usuario para registrate.">
+                                <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" placeholder="{{ __('Nombre de Usuario *') }}" required autofocus>
 
                                 @if ($errors->has('username'))
                                     <span class="invalid-feedback" role="alert">
@@ -24,7 +24,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-8 offset-md-2">
-                                <input id="email-reg" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="{{ __('Email *') }}" required alt="Inserta tu correo para registrarte">
+                                <input id="email-reg" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="{{ __('Email *') }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -36,7 +36,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-8 offset-md-2">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Contraseña *') }}" required alt="Inserta tu contraseña para registrarte.">
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Contraseña *') }}" required>
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
@@ -48,7 +48,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-8 offset-md-2">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="{{ __('Confirmar Contraseña *') }}" required alt="Vuelve a insertar tu contraseña como comfirmación para registrarte.">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="{{ __('Confirmar Contraseña *') }}" required>
                             </div>
                         </div>
 

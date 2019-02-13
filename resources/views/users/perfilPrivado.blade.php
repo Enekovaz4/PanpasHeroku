@@ -57,7 +57,7 @@
                                 <h2>Modificar Avatar:</h2>
                                 {{--
                                 <form action="/user/guardarFotoPerfil" method="post" enctype="multipart/form-data" class="centrado">
-                                <div><input type="file" name="newAvatar" class="btn btn-secondary col-12" required  alt="inserta enlace de imagen para cambiar tu avatar"><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
+                                <div><input type="file" name="newAvatar" class="btn btn-secondary col-12" required><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
                                 
                                 	<img src="{{$user->avatar}}" class="avatar" alt="Tu foto de perfil actual">
                                     <div class="col-12" style="max-width: 390px; float: right;">
@@ -67,7 +67,7 @@
                                 --}}
 
                                 <form action="/user/guardarFotoPerfilURL" method="post" enctype="multipart/form-data" class="centrado">
-                                <div><input type="text" name="newAvatar" class="btn btn-secondary col-12" required placeholder="inserta URL de imagen" alt="inserta enlace de imagen para cambiar tu avatar"><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
+                                <div><input type="text" name="newAvatar" class="btn btn-secondary col-12" required placeholder="inserta URL de imagen"><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
                                 
                                     <img src="{{$user->avatar}}" class="avatar" alt="Tu foto de perfil actual.">
                                     <div class="col-12" style="max-width: 390px; float: right;">
@@ -80,18 +80,18 @@
                                     <h2>Modificar Datos:</h2>
                                     <form action="/user/actualizarDatos" method="post" enctype="multipart/form-data">
                                         <p class="col-lg-5 col-md-9">
-                                            <label>Nombre de usuario:</label>   <input type="text" name="username" value="{{$user->username}}" class="w3-input" alt="Modificar Nombre de Usuario">
+                                            <label>Nombre de usuario:</label>   <input type="text" name="username" value="{{$user->username}}" class="w3-input">
                                         </p>
                                         <p class="col-lg-5 col-md-9">
-                                            <label>Nombre:</label>              <input type="text" name="name" value="{{$user->name}}" class="w3-input" alt="Modificar nombre">
+                                            <label>Nombre:</label>              <input type="text" name="name" value="{{$user->name}}" class="w3-input">
                                         </p>
                                         <p class="col-lg-5 col-md-9">
-                                         <label>Apellido:</label>               <input type="text" name="lastname" value="{{$user->lastname}}" class="w3-input" alt="modificar apellido">
+                                         <label>Apellido:</label>               <input type="text" name="lastname" value="{{$user->lastname}}" class="w3-input" >
                                         </p>
                                         <p class="col-lg-5 col-md-9">
-                                            <label>Correo:</label>              <input type="text" name="email" value="{{$user->email}}" class="w3-input" alt="modificar correo">
+                                            <label>Correo:</label>              <input type="text" name="email" value="{{$user->email}}" class="w3-input" >
                                         </p>
-                                        <input type="submit" name="sub_avatar", value="Actualizar" class="btn btn-primary right" alt="actualizar información de tu cuenta">
+                                        <input type="submit" name="sub_avatar", value="Actualizar" class="btn btn-primary right" >
                                     </form>
                                 </div>
                             </div>

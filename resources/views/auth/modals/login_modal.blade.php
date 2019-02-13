@@ -22,7 +22,7 @@
                         @endif
                         <div class="form-group">
                             <div class="col-md-8 offset-md-2">
-                                <input id="email-log" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="{{ __('Email *') }}" required autofocus alt="Inserta tu Correo para iniciar sesión.">
+                                <input id="email-log" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="{{ __('Email *') }}" required autofocus>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -43,7 +43,7 @@
 
                         <div class="form-group">
                             <div class="col-md-8 offset-md-2">
-                                <input id="pass-log" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Contraseña *') }}" required alt="Inserta tu contraseña para iniciar sesión.">
+                                <input id="pass-log" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Contraseña *') }}" required>
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">

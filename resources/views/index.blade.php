@@ -18,7 +18,7 @@
             --bg-size: cover;
             --bg-x: center;
             --bg-y: center;
-        " alt="Imagen de fondo: una mesa de madera con panes y bollería alrededor">
+        ">
             <div>
                 <h2>{{ config('app.name', 'PaNPaS') }}</h2>
                 {{--<span>Gestiona tu panadería con facilidad</span>--}}
@@ -39,7 +39,7 @@
                 <div class="row text-center">
                         {{--
                         <div class="col-md-6">
-                            <span class="fa-stack fa-4x" title="Icono de galleta" alt="Icono de Galleta">
+                            <span class="fa-stack fa-4x" title="Icono de galleta">
                                 <i class="fas fa-circle fa-stack-2x text-primary"></i>
                                 <i class="fas fa-cookie fa-stack-1x fa-inverse"></i>
                             </span>
@@ -48,7 +48,7 @@
                         </div>
                         --}}
                         <div class="col-md-4">
-                            <span class="fa-stack fa-4x" title="Icono de libro abierto" alt="Icono de libro abierto">
+                            <span class="fa-stack fa-4x" title="Icono de libro abierto">
                                 <i class="fas fa-circle fa-stack-2x text-primary"></i>
                                 <i class="fas fa-book-open fa-stack-1x fa-inverse"></i>
                             </span>
@@ -58,7 +58,7 @@
                     
 
                         <div class="col-md-4">
-                                <span class="fa-stack fa-4x" title="Icono de estrella" alt="Icono de Estrella">
+                                <span class="fa-stack fa-4x" title="Icono de estrella">
                                     <i class="fas fa-circle fa-stack-2x text-primary"></i>
                                     <i class="fas fa-star fa-stack-1x fa-inverse"></i>
                                 </span>
@@ -67,7 +67,7 @@
                             </div>
 
                         <div class="col-md-4">
-                            <span class="fa-stack fa-4x"  alt="Icono de dedos en v">
+                            <span class="fa-stack fa-4x">
                                 <i class="fas fa-circle fa-stack-2x text-primary"></i>
                                 <i class="fab fa-angellist fa-stack-1x fa-inverse"></i>
                             </span>
@@ -105,9 +105,9 @@
                         </a>
                         <div class="ranking-caption">
                             <h4>{{ $receta->titulo }}</h4>
-                            <p class="text-muted">por <a href="#listaRanking" title="{{$receta->user->username}} es el autor de la receta." alt="{{$receta->user->username}} es el autor de la receta." class="link-marco">{{ $receta->user->username }}</a></p>
+                            <p class="text-muted">por <a href="#listaRanking" title="{{$receta->user->username}} es el autor de la receta." class="link-marco">{{ $receta->user->username }}</a></p>
                             <h5 class="stars-votos">
-                                <i class="fas fa-star fa-lg star-gold" title="Estrella de Oro" alt="Estrella de Oro"></i> {{ $receta->votos }}
+                                <i class="fas fa-star fa-lg star-gold" title="Estrella de Oro"></i> {{ $receta->votos }}
                             </h5>
                         </div>
                     </div>
@@ -305,23 +305,23 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="https://www.google.com/maps/d/embed?mid=1mSGKOLVLNclxGX6ffIREoq3XqfF2gNPa" width="640" height="400" alt="mapa de la zona de San Sebastián con los lugares donde se encuentran nuestros patrocinadores."></iframe>
+                                    <iframe class="embed-responsive-item" src="https://www.google.com/maps/d/embed?mid=1mSGKOLVLNclxGX6ffIREoq3XqfF2gNPa" width="640" height="400"></iframe>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input class="form-control" name="nombre" id="nombre" type="text" placeholder="Tu Nombre *" data-validation-required-message="Por favor, teclea tu nombre." required alt="Inserta tu nombre.">
+                                        <input class="form-control" name="nombre" id="nombre" type="text" placeholder="Tu Nombre *" data-validation-required-message="Por favor, teclea tu nombre." required>
                                         <p class="help-block text-danger"></p>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="correo" id="correo" type="email" placeholder="Tu Email *" data-validation-required-message="Por favor, teclea tu correo electrónico." data-validation-validemail-message="No es un EMAIL válido" required alt="Inserta tu correo">
+                                        <input class="form-control" name="correo" id="correo" type="email" placeholder="Tu Email *" data-validation-required-message="Por favor, teclea tu correo electrónico." data-validation-validemail-message="No es un EMAIL válido" required>
                                         <p class="help-block text-danger"></p>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="asunto" id="asunto" type="text" placeholder="El Asunto *" data-validation-required-message="Por favor, teclea el asunto." required alt="Inserta el asunto de la consulta como título.">
+                                        <input class="form-control" name="asunto" id="asunto" type="text" placeholder="El Asunto *" data-validation-required-message="Por favor, teclea el asunto." required>
                                         <p class="help-block text-danger"></p>
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="mensaje" id="mensaje" placeholder="Tu Mensaje *" data-validation-required-message="Por favor, teclea tu mensaje." required alt="Inserta el mensaje que quieras mandarnos."></textarea>
+                                        <textarea class="form-control" name="mensaje" id="mensaje" placeholder="Tu Mensaje *" data-validation-required-message="Por favor, teclea tu mensaje." required></textarea>
                                         <p class="help-block text-danger"></p>
                                     </div>
                                     <div class="clearfix"></div>
@@ -358,34 +358,34 @@
                             <div class="col-lg-8 mx-auto">
                                 <div class="modal-body">
                                     {{-- Detalles de la receta --}}
-                                    <h2 class="text-uppercase" alt="Nombre de la receta: {{$receta->titulo}}">{{ $receta->titulo }}</h2>
+                                    <h2 class="text-uppercase">{{ $receta->titulo }}</h2>
                                     <p class="item-intro text-muted">
                                         por
                                         @if (Auth::user() != null)
-                                            <a href="/{{ $receta->user->username }}" title="Ver perfil de {{$receta->user->username}}" alt="Ver perfil de {{$receta->user->username}}" class="link-marco">{{ $receta->user->username }}</a>
+                                            <a href="/{{ $receta->user->username }}" title="Ver perfil de {{$receta->user->username}}" class="link-marco">{{ $receta->user->username }}</a>
                                         @else
                                             <span>{{ $receta->user->username }}</span>
                                         @endif
                                     </p>
                                     <img class="img-fluid d-block mx-auto" src="{{ $receta->imagen }}" alt="Foto de la receta: {{ $receta->titulo }}">
-                                    <p alt="Descripción: {{$receta->descripcion}}">{{ $receta->descripcion }}</p>
+                                    <p>{{ $receta->descripcion }}</p>
 
                                     <table class="mx-auto mb-5">
                                         <tr>
                                             <td style="width: 50%;" class="text-right px-2">Fecha de Creación:</td>
-                                            <td style="width: 50%;" class="text-left px-2" alt="Fecha de Creación: {{$receta->created_at}}" title="Fecha de Creación: {{$receta->created_at}}"> {{ $receta->created_at->format('d-m-Y') }}</td>
+                                            <td style="width: 50%;" class="text-left px-2" title="Fecha de Creación: {{$receta->created_at}}"> {{ $receta->created_at->format('d-m-Y') }}</td>
                                         </tr>
                                         <tr>
                                             <td class="text-right px-2">Categoría:</td>
-                                            <td class="text-left px-2"><a href="#" alt="Esta receta es de la Categoría {{$receta->categoria}}" title="Esta receta es de la Categoría {{$receta->categoria}}" class="link-marco">Pastelería</a></td>
+                                            <td class="text-left px-2"><a href="#" title="Esta receta es de la Categoría {{$receta->categoria}}" class="link-marco">Pastelería</a></td>
                                         </tr>
                                         <tr>
                                             <td class="text-right px-2">Votos:</td>
-                                            <td class="text-left px-2" alt="Esta receta es de la Categoría {{$receta->categoria}}" title="{{$receta->titulo}} tiene {{$receta->votos}} voto(s)">{{ $receta->votos }}</td>
+                                            <td class="text-left px-2" title="{{$receta->titulo}} tiene {{$receta->votos}} voto(s)">{{ $receta->votos }}</td>
                                         </tr>
                                     </table>
 
-                                    <button class="btn btn-primary" data-dismiss="modal" type="button" title="Cerrar ventana" alt="Cerrar Ventana">
+                                    <button class="btn btn-primary" data-dismiss="modal" type="button" title="Cerrar ventana">
                                         <i class="fas fa-times" title="Icono de Cerrar"></i>
                                         Cerrar
                                     </button>

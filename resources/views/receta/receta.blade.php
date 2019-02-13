@@ -88,7 +88,7 @@
                                 <h1 class="frijole">
                                     {{$receta->titulo}}
                                     <sub>
-                                        <a href="/{{$receta->user->username}}" alt="Acceder al perfil de {{$receta->user->username}}">{{$receta->user->username}}</a>
+                                        <a href="/{{$receta->user->username}}" >{{$receta->user->username}}</a>
                                     </sub>
                                     <a href="#comentarios"><div class="btn btn-primary right">Comentarios</div></a>
                                 </h1>
