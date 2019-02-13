@@ -58,6 +58,19 @@ class UserStoreRequest extends FormRequest
                 'lastname' => 'regex:/^[áàäâÁÀÄÂéèëêÉÈËÊíìïîÍÌÏÎóòöôÓÒÖÔúùüûÚÙÜÛñÑA-Za-z\s-_]+$/|max:74',
             ]);
         }*/
+        //¡¡ATENCIÓN!!
+        //El guión - dentro de una REGEX tiene el cometido de separar rangos de caracteres
+        //Si lo que se desea es inlcuirlo como carácter válido, dicho carácter - deberá ser
+        //escapado precediéndolo de un \ así >> \-
+        //Otra sería indicarlo al principio o al final de toda la cadena de caracteres aceptados
+        //Optando por dejarlo como último carácter, a regla a establecer:
+        //  >> pasa de esto
+        //      regex:/^[áàäâÁÀÄÂéèëêÉÈËÊíìïîÍÌÏÎóòöôÓÒÖÔúùüûÚÙÜÛñÑA-Za-z\s_-]+$/
+        //  >> a esto otro
+        //      regex:/^[áàäâÁÀÄÂéèëêÉÈËÊíìïîÍÌÏÎóòöôÓÒÖÔúùüûÚÙÜÛñÑA-Za-z\s_-]+$/
+        //  De no tenerse esto en cuenta, puede producirse este ERROR:
+        //      preg_match(): Compilation failed: invalid range in character class at offset 94
+        //      >> Error qeu se produjo en Heroku pero no en LOCAL
         //---------------------------------------------------------------------------
         //:: FORMA 2d2 ::
         // --------------------------------------
