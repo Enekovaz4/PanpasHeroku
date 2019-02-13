@@ -66,11 +66,14 @@
 
 		</style>
 
+
 @endsection
 
 @section('content')
 
         @include('layouts.public-navbar-auth')
+
+        
 
 
 
@@ -194,6 +197,9 @@
                 </div>
             </div>
         </section>
+
+
+
 @endsection
 
 {{-- ============================================================================ --}}
