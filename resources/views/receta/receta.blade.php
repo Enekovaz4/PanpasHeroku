@@ -99,12 +99,12 @@
 <div class="container">
 
   <div class="row row-receta">
-    <div class="col-md-5" style="background-color: lightblue; padding: 30px;">
+    <div class="col-12" style="background-color: lightblue; padding: 30px;">
       <h2 class="frijole"> Ingredientes: </h2>
       <ul>
 	      @foreach ($ingredientes as $ingrediente)
-	      		<li class="list-group-item d-flex justify-content-between align-items-center">
-					<input type="checkbox" name="ingrediente">{{$ingrediente[0]}}
+	      		<li class="list-group-item d-flex justify-content-between align-items-center col-md-6 col-lg-4 col-xl-3 col-xs-12" style="margin: auto;" id="li_{{$ingrediente[0]}}">
+					<input type="checkbox" name="ingrediente" id="check_{{$ingrediente[0]}}">{{$ingrediente[0]}}
 				    <span class="badge badge-primary badge-pill">{{$ingrediente[1]}}</span>
 				</li>
 	      @endforeach
@@ -113,7 +113,7 @@
 
     </div>
 
-    <div class="col-md-7 vertical-line" style="background-color: lightblue; padding: 30px;">
+    <div class="col-12 vertical-line" style="background-color: lightblue; padding: 30px;">
       <h2 class="frijole"> Preparación </h2>
 
         <div style="text-align: justify;"> {!!$receta->elaboracion!!} </div>

@@ -23,6 +23,7 @@
                 <h2>{{ config('app.name', 'PaNPaS') }}</h2>
                 {{--<span>Gestiona tu panadería con facilidad</span>--}}
                 <span>Conserva y comparte tus recetas</span>
+                <span>Busca las de otros</span>
             </div>
         </header>
 

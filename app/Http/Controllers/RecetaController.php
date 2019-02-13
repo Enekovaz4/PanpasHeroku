@@ -31,17 +31,52 @@ class RecetaController extends Controller
 
         $ingredientes = preg_split('/,/', $receta->ingredientes);
 
+
+
+        $ingProcesado = [];
+        foreach ($ingredientes as $ingrediente) {
+            $ingrediente = preg_split('[ ]', $ingrediente); 
+
+            $newing = [null, null];
+            for ($i = 0; $i <= count($ingrediente) - 1; $i++){
+                if ($i != count($ingrediente)-1){
+                    $newing[0] = $newing[0]." ".$ingrediente[$i];
+                }
+               
+            }
+            $newing[1] = $ingrediente[count($ingrediente) - 1];
+            array_push($ingProcesado, $newing);
+            
+        }
+
+
+
+
+
+
+
+
+
+        
+        $newing = [null, ""];
+        for ($i = 0; $i < count($ingredientes) - 1; $i++){
+           $newing[0] = $newing[0]." ".$ingredientes[$i];
+        }
+        $newing[1] = $ingredientes[count($ingredientes) - 1];
+        $ingredientes = $newing;
+        //dd($ingredientes);
+/*
         for ($i=0; $i < count($ingredientes); $i++) {
             $ingredientes[$i] = preg_split("/\s/", $ingredientes[$i]);
             if ($ingredientes[$i][0] == "") {
                 array_splice($ingredientes[$i], 0, 1);
             }
         }
-
+*/
         return view ('receta/receta', [
             'receta' => $receta,
             'time' => time(),
-            'ingredientes' => $ingredientes,
+            'ingredientes' => $ingProcesado,
             'toast'=>$estado
         ]);
     }

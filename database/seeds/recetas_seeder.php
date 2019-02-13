@@ -2,7 +2,9 @@
 
 use App\User;
 use Faker\Factory;
+use FakerRestaurant\Restaurant;
 use Illuminate\Database\Seeder;
+
 
 class recetas_seeder extends Seeder
 {
@@ -30,11 +32,16 @@ class recetas_seeder extends Seeder
         $_arr_categoria = ['panadería', 'pastelería'];
 
         $faker = Factory::create();
+        $faker->addProvider(new \FakerRestaurant\Provider\en_US\Restaurant($faker));
+
+
+
+
         for ($i = 0; $i < $recetas_faker_tot; $i++) {
             DB::table('recetas')->insert([
-                'titulo' => 'titulo'.$i,
+                'titulo' => $faker->foodName(),
                 'descripcion' => $faker->realText($faker->numberBetween(200,255)),
-                'imagen' => $faker->imageUrl($width = 640, $height = 480),
+                'imagen' => $faker->imageUrl($width = 1024, $height = 1024, 'food'),
                 'elaboracion' => 'Paso 1: '.$faker->realText($faker->numberBetween(100,200)).'<br /><br />'.'Paso 2: '.$faker->realText($faker->numberBetween(150,200)).'<br /><br />'.'Paso 3: '.$faker->realText($faker->numberBetween(50,100)).'<br /><br />'.'Paso 4: '.$faker->realText($faker->numberBetween(25,50)).'<br /><br />',
                 'ingredientes' => 'ingrediente'.$i.' '.$faker->numberBetween(100, 750).'ml',
                 //  >> Aleatorio entre un rango de números dado
