@@ -237,7 +237,7 @@
                         <div id="secc-cabecera" class="card text-white col-12">
                             <div class="d-flex justify-content-between m-1 col-12">
                                 <h1 class="p-2">Recetas</h1>
-                                        <input class="form-control mr-sm-2 mt-3 col-md-6 col-sm-12" type="text" placeholder="Término..." name="buscador" oninput="searchRecetas();">
+                                        <input class="form-control mt-3 col-xs-12 col-md-5 col-sm-12" type="text" placeholder="Término..." name="buscador" oninput="searchRecetas();">
                             <button class="btn btn-info mt-2 col-md-2 col-lg-2 col-xg-1" data-toggle="modal" data-target="#recetaInsModal" title="Registrar una receta">Nueva</button>
                                <button class="btn btn-info mt-2 col-md-2 col-lg-2 col-xg-1" title="Listar mis Recetas" onclick="misRecetas();">Mis Recetas</button>
                             </div>
