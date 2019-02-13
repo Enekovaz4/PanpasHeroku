@@ -48,8 +48,8 @@
                 {{-- usuarios a los que se sigue --}}
 
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ranking-item">
-                        <a class="ranking-link" href="/unfollow/{{ $user->id }}">
-                            <div class="ranking-hover" title="Dejar de seguir a {{ $user->username }}">
+                        <a class="ranking-link" href="/unfollow/{{ $user->id }}"">
+                            <div class="ranking-hover" title="Dejar de seguir a {{ $user->username }}" alt="Dejar de seguir a {{ $user->id }}">
                                 <div class="ranking-hover-content">
                                     <i class="fas fa-minus fa-3x"></i>
                                 </div>
@@ -58,12 +58,12 @@
                         </a>
                         <div class="ranking-caption">
                             <h4>
-                                <a href="/{{ $user->username }}" class="link-marco" title="Acceder al perfil de {{ $user->username }}">{{ $user->username }}</a>
+                                <a href="/{{ $user->username }}" class="link-marco" title="Acceder al perfil de {{ $user->username }}"alt="Acceder al perfil de {{ $user->username }}">{{ $user->username }}</a>
                             </h4>
                             <h5 class="stars-votos">
-                                <i class="fas fa-lg fas fa-sign-out-alt" title="{{ $user->username }} está siguiendo a {{ count ($user->follows) }} usuarios" style="color: green;"></i > {{ count($user->follows) }}
+                                <i class="fas fa-lg fas fa-sign-out-alt" title="{{ $user->username }} está siguiendo a {{ count ($user->follows) }} usuarios" alt="{{ $user->username }} está siguiendo a {{ count ($user->follows) }} usuarios" style="color: green;"></i > {{ count($user->follows) }}
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="fas fa-lg fas fa-sign-in-alt" title="{{ $user->username }} tiene {{ count($user->followers) }} seguidores" style="color: blue;"></i > {{ count($user->followers) }}
+                                <i class="fas fa-lg fas fa-sign-in-alt" title="{{ $user->username }} tiene {{ count($user->followers) }} seguidores" alt="{{ $user->username }} tiene {{ count($user->followers) }} seguidores" style="color: blue;"></i > {{ count($user->followers) }}
                             </h5>
                         </div>
                     </div>

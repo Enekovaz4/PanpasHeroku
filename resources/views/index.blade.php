@@ -18,7 +18,7 @@
             --bg-size: cover;
             --bg-x: center;
             --bg-y: center;
-        ">
+        " alt="Imagen de fondo: una mesa de madera con panes y bollería alrededor">
             <div>
                 <h2>{{ config('app.name', 'PaNPaS') }}</h2>
                 {{--<span>Gestiona tu panadería con facilidad</span>--}}
@@ -39,7 +39,7 @@
                 <div class="row text-center">
                         {{--
                         <div class="col-md-6">
-                            <span class="fa-stack fa-4x" title="Icono de galleta">
+                            <span class="fa-stack fa-4x" title="Icono de galleta" alt="Icono de Galleta">
                                 <i class="fas fa-circle fa-stack-2x text-primary"></i>
                                 <i class="fas fa-cookie fa-stack-1x fa-inverse"></i>
                             </span>
@@ -48,7 +48,7 @@
                         </div>
                         --}}
                         <div class="col-md-4">
-                            <span class="fa-stack fa-4x" title="Icono de libro abierto">
+                            <span class="fa-stack fa-4x" title="Icono de libro abierto" alt="Icono de libro abierto">
                                 <i class="fas fa-circle fa-stack-2x text-primary"></i>
                                 <i class="fas fa-book-open fa-stack-1x fa-inverse"></i>
                             </span>
@@ -58,7 +58,7 @@
                     
 
                         <div class="col-md-4">
-                                <span class="fa-stack fa-4x" title="Icono de estrella">
+                                <span class="fa-stack fa-4x" title="Icono de estrella" alt="Icono de Estrella">
                                     <i class="fas fa-circle fa-stack-2x text-primary"></i>
                                     <i class="fas fa-star fa-stack-1x fa-inverse"></i>
                                 </span>
@@ -67,7 +67,7 @@
                             </div>
 
                         <div class="col-md-4">
-                            <span class="fa-stack fa-4x" title="Icono de dedos en v">
+                            <span class="fa-stack fa-4x"  alt="Icono de dedos en v">
                                 <i class="fas fa-circle fa-stack-2x text-primary"></i>
                                 <i class="fab fa-angellist fa-stack-1x fa-inverse"></i>
                             </span>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" id="listaRanking">
 
                 @foreach($recetas_podium as $receta)
 
@@ -101,13 +101,13 @@
                                     <i class="fas fa-plus fa-3x"></i>
                                 </div>
                             </div>
-                            <img class="img-fluid" src="{{ $receta->imagen }}" alt="{{ $receta->titulo }}">
+                            <img class="img-fluid" src="{{ $receta->imagen }}" alt="Imagen de Receta: {{ $receta->titulo }}">
                         </a>
                         <div class="ranking-caption">
                             <h4>{{ $receta->titulo }}</h4>
-                            <p class="text-muted">por <a href="#" title="Ver perfil de este usuario o listado de recetas" class="link-marco">{{ $receta->user->username }}</a></p>
+                            <p class="text-muted">por <a href="#listaRanking" title="{{$receta->user->username}} es el autor de la receta." alt="{{$receta->user->username}} es el autor de la receta." class="link-marco">{{ $receta->user->username }}</a></p>
                             <h5 class="stars-votos">
-                                <i class="fas fa-star fa-lg star-gold" title="Estrella de Oro"></i> {{ $receta->votos }}
+                                <i class="fas fa-star fa-lg star-gold" title="Estrella de Oro" alt="Estrella de Oro"></i> {{ $receta->votos }}
                             </h5>
                         </div>
                     </div>
@@ -305,23 +305,23 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="https://www.google.com/maps/d/embed?mid=1mSGKOLVLNclxGX6ffIREoq3XqfF2gNPa" width="640" height="400"></iframe>
+                                    <iframe class="embed-responsive-item" src="https://www.google.com/maps/d/embed?mid=1mSGKOLVLNclxGX6ffIREoq3XqfF2gNPa" width="640" height="400" alt="mapa de la zona de San Sebastián con los lugares donde se encuentran nuestros patrocinadores."></iframe>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input class="form-control" name="nombre" id="nombre" type="text" placeholder="Tu Nombre *" data-validation-required-message="Por favor, teclea tu nombre." required>
+                                        <input class="form-control" name="nombre" id="nombre" type="text" placeholder="Tu Nombre *" data-validation-required-message="Por favor, teclea tu nombre." required alt="Inserta tu nombre.">
                                         <p class="help-block text-danger"></p>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="correo" id="correo" type="email" placeholder="Tu Email *" data-validation-required-message="Por favor, teclea tu correo electrónico." data-validation-validemail-message="No es un EMAIL válido" required>
+                                        <input class="form-control" name="correo" id="correo" type="email" placeholder="Tu Email *" data-validation-required-message="Por favor, teclea tu correo electrónico." data-validation-validemail-message="No es un EMAIL válido" required alt="Inserta tu correo">
                                         <p class="help-block text-danger"></p>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" name="asunto" id="asunto" type="text" placeholder="El Asunto *" data-validation-required-message="Por favor, teclea el asunto." required>
+                                        <input class="form-control" name="asunto" id="asunto" type="text" placeholder="El Asunto *" data-validation-required-message="Por favor, teclea el asunto." required alt="Inserta el asunto de la consulta como título.">
                                         <p class="help-block text-danger"></p>
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="mensaje" id="mensaje" placeholder="Tu Mensaje *" data-validation-required-message="Por favor, teclea tu mensaje." required></textarea>
+                                        <textarea class="form-control" name="mensaje" id="mensaje" placeholder="Tu Mensaje *" data-validation-required-message="Por favor, teclea tu mensaje." required alt="Inserta el mensaje que quieras mandarnos."></textarea>
                                         <p class="help-block text-danger"></p>
                                     </div>
                                     <div class="clearfix"></div>

@@ -57,21 +57,21 @@
                                 <h2>Modificar Avatar:</h2>
                                 {{--
                                 <form action="/user/guardarFotoPerfil" method="post" enctype="multipart/form-data" class="centrado">
-                                <div><input type="file" name="newAvatar" class="btn btn-secondary col-12" required><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
+                                <div><input type="file" name="newAvatar" class="btn btn-secondary col-12" required  alt="inserta enlace de imagen para cambiar tu avatar"><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
                                 
-                                	<img src="{{$user->avatar}}" class="avatar">
+                                	<img src="{{$user->avatar}}" class="avatar" alt="Tu foto de perfil actual">
                                     <div class="col-12" style="max-width: 390px; float: right;">
-                                         <canvas id="graph_recetas"></canvas>
+                                         <canvas id="graph_recetas" alt="gráfico de todas las recetas que has insertado separado por 12 meses."></canvas>
                                     </div>
                                 </form>
                                 --}}
 
                                 <form action="/user/guardarFotoPerfilURL" method="post" enctype="multipart/form-data" class="centrado">
-                                <div><input type="text" name="newAvatar" class="btn btn-secondary col-12" required placeholder="inserta URL de imagen"><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
+                                <div><input type="text" name="newAvatar" class="btn btn-secondary col-12" required placeholder="inserta URL de imagen" alt="inserta enlace de imagen para cambiar tu avatar"><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
                                 
-                                    <img src="{{$user->avatar}}" class="avatar">
+                                    <img src="{{$user->avatar}}" class="avatar" alt="Tu foto de perfil actual.">
                                     <div class="col-12" style="max-width: 390px; float: right;">
-                                         <canvas id="graph_recetas"></canvas>
+                                         <canvas id="graph_recetas" alt="gráfico de todas las recetas que has insertado separado por 12 meses."></canvas>
                                     </div>
                                 </form>
 
@@ -80,18 +80,18 @@
                                     <h2>Modificar Datos:</h2>
                                     <form action="/user/actualizarDatos" method="post" enctype="multipart/form-data">
                                         <p class="col-lg-5 col-md-9">
-                                            <label>Nombre de usuario:</label>   <input type="text" name="username" value="{{$user->username}}" class="w3-input">
+                                            <label>Nombre de usuario:</label>   <input type="text" name="username" value="{{$user->username}}" class="w3-input" alt="Modificar Nombre de Usuario">
                                         </p>
                                         <p class="col-lg-5 col-md-9">
-                                            <label>Nombre:</label>              <input type="text" name="name" value="{{$user->name}}" class="w3-input">
+                                            <label>Nombre:</label>              <input type="text" name="name" value="{{$user->name}}" class="w3-input" alt="Modificar nombre">
                                         </p>
                                         <p class="col-lg-5 col-md-9">
-                                         <label>Apellido:</label>               <input type="text" name="lastname" value="{{$user->lastname}}" class="w3-input">
+                                         <label>Apellido:</label>               <input type="text" name="lastname" value="{{$user->lastname}}" class="w3-input" alt="modificar apellido">
                                         </p>
                                         <p class="col-lg-5 col-md-9">
-                                            <label>Correo:</label>              <input type="text" name="email" value="{{$user->email}}" class="w3-input">
+                                            <label>Correo:</label>              <input type="text" name="email" value="{{$user->email}}" class="w3-input" alt="modificar correo">
                                         </p>
-                                        <input type="submit" name="sub_avatar", value="Actualizar" class="btn btn-primary right">
+                                        <input type="submit" name="sub_avatar", value="Actualizar" class="btn btn-primary right" alt="actualizar información de tu cuenta">
                                     </form>
                                 </div>
                             </div>

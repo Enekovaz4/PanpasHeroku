@@ -285,11 +285,11 @@
                         <div style="margin-bottom: 10px;">
                             <div class="col-lg-8" style="display: inline-block;">
                                 <label><strong>Título</strong></label>
-                                <input type="text" name="titulo" class="col-lg-12 w3-input" required>
+                                <input type="text" name="titulo" class="col-lg-12 w3-input" required placeholder="Inserta un título" alt="Inserta un título">
                             </div>
                             <div class="col-lg-3" style="display: inline-block;">
                                 <label><strong>Categoría</strong></label>
-                                <select name="categoria" id="categoria-id" required>
+                                <select name="categoria" id="categoria-id" required alt="selecciona una de las categorías de la receta">
                                     <option value="">Seleccionar</option>
                                     @foreach($_arr_categoria as $categ)
                                     <option value="{{ $categ }}">@php
@@ -301,19 +301,19 @@
                         </div>
                         <p class="col-lg-12">
                             <label><strong>Descripción</strong></label>
-                            <textarea name="descripcion" class="col-lg-12 w3-input" required></textarea>
+                            <textarea name="descripcion" class="col-lg-12 w3-input" required alt="Inserta una descripción para la receta" placeholder="Descripción que tendrá la receta"></textarea>
                         </p>
                         <p class="col-lg-12">
                             <label><strong>Imagen</strong></label>
-                            <input type="text" name="imagen" class="col-lg-12 w3-input" value="https://lorempixel.com/640/480/?14725" required>
+                            <input type="text" name="imagen" class="col-lg-12 w3-input" value="https://lorempixel.com/640/480/?14725/food" required alt="Inserta enlace de una imagen para la receta.">
                         </p>
                         <p class="col-lg-12">
                             <label><strong>Ingredientes</strong></label>
-                            <textarea name="ingredientes" class="col-lg-12 w3-input" required></textarea>
+                            <textarea name="ingredientes" class="col-lg-12 w3-input" required alt="Inserta los ingredientes de la siguiente manera, primero el nombre, después espacio en blanco y la cantidad que quieres todo junto. Cada ingrediente debe estar separado por una coma" placeholder="Ejemplo Formato: Harina 100gr, Azúcar Moreno 150gr"></textarea>
                         </p>
                         <p class="col-lg-12">
                             <label><strong>Elaboración</strong></label>
-                            <textarea name="elaboracion" class="col-lg-12 w3-input" required></textarea>
+                            <textarea name="elaboracion" class="col-lg-12 w3-input" required alt="Inserta el proceso de elaboración." placeholder="Proceso de elaboración de la receta"></textarea>
                         </p>
                     </div>
 
