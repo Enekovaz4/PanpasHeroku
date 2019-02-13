@@ -41,13 +41,14 @@
 
                                <!-- Recetas del Usuario Seleccionado -->
                                <br>
+                               <div style="margin-top: 200px">
                                 <h2 class="section-heading text-uppercase center">Recetas</h2>
     								{{-- Ranking Grid --}}
 								        <section class="bg-light" id="ranking">
 								            <div class="container">
 								                <div class="row">
 								                	@foreach($user->recetas as $receta)
-								                    	<div class="col-md-4 col-sm-6 ranking-item">
+								                    	<div class="col-sm-12 col-md-6 col-lg-4 ranking-item">
 									                        <a class="ranking-link" data-toggle="modal" href="/receta/{{$receta->titulo}}">
 									                            <div class="ranking-hover">
 									                                <div class="ranking-hover-content">
@@ -66,7 +67,7 @@
 								                    	</div>
 								                    @endforeach
 								        </section>
-                               	
+                               	</div>
                                 
 
 
