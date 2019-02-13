@@ -106,7 +106,7 @@
       <h2 class="frijole"> Ingredientes: </h2>
       <ul>
 	      @foreach ($ingredientes as $ingrediente)
-	      		<li class="list-group-item d-flex justify-content-between align-items-center col-md-6 col-lg-4 col-xl-3 col-xs-12" style="margin: auto;" id="li_{{$ingrediente[0]}}">
+	      		<li class="list-group-item d-flex justify-content-between align-items-center col-md-6 col-lg-4 col-xl-4 col-xs-12" style="margin: auto;" id="li_{{$ingrediente[0]}}">
 					<input type="checkbox" name="ingrediente" id="check_{{$ingrediente[0]}}">{{$ingrediente[0]}}
 				    <span class="badge badge-primary badge-pill">{{$ingrediente[1]}}</span>
 				</li>
