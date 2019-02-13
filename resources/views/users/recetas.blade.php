@@ -141,7 +141,7 @@
                                     <i class="fas fa-blender fa-3x"></i>\
                                 </div>\
                             </div>\
-                            <img class="img-fluid" src="' + recetas[i].imagen + '" title="' + recetas[i].titulo + '">\
+                            <img class="img-fluid" src="' + recetas[i].imagen + '" title="' + recetas[i].titulo + '" alt="Imagen de la receta">\
                         </a>\
                         <div class="ranking-caption">\
                             <h4>\
@@ -165,7 +165,7 @@
                                     <i class="fas fa-blender fa-3x"></i>\
                                 </div>\
                             </div>\
-                            <img class="img-fluid" src="' + recetas[i].imagen + '" title="' + recetas[i].titulo + '">\
+                            <img class="img-fluid" src="' + recetas[i].imagen + '" title="' + recetas[i].titulo + '" alt="imagen de la receta">\
                         </a>\
                         <div class="ranking-caption">\
                             <h4>\
