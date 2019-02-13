@@ -36,6 +36,8 @@ class AjaxController extends Controller
             return (json_encode($users));
     }
 
+
+
     public function follow($id){
 
         $follower = Auth::user();
@@ -88,6 +90,16 @@ class AjaxController extends Controller
             return (json_encode($recetas));
     }
 
+    public function getMisRecetas(){
+        $recetas = Receta::orderBy('created_at', 'desc')
+                    ->where('user_id', Auth::user()->id)
+                    ->with('user')
+                    ->with('users')
+                    ->get();
+
+
+            return (json_encode($recetas));
+    }
 
     public function fav($id){
 

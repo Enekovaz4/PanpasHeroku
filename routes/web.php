@@ -112,9 +112,11 @@ Route::post ('/ajax/getSearchUsuarios/{termino}', 'AjaxController@getSearchUsuar
 Route::post ('/ajax/follow/{id}', 'AjaxController@follow');
 Route::post ('/ajax/unfollow/{id}', 'AjaxController@unfollow');
 Route::post ('/ajax/getSearchRecetas/{termino}', 'AjaxController@getSearchRecetas');
+Route::post ('/ajax/misRecetas', 'AjaxController@getMisRecetas');
 Route::post ('/ajax/getRecetas', 'AjaxController@getRecetas');
 Route::post ('/ajax/fav/{id}', 'AjaxController@fav');
 Route::post ('/ajax/unfav/{id}', 'AjaxController@unfav');
+
 
 
 

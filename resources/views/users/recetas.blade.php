@@ -69,6 +69,19 @@
                 }
             }
 
+            function misRecetas(){
+                     $.ajax({
+ 
+                    type:"post",
+                    url:"/ajax/misRecetas",
+                    dataType: "json",
+                    success: function(recetas){
+                        //console.log(recetas);
+                        listarRecetas(recetas);
+                    }
+                    });
+                }
+
 
             function fav (id)  {
 
@@ -110,7 +123,7 @@
             });
             }
 
-
+     
 
 
            function listarRecetas(recetas){
@@ -176,6 +189,8 @@
 
 
 
+
+
             function tieneFav (id){ //devuelve true si lo tienes en favoritos
                 
               
@@ -218,15 +233,13 @@
         <section id="ranking">
             <div class="container">
                 <div class="row mb-4">
-                    <div class="col-lg-12 text-center">
-                        <div id="secc-cabecera" class="card text-white">
-                            <div class="d-flex justify-content-between m-1">
+                    <div class="col-12 text-center">
+                        <div id="secc-cabecera" class="card text-white col-12">
+                            <div class="d-flex justify-content-between m-1 col-12">
                                 <h1 class="p-2">Recetas</h1>
-                                <div class="p-2">
-                                   
-                                        <input class="form-control mr-sm-2" type="text" placeholder="Término..." name="buscador" oninput="searchRecetas();">
-                                </div>
-                                <div class="p-2"><button class="btn btn-info mt-2" data-toggle="modal" data-target="#recetaInsModal" title="Registrar una receta">Nueva</button></div>
+                                        <input class="form-control mr-sm-2 mt-3 col-md-6 col-sm-12" type="text" placeholder="Término..." name="buscador" oninput="searchRecetas();">
+                            <button class="btn btn-info mt-2 col-md-2 col-lg-2 col-xg-1" data-toggle="modal" data-target="#recetaInsModal" title="Registrar una receta">Nueva</button>
+                               <button class="btn btn-info mt-2 col-md-2 col-lg-2 col-xg-1" title="Listar mis Recetas" onclick="misRecetas();">Mis Recetas</button>
                             </div>
                         </div>
                     </div>
