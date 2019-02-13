@@ -31,7 +31,7 @@
                                 @endif
                             </div>
                             {{--<div class="col-md-8 offset-md-2">
-                                <input id="nick-log" type="text" class="form-control{{ $errors->has('nick') ? ' is-invalid' : '' }}" name="nick" value="{{ old('nick') }}" placeholder="{{ __('Nick de Usuario *') }}" required autofocus>
+                                <input id="nick-log" type="text" class="form-control{{ $errors->has('nick') ? ' is-invalid' : '' }}" name="nick" value="{{ old('nick') }}" placeholder="{{ __('Nick de Usuario *') }}" required>
 
                                 @if ($errors->has('nick'))
                                     <span class="invalid-feedback" role="alert">

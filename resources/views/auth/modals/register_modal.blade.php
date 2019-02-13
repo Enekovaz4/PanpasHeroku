@@ -12,7 +12,7 @@
                     <div class="modal-body">
                         <div class="form-group row">
                             <div class="col-md-8 offset-md-2">
-                                <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" placeholder="{{ __('Nombre de Usuario *') }}" required autofocus>
+                                <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" placeholder="{{ __('Nombre de Usuario *') }}" required>
 
                                 @if ($errors->has('username'))
                                     <span class="invalid-feedback" role="alert">
