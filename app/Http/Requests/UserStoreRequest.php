@@ -71,6 +71,9 @@ class UserStoreRequest extends FormRequest
         //  De no tenerse esto en cuenta, puede producirse este ERROR:
         //      preg_match(): Compilation failed: invalid range in character class at offset 94
         //      >> Error qeu se produjo en Heroku pero no en LOCAL
+        //          => Heroku PHP 7.3.2     | Local PHP 7.2.10
+        //          => Nginx 1.8.1
+        //          => Apache 2.4.38        | Local Apache 2.4.34
         //---------------------------------------------------------------------------
         //:: FORMA 2d2 ::
         // --------------------------------------
