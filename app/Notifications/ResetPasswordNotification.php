@@ -73,6 +73,17 @@ class ResetPasswordNotification extends Notification
     }
 
     /**
+     * Set a callback that should be used when building the notification mail message.
+     *
+     * @param  \Closure  $callback
+     * @return void
+     */
+    public static function toMailUsing($callback)
+    {
+        static::$toMailCallback = $callback;
+    }
+
+    /**
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
