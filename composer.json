@@ -65,8 +65,8 @@
             "chmod -R 777 storage", 
             "php artisan passport:keys",
             "php artisan passport:keys --force",
-            "php artisan storage:link"
-            "php artisan migrate:fresh --seed"
+            "php artisan storage:link",
+            "php artisan migrate:fresh --seed",
         ]
     }
 }
