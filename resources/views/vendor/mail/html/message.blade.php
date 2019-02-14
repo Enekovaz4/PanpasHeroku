@@ -20,8 +20,19 @@
 
     {{-- Footer --}}
     @slot('footer')
+        @php
+            $anio_ini = 2018;
+            $anio_actual = date('Y');
+            $txt_anios_app = '';
+            if($anio_actual == $anio_ini) {
+                $txt_anios_app = $anio_ini;
+            }
+            else {
+                $txt_anios_app = $anio_ini . '-' . $anio_actual;
+            }
+        @endphp
         @component('mail::footer')
-            © {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')
+            Copyright &copy; {{ $txt_anios_app }} {{ config('app.name') }}  S.L. - @lang('Todos los derechos y torcidos reservados.')
         @endcomponent
     @endslot
 @endcomponent

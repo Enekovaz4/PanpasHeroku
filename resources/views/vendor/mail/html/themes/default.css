@@ -82,7 +82,7 @@ img {
 /* Layout */
 
 .wrapper {
-    background-color: #364a4c;
+    background-color: #364a4c;/* Color de fondo del encabezado y pie */
     margin: 0;
     padding: 0;
     width: 100%;
@@ -108,7 +108,8 @@ img {
 }
 
 .header a {
-    color: #bbbfc3;
+    /*color: #bbbfc3; Color fuente de encabezado */
+    color: #fed136;
     font-size: 19px;
     font-weight: bold;
     text-decoration: none;
@@ -118,7 +119,7 @@ img {
 /* Body */
 
 .body {
-    background-color: #FFFFFF;
+    background-color: #d4d4d4;
     border-bottom: 1px solid #EDEFF2;
     border-top: 1px solid #EDEFF2;
     margin: 0;
@@ -164,7 +165,8 @@ img {
 }
 
 .footer p {
-    color: #AEAEAE;
+    /*color: #AEAEAE; Color fuente de pie */
+    color: #fed136;
     font-size: 12px;
     text-align: center;
 }
