@@ -1,11 +1,3 @@
-
-@import url('https://fonts.googleapis.com/css?family=Kaushan+Script');
-
-/* ********** Custom Properties ********** */
-:root {
-    --color-prim: #fed136;
-}
-
 /* Base */
 
 body, body *:not(html):not(style):not(br):not(tr):not(code) {
@@ -111,14 +103,13 @@ img {
 /* Header */
 
 .header {
-    font-family: 'Kaushan Script';
     padding: 25px 0;
     text-align: center;
 }
 
 .header a {
     /*color: #bbbfc3; Color fuente de encabezado */
-    color: var(--color-prim);
+    color: #fed136;
     font-size: 19px;
     font-weight: bold;
     text-decoration: none;
@@ -175,7 +166,7 @@ img {
 
 .footer p {
     /*color: #AEAEAE; Color fuente de pie */
-    color: var(--color-prim);
+    color: #fed136;
     font-size: 12px;
     text-align: center;
 }
@@ -258,11 +249,11 @@ img {
 
 .button-yellow,
 .button-col-panpas {
-    background-color: var(--color-prim);
-    border-top: 10px solid var(--color-prim);
-    border-right: 18px solid var(--color-prim);
-    border-bottom: 10px solid var(--color-prim);
-    border-left: 18px solid var(--color-prim);
+    background-color: #fed136;
+    border-top: 10px solid #fed136;
+    border-right: 18px solid #fed136;
+    border-bottom: 10px solid #fed136;
+    border-left: 18px solid #fed136;
 }
 
 /* Panels */
