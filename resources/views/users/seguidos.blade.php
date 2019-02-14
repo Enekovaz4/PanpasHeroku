@@ -48,7 +48,7 @@
                 {{-- usuarios a los que se sigue --}}
 
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 ranking-item">
-                        <a class="ranking-link" href="/unfollow/{{ $user->id }}"">
+                        <a class="ranking-link" href="/unfollow/{{ $user->id }}">
                             <div class="ranking-hover" title="Dejar de seguir a {{ $user->username }}">
                                 <div class="ranking-hover-content">
                                     <i class="fas fa-minus fa-3x"></i>

@@ -52,7 +52,7 @@
 									                        <a class="ranking-link" data-toggle="modal" href="/receta/{{$receta->titulo}}">
 									                            <div class="ranking-hover">
 									                                <div class="ranking-hover-content">
-									                                    <i class="fas fa-plus fa-3x"></i>
+									                                    <i class="fas fas fa-blender fa-3x"></i>
 									                                </div>
 									                            </div>
 									                            <img class="img-fluid" src="{{$receta->imagen}}" alt="Bollos Suizos">
