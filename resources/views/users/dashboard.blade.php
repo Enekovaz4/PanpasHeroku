@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-
+  @php $haycomentarios = false; @endphp
         @include('layouts.public-navbar-auth')
 
         {{-- Panel-de-Usuario --}}
@@ -28,7 +28,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <div class="card"  id="secc-cabecera">
-                            <div class="card-header">Dashboard</div>
+                            <div class="card-header">Comentarios en tus Recetas</div>
 
                             <div class="card-body" style="background-color: white">
 
@@ -54,6 +54,7 @@
                                                         </div>
                                                         <div class="comment-content">
                                                             {{$comentario->mensaje}}
+                                                            @php $haycomentarios = true; @endphp
                                                     </div>
                                                 </div>
                                             </li>
@@ -61,6 +62,10 @@
 
                                         @endforeach
                                     @endforeach
+
+                                    @if(!$haycomentarios)
+                                        <p> No hay comentarios...</p>
+                                    @endif
                                 </ul>
                                 
                             </div>
