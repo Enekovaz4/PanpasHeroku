@@ -60,7 +60,7 @@
                             </div>
                         </div>
 
-                        {{--Opción de Inicio de sesión por Red Social--}}
+                        {{--Opción de Inicio de sesión por Red Social--}}{{--
                         <div class="row">
                             <div class="col-md-12 social-auth-links">
                                 <p>- O -</p>
@@ -74,7 +74,7 @@
                                     <i class="fab fa-github"></i> Registrarse con GitHub
                                 </a>
                             </div>
-                        </div>
+                        </div>--}}
                     </div>
                     <div class="modal-footer">
                         <span class="input-group-btn">

@@ -75,6 +75,21 @@ class LoginController extends Controller
     public function handleProviderCallback($provider)
     {
         $user = Socialite::driver($provider)->user();
+
+        $user->perfil_id = 2;
+        $user = User::updateOrCreate(
+            [
+                'email' => $auth_user->email
+            ],
+            [
+                'token' => $auth_user->token,
+                'name' => $auth_user->name
+            ]
+        );
+
+        Auth::login($user, true);
+        ////return redirect()->to('/users');
+        $this->redirectTo();
     }
 
     //  :: Autenticación por Red(es) Social(es) - fin ::
