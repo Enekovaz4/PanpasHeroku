@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
+use App\Http\Controllers\Controller;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 class LoginController extends Controller
 {
     /*
@@ -50,4 +52,31 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    //*******************************************************************************
+    //  :: Autenticación por Red(es) Social(es) - ini ::
+
+    /**
+    * Redirigiendo al usuario a la página de autenticación del proveedor del servicio.
+    *
+    * @return \Illuminate\Http\Redirect
+    */
+    public function redirectToProvider($provider)
+    {
+        config(['services.' . $provider . '.redirect' => route('provider.callback', [$provider])]);
+        return Socialite::driver($provider)->redirect();
+    }
+
+    /**
+    * Obteniendo la información del usuario desde el proveedor del servicio.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function handleProviderCallback($provider)
+    {
+        $user = Socialite::driver($provider)->user();
+    }
+
+    //  :: Autenticación por Red(es) Social(es) - fin ::
+    //*******************************************************************************
 }

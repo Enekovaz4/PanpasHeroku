@@ -21,6 +21,22 @@ Route::get('/', 'IndexController@getRecetasRanking')->name('index');
 //Con Verificación por Email
 Auth::routes(['verify' => true]);
 
+//*******************************************************************************
+//  :: Autenticación por Red(es) Social(es) - ini ::
+
+//Redirigiendo al usuario a la página de autenticación del proveedor del servicio
+Route::get('/auth/{provider}', 'Auth\LoginController@redirectToProvider')
+    ->where('provider','twitter|facebook|github')
+    ->name('provider.login');
+
+//Obteniendo la información del usuario desde el proveedor del servicio
+Route::get('/auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback')
+    ->where('provider','twitter|facebook|github')
+    ->name('provider.callback');
+
+//  :: Autenticación por Red(es) Social(es) - fin ::
+//*******************************************************************************
+
 //Landing Page
 //  >> guarda los datos del formulario de la landing page en la DDBB
 Route::post('/enviarDatosContacto', 'ContactoController@store');
