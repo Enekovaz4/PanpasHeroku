@@ -7,7 +7,9 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Notifications\VerifyEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -27,7 +29,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'username', 'name', 'lastname', 'email', 'password', 'perfil_id', 'avatar',
+        //'username', 'name', 'lastname', 'email', 'password', 'perfil_id', 'avatar', 'token',
+        'username', 'name', 'lastname', 'email', 'password', 'perfil_id', 'avatar'
     ];
 
     /**
@@ -38,6 +41,29 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * :: Personalización ::
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification);
+    }
+
+    /**
+     * :: Personalización ::
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
 
     public function perfil(){
         return $this->belongsTo('App\Perfil');

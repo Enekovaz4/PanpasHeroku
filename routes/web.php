@@ -21,6 +21,22 @@ Route::get('/', 'IndexController@getRecetasRanking')->name('index');
 //Con Verificación por Email
 Auth::routes(['verify' => true]);
 
+//*******************************************************************************
+//  :: Autenticación por Red(es) Social(es) - ini ::
+
+//Redirigiendo al usuario a la página de autenticación del proveedor del servicio
+Route::get('/auth/{provider}', 'Auth\LoginController@redirectToProvider')
+    ->where('provider','twitter|facebook|github')
+    ->name('provider.login');
+
+//Obteniendo la información del usuario desde el proveedor del servicio
+Route::get('/auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback')
+    ->where('provider','twitter|facebook|github')
+    ->name('provider.callback');
+
+//  :: Autenticación por Red(es) Social(es) - fin ::
+//*******************************************************************************
+
 //Landing Page
 //  >> guarda los datos del formulario de la landing page en la DDBB
 Route::post('/enviarDatosContacto', 'ContactoController@store');
@@ -88,15 +104,18 @@ Route::get('/unfav/{id}', 'RecetaController@eliminarFavoritos')
 
 //Panel Admin
 Route::get('/admin/dashboard', 'AdminPanelController@index')
+    ->middleware('can:isAdmin')//solo se puede acceder si es Admin
     ->name('admin_pnl_index');
 Route::get('/admin/dashboard/get-tots', 'AdminPanelController@getTots')
+    ->middleware('can:isAdmin')
     ->name('admin_pnl_index_tots');
 
 //Para aceptar URLs de todo tipo dentro de  este controlador
 //  >> establecido para aceptar peticiones GET a las rutas
 //  relacionadas con los componentes a cargar en él
 Route::get('/admin/{path}', 'AdminPanelController@index')
-    ->where( 'path', '([A-z\d-\/_.]+)?' );
+    ->where( 'path', '([A-z\d-\/_.]+)?' )
+    ->middleware('can:isAdmin');
 
 //==================================================
 Route::get('/home', 'HomeController@index')
