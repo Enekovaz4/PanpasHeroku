@@ -23,14 +23,12 @@
         <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/app.css') }}">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Froala -->
-<!-- Include external CSS. -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
- 
-    <!-- Include Editor style. -->
-    <link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.3/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.3/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
 
 
         <title>{{ config('app.name', 'PaNPaS') }} - Mi cuenta</title>
@@ -317,7 +315,7 @@
                         <div style="margin-bottom: 10px;">
                             <div class="col-lg-8" style="display: inline-block;">
                                 <label><strong>Título</strong></label>
-                                <input type="text" name="titulo" class="col-lg-12 w3-input" required placeholder="Inserta un título" alt="Inserta un título">
+                                <input type="text" name="titulo" class="col-lg-12 w3-input" required placeholder="Inserta un título" alt="Inserta un título" pattern="^[a-z 0-9]*$">
                             </div>
                             <div class="col-lg-3" style="display: inline-block;">
                                 <label><strong>Categoría</strong></label>
