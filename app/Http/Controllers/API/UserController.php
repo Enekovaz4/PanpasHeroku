@@ -99,6 +99,19 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $termino = $request->term;
+
+        /**
+         * ¡¡ATENCIÓN!!
+         * El ilike es propio de PostgreSQL para considerar el Caso INSENSITIVO
+         * Pero no existe en MySQL, por ello, fallará
+         *
+         * Algo parecido para cuando se esté en un entorno con MySQL
+         *      .where('LOWER(name) LIKE LOWER(?)'
+         *
+         *      //investigar la forma correcta
+         *      ->where('LOWER(name), 'LIKE', "%{$termino}%")
+         */
+
         return User::withTrashed()
                 ->with('perfil:id,nombre')
                 //para Caso SENSITIVO a Mayúsculas

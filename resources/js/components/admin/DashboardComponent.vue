@@ -54,7 +54,7 @@
                                         <!-- <i class="ion ion-stats-bars"></i> -->
                                         <i class="fas fa-book-open fa-1x"></i>
                                     </div>
-                                    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+                                    <router-link to="/admin/recipes" class="small-box-footer" title="Ir a Recetas">Más info <i class="fa fa-arrow-circle-right"></i></router-link>
                                 </div>
                             </div>
                             <!-- ./col -->
@@ -71,6 +71,7 @@
                                         <i class="fa fa-comments fa-1x"></i>
                                     </div>
                                     <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
+                                    <router-link to="/admin/comments" class="small-box-footer" title="Ir a Comentarios">Más info <i class="fa fa-arrow-circle-right"></i></router-link>
                                 </div>
                             </div>
                             <!-- ./col -->

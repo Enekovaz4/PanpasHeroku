@@ -30,20 +30,32 @@
                                         </router-link>
                                     </li>
                                     <li class="nav-item">
+                                        <router-link to="/admin/recipes" class="nav-link" title="Ir a Recetas">
+                                            <i class="fas fa-book-open nav-icon"></i>
+                                            <p>Recetas</p>
+                                        </router-link>
+                                    </li>
+                                    <li class="nav-item">
+                                        <router-link to="/admin/comments" class="nav-link" title="Ir a Recetas">
+                                            <i class="fa fa-comments nav-icon"></i>
+                                            <p>Comentarios</p>
+                                        </router-link>
+                                    </li>
+                                    <li class="nav-item">
                                         <router-link to="/admin/contacts" class="nav-link" title="Ir a Mensajes">
                                             <i class="fas fa-envelope nav-icon"></i>
                                             <p>Mensajes</p>
                                         </router-link>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a href="#" class="nav-link">
                                             <i class="fas fa-genderless nav-icon"></i>
                                             <p>Inactive Page</p>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-th"></i>
                                     <p>
@@ -51,7 +63,7 @@
                                         <span class="right badge badge-danger">New</span>
                                     </p>
                                 </a>
-                            </li>
+                            </li> --}}
                             <hr>
                             <li class="nav-item">
                                 <a href="{{ route('logout') }}" class="nav-link"

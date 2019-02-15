@@ -65,6 +65,14 @@ let routes = [
     //Ruta dinámica pasándole un parámetro ID
     { path: patron + '/users/:id', name: 'user_profile', component: require('./components' + patron + '/UserProfileComponent.vue').default },
     // ----------------------------------------------------
+    //  =>> :: RECETAS ::
+    { path: patron + '/recipes', name: 'recipes_list', component: require('./components' + patron + '/RecipesComponent.vue').default },
+    { path: patron + '/recipes/:id', name: 'recipe_detail', component: require('./components' + patron + '/RecipeDetailComponent.vue').default },
+    // ----------------------------------------------------
+    //  =>> :: COMENTARIOS ::
+    { path: patron + '/comments', name: 'comments_list', component: require('./components' + patron + '/CommentsComponent.vue').default },
+    { path: patron + '/comments/:id', name: 'comment_detail', component: require('./components' + patron + '/CommentDetailComponent.vue').default },
+    // ----------------------------------------------------
     //  =>> :: CONTACTOS ::
     { path: patron + '/contacts', name: 'contacts_list', component: require('./components' + patron + '/ContactsComponent.vue').default },
     { path: patron + '/contacts/sended', name: 'contacts_sended_list', component: require('./components' + patron + '/ContactsSendedComponent.vue').default },
@@ -141,6 +149,8 @@ Vue.component('user-ins-edit-component', require('./components' + patron + '/Use
 Vue.component('user-prof-tots-component', require('./components' + patron + '/UserProfTotsComponent.vue').default);
 Vue.component('user-prof-activ-component', require('./components' + patron + '/UserProfActivComponent.vue').default);
 Vue.component('user-prof-edit-component', require('./components' + patron + '/UserProfEditComponent.vue').default);
+Vue.component('recipe-ins-edit-component', require('./components' + patron + '/RecipeInsEditComponent.vue').default);
+Vue.component('comment-ins-edit-component', require('./components' + patron + '/CommentInsEditComponent.vue').default);
 Vue.component('contacts-navbar-folders-component', require('./components' + patron + '/ContactsNavbarFoldersComponent.vue').default);
 
 //Vue-infinite-loading :: Paginado Infinito

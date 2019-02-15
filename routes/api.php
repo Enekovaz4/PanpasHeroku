@@ -22,8 +22,12 @@ use Illuminate\Http\Request;
 //Ruta(s) registrada(s) para API(s)
 Route::apiResources([
     'users' => 'API\UserController',
+    'recipes' => 'API\RecipeController',
+    'comments' => 'API\CommentController',
     'contacts' => 'API\ContactController',
 ]);
+// ===============================================================================
+// USUARIOS :: Otros
 // -------------------------------------------------------------------------------
 //Listar usuarios conectados
 Route::get('/users/online/list', 'API\UserController@onlineList')
@@ -48,6 +52,27 @@ Route::get('/users/prof-data-resum/{id}', 'API\UserController@profileDataResume'
 Route::get('/users/prof-activity/{id}', 'API\UserController@profileActivity')
     ->name('user.prof-activity');
 
+// ===============================================================================
+// RECETAS :: Otros
+// -------------------------------------------------------------------------------
+//Buscador para filtrar resultados en el listado
+//  >> término que buscar
+Route::post('/recipes/search', 'API\RecipeController@search')
+    ->name('recipe.search');
+//Con el Soft Delete activado, esta ruta es:
+//  >> para forzar el borrado definitivo
+Route::get('/recipes/force-delete/{id}', 'API\RecipeController@forceDelete')
+    ->name('recipe.force-delete');
+//  >> para restaurar usuario en papelera
+Route::get('/recipes/restore-delete/{id}', 'API\RecipeController@restoreDelete')
+    ->name('recipe.restore-delete');
+
+// ===============================================================================
+// COMENTARIOS :: Otros
+// -------------------------------------------------------------------------------
+
+// ===============================================================================
+// MENSAJES :: Otros
 // -------------------------------------------------------------------------------
 //Mensaje(s) NO leido(s) Total
 Route::get('/contacts/no-readed/tot', 'API\ContactController@getTotLeidoNo')
