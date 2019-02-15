@@ -1,12 +1,28 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="container">
+
+<header class="masthead" style="
+            --bg-url: url(../images/header-home.jpg);
+            --bg-attach: fixed;
+            --bg-size: cover;
+            --bg-x: center;
+            --bg-y: center;
+            z-index: -1;
+            position: absolute;
+            bottom: 100px;
+            top: 0px;
+            left: 0px;
+            height:100vh;
+            opacity: 0.9;
+">
+</header>
+
+
+<div class="container" style="position: absolute; margin-left: 20%; margin-top: 10%;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div id="secc-cabecera" class="card-header text-white"><h1>{{ __('Verifica Tu Dirección de Correo') }}</h1></div>
-
                 <div class="card-body">
                     @if (session('resent'))
                         <div class="alert alert-success" role="alert">
