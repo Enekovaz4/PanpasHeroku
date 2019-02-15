@@ -108,7 +108,7 @@ class RecetaController extends Controller
         $receta = new Receta();
         $receta->titulo = $data['titulo'];
         $receta->descripcion = $data['descripcion'];
-        $receta->elaboracion = $data['elaboracion'];
+        $receta->elaboracion = htmlentities ($data['elaboracion']);
         $receta->categoria = $data['categoria'];
 
 
