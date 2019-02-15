@@ -24,6 +24,13 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
+
+
+
+
+
+
         <title>{{ config('app.name', 'PaNPaS') }} - Mi cuenta</title>
 
 
@@ -31,10 +38,33 @@
 
                  var listaFavs = {!!json_encode(Auth::user()->favoritos)!!};
 
+
+
+/*
+                 var prohibidoTA = ["script", "onclick", "{", "}", "onchange", "onmouseover", "onmouseout", "onkeydown", "onload"];
+*/
                 $(document).ready(function(){
                     searchRecetas();
+                    //$(function() { $('.froala').froalaEditor() });
                 });
 
+
+
+                function validarElaboracion(){
+                    var enabled = true;
+                    var texto = $('#elaboracionTA').val();
+                    for(var i = 0; i < prohibidoTA.length; i++){
+                        if (texto.includes(prohibidoTA[i])){
+                        enabled = false;
+                    }
+                    }
+
+                    if (enabled){
+                        $("#btn_registro").css("display", "");
+                    } else {
+                        $("#btn_registro").css("display", "none");
+                    }
+                }
 
 
 
@@ -267,7 +297,7 @@
 
 @section('footer_scripts_content')
         {{-- MODAL INSERTAR-RECETA :: ini --}}
-        <div class="modal fade" id="recetaInsModal" tabindex="-1" role="dialog" aria-labelledby="recetaInsModalLabel" aria-hidden="true">
+        <div class="modal fade" margin: auto;" id="recetaInsModal" tabindex="0" role="dialog" aria-labelledby="recetaInsModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
 
                 {{-- Modal content :: ini --}}
@@ -281,11 +311,11 @@
 
                     <form action="/insertarReceta" method="post" enctype="multipart/form-data">
                         @csrf
-                    <div class="modal-body">
+                    <div class="modal-body col">
                         <div style="margin-bottom: 10px;">
                             <div class="col-lg-8" style="display: inline-block;">
                                 <label><strong>Título</strong></label>
-                                <input type="text" name="titulo" class="col-lg-12 w3-input" required placeholder="Inserta un título" alt="Inserta un título">
+                                <input type="text" name="titulo" class="col-lg-12 w3-input" required placeholder="Inserta un título" alt="Inserta un título" pattern="^[a-z 0-9]*$">
                             </div>
                             <div class="col-lg-3" style="display: inline-block;">
                                 <label><strong>Categoría</strong></label>
@@ -313,7 +343,7 @@
                         </p>
                         <p class="col-lg-12">
                             <label><strong>Elaboración</strong></label>
-                            <textarea name="elaboracion" class="col-lg-12 w3-input" required alt="Inserta el proceso de elaboración." placeholder="Proceso de elaboración de la receta"></textarea>
+                            <textarea name="elaboracion" class="col-lg-12 w3-input froala" required alt="Inserta el proceso de elaboración." placeholder="Proceso de elaboración de la receta" id="elaboracionTA"></textarea>
                         </p>
                     </div>
 
@@ -342,13 +372,13 @@
          Librería de Notificaciones de alerta - JS :: ini --}}
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>
 
-        <script type="text/javascript">
-            $(document).ready(function(){
-                    @if (isset($toast) != null)
-                        alertify.set('notifier','position', 'top-right');
-                        alertify.notify('Receta Insertada', 'success');
-                    @endif
-                });
-        </script>
+<!-- Include external JS libs. -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+ 
+    <!-- Include Editor JS files. -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@2.9.3/js/froala_editor.pkgd.min.js"></script>
+
        
 @endsection

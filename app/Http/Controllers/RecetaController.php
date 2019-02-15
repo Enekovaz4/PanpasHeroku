@@ -106,15 +106,15 @@ class RecetaController extends Controller
         $data = $request->all();
 
         $receta = new Receta();
-        $receta->titulo = $data['titulo'];
-        $receta->descripcion = $data['descripcion'];
-        $receta->elaboracion = $data['elaboracion'];
+        $receta->titulo = htmlentities ($data['titulo']);
+        $receta->descripcion = htmlentities ($data['descripcion']);
+        $receta->elaboracion = htmlentities ($data['elaboracion']);
         $receta->categoria = $data['categoria'];
 
 
         $receta->elaboracion = nl2br($receta->elaboracion);
 
-        $receta->ingredientes = $data['ingredientes'];
+        $receta->ingredientes = htmlentities ($data['ingredientes']);
         $receta->imagen = $data['imagen'];
         $receta->user_id = Auth::user()->id;
         $receta->save();

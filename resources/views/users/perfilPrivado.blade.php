@@ -39,6 +39,30 @@
 
 
 
+
+        <script type="text/javascript">
+            function validarImagenURL(){
+               var url = $("input[name=newAvatar]").val();
+               if (url.length != 0){
+                   $.ajax({
+                        url: url,
+                        type:'HEAD',
+                        error: function(){
+                           alertify.notify('No se ha encontrado una IMG.', 'error', 2);
+                           $("input[name=sub_avatar]").css("visibility", "hidden");
+                        },
+                        success: function(){
+                           alertify.notify('Imagen Encontrada', 'success', 2); 
+                           $("input[name=sub_avatar]").css("visibility", "visible");
+                        }
+
+                    });
+                }
+            }
+        </script>
+
+
+
 @endsection
 
 @section('content')
@@ -57,7 +81,7 @@
                                 <h2>Modificar Avatar:</h2>
                                 {{--
                                 <form action="/user/guardarFotoPerfil" method="post" enctype="multipart/form-data" class="centrado">
-                                <div><input type="file" name="newAvatar" class="btn btn-secondary col-12" required><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
+                                <div><input type="file" name="newAvatar" class="btn btn-secondary col-12" required ><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
                                 
                                 	<img src="{{$user->avatar}}" class="avatar" alt="Tu foto de perfil actual">
                                     <div class="col-12" style="max-width: 390px; float: right;">
@@ -67,7 +91,7 @@
                                 --}}
 
                                 <form action="/user/guardarFotoPerfilURL" method="post" enctype="multipart/form-data" class="centrado">
-                                <div><input type="text" name="newAvatar" class="btn btn-secondary col-12" required placeholder="inserta URL de imagen"><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
+                                <div><input type="text" name="newAvatar" class="btn btn-secondary col-12" required placeholder="inserta URL de imagen" oninput="validarImagenURL();" autocomplete="off"><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
                                 
                                     <img src="{{$user->avatar}}" class="avatar" alt="Tu foto de perfil actual.">
                                     <div class="col-12" style="max-width: 390px; float: right;">
