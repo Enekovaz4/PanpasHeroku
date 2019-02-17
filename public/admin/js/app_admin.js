@@ -4703,7 +4703,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -69489,8 +69488,6 @@ var render = function() {
                 _vm._v(" "),
                 _vm._m(3),
                 _vm._v(" "),
-                _vm._m(4),
-                _vm._v(" "),
                 _c(
                   "router-link",
                   {
@@ -69520,7 +69517,7 @@ var render = function() {
                   _c("p", [_vm._v("Mensajes")])
                 ]),
                 _vm._v(" "),
-                _vm._m(5),
+                _vm._m(4),
                 _vm._v(" "),
                 _c(
                   "router-link",
@@ -69540,11 +69537,11 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _vm._m(6),
+          _vm._m(5),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-6" }, [
             _c("div", { staticClass: "card" }, [
-              _vm._m(7),
+              _vm._m(6),
               _vm._v(" "),
               _c(
                 "div",
@@ -69621,7 +69618,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(8)
+            _vm._m(7)
           ])
         ])
       ])
@@ -69673,15 +69670,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "icon" }, [
       _c("i", { staticClass: "fa fa-comments fa-1x" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
-      _vm._v("Más info "),
-      _c("i", { staticClass: "fa fa-arrow-circle-right" })
     ])
   },
   function() {
@@ -90344,7 +90332,7 @@ function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/panpas-restructurado-heroku/resources/js/app_admin.js */"./resources/js/app_admin.js");
+module.exports = __webpack_require__(/*! D:\inetpubapache-www\__laravel-homestead-proyectos\panpas-restructurado-git-heroku\resources\js\app_admin.js */"./resources/js/app_admin.js");
 
 
 /***/ })

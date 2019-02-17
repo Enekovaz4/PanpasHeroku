@@ -17808,6 +17808,31 @@ header.masthead span {
   text-shadow: 0.3125rem 0.4rem 0 black;
 }
 
+/* CABECERAS FORMULARIOS AUTH (VerifyEmail, ResetPassword) */
+
+header.masthead_auth {
+  width: 100%;
+  min-height: var(--min-h);
+  /*altura mínima del viewport para que el elemento ocupe*/
+  /*esa alturasegún la altura del dispositivo empleado*/
+  color: var(--color-medium-dark);
+  background-image: var(--bg-url);
+  background-attachment: var(--bg-attach);
+  background-size: var(--bg-size);
+  background-position-x: var(--bg-x);
+  background-position-y: var(--bg-y);
+}
+
+header.masthead_auth > div {
+  min-height: inherit;
+  /*se hereda la altura mínima del elemento padre*/
+  padding-top: var(--padd-t);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg-color-modal);
+}
+
 section {
   padding: 6.25rem 0;
 }

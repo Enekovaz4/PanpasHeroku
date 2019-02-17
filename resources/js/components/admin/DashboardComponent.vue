@@ -70,7 +70,6 @@
                                         <!-- <i class="ion ion-person-add"></i> -->
                                         <i class="fa fa-comments fa-1x"></i>
                                     </div>
-                                    <a href="#" class="small-box-footer">Más info <i class="fa fa-arrow-circle-right"></i></a>
                                     <router-link to="/admin/comments" class="small-box-footer" title="Ir a Comentarios">Más info <i class="fa fa-arrow-circle-right"></i></router-link>
                                 </div>
                             </div>
