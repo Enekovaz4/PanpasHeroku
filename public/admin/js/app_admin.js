@@ -4712,6 +4712,7 @@ __webpack_require__.r(__webpack_exports__);
     BusEvent.$emit('notifCargaUsersOnlineEvent'); //para cargar total de recursos al llegar al componente
 
     this.getTotRecursos();
+    this.getCharts();
   },
   components: {
     GChart: vue_google_charts__WEBPACK_IMPORTED_MODULE_1__["GChart"]
@@ -4721,24 +4722,35 @@ __webpack_require__.r(__webpack_exports__);
     return {
       //variable para almacenar los datos del registro a almacenar
       objTotRecursos: {},
-      //Opciones para DatetimePicker
-      //  >> Rellenando con la fecha actual
-      ////date_ini: new Date(),
+      //Opciones para cada DatetimePicker
       //  >> Rellenando con una fecha fija
-      date_ini: '01/02/2019',
-      options_date_ini: {
+      //  >> Rellenando con la fecha actual
+      ////fecha_fin: new Date(),
+      ////fecha_ini: '01/02/2019',
+      ////fecha_fin: new Date(),
+      options_fecha_ini: {
         format: 'DD/MM/YYYY',
         useCurrent: false
       },
-      //Opciones para DatetimePicker
-      date_fin: new Date(),
-      options_date_fin: {
+      options_fecha_fin: {
         format: 'DD/MM/YYYY',
         useCurrent: false
+      },
+      objRecetasAltaXFechas: {
+        'fecha_ini': '01/02/2019',
+        'fecha_fin': new Date()
       },
       // Array will be automatically processed with visualization.arrayToDataTable function
-      chartData: [['Día', 'Recetas'], ['01/02/2019', 1000], ['02/02/2019', 1170], ['03/02/2019', 660], ['04/02/2019', 1030]],
-      chartOptions: {
+
+      /*chartData: [
+          ['Día', 'Recetas'],
+          ['01/02/2019', 1000,],
+          ['02/02/2019', 1170,],
+          ['03/02/2019', 660,],
+          ['04/02/2019', 1030,],
+      ],*/
+      chartRecetasAltaXFechas_Data: [['Día', 'Recetas']],
+      chartRecetasAltaXFechas_Options: {
         chart: {
           title: 'Alta de Recetas en rango de Fechas',
           subtitle: 'Recetas registradas en un rango'
@@ -4768,12 +4780,22 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     /**
+     * Carga de gráfica(s)
+    */
+    getCharts: function getCharts() {
+      this.chartRecetasAltaXFechas();
+    },
+
+    /**
      * Carga de gráfica de Altas de Recetas
      * dentro de un rango de fechas dado
     */
     chartRecetasAltaXFechas: function chartRecetasAltaXFechas() {
-      //
       alert(':: Se cargará la gráfica según el rango de fechas seleccionado ::');
+      this.chartRecetasAltaXFechas_Data.push(['01/02/2019', 1000]);
+      this.chartRecetasAltaXFechas_Data.push(['02/02/2019', 1170]);
+      this.chartRecetasAltaXFechas_Data.push(['03/02/2019', 660]);
+      this.chartRecetasAltaXFechas_Data.push(['04/02/2019', 1030]);
     }
   }
 });
@@ -69556,13 +69578,17 @@ var render = function() {
                           "\n                                            Fecha inicial\n                                            "
                         ),
                         _c("date-picker", {
-                          attrs: { config: _vm.options_date_ini },
+                          attrs: { config: _vm.options_fecha_ini },
                           model: {
-                            value: _vm.date_ini,
+                            value: _vm.objRecetasAltaXFechas.fecha_ini,
                             callback: function($$v) {
-                              _vm.date_ini = $$v
+                              _vm.$set(
+                                _vm.objRecetasAltaXFechas,
+                                "fecha_ini",
+                                $$v
+                              )
                             },
-                            expression: "date_ini"
+                            expression: "objRecetasAltaXFechas.fecha_ini"
                           }
                         })
                       ],
@@ -69577,13 +69603,17 @@ var render = function() {
                           "\n                                            Fecha final\n                                            "
                         ),
                         _c("date-picker", {
-                          attrs: { config: _vm.options_date_fin },
+                          attrs: { config: _vm.options_fecha_fin },
                           model: {
-                            value: _vm.date_fin,
+                            value: _vm.objRecetasAltaXFechas.fecha_fin,
                             callback: function($$v) {
-                              _vm.date_fin = $$v
+                              _vm.$set(
+                                _vm.objRecetasAltaXFechas,
+                                "fecha_fin",
+                                $$v
+                              )
                             },
-                            expression: "date_fin"
+                            expression: "objRecetasAltaXFechas.fecha_fin"
                           }
                         })
                       ],
@@ -69609,8 +69639,8 @@ var render = function() {
                   _c("GChart", {
                     attrs: {
                       type: "ColumnChart",
-                      data: _vm.chartData,
-                      options: _vm.chartOptions
+                      data: _vm.chartRecetasAltaXFechas_Data,
+                      options: _vm.chartRecetasAltaXFechas_Options
                     }
                   })
                 ],

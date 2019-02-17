@@ -133,11 +133,11 @@
                                         <div class="row">
                                             <div class="col-5">
                                                 Fecha inicial
-                                                <date-picker v-model="date_ini" :config="options_date_ini"></date-picker>
+                                                <date-picker v-model="objRecetasAltaXFechas.fecha_ini" :config="options_fecha_ini"></date-picker>
                                             </div>
                                             <div class="col-5">
                                                 Fecha final
-                                                <date-picker v-model="date_fin" :config="options_date_fin"></date-picker>
+                                                <date-picker v-model="objRecetasAltaXFechas.fecha_fin" :config="options_fecha_fin"></date-picker>
                                             </div>
                                             <div class="col-2">
                                                 <button class="nav-link btn btn-primary txt_blanco" type="button" title="Cargar gráfica" @click="chartRecetasAltaXFechas"><i class="far fa-chart-bar"></i> Cargar</button>
@@ -145,8 +145,8 @@
                                         </div>
                                         <GChart
                                             type="ColumnChart"
-                                            :data="chartData"
-                                            :options="chartOptions"
+                                            :data="chartRecetasAltaXFechas_Data"
+                                            :options="chartRecetasAltaXFechas_Options"
                                         />
                                     </div>
                                 </div>
@@ -187,6 +187,7 @@
 
             //para cargar total de recursos al llegar al componente
             this.getTotRecursos();
+            this.getCharts();
         },
 
         components: {
@@ -199,32 +200,37 @@
                 //variable para almacenar los datos del registro a almacenar
                 objTotRecursos: {},
 
-                //Opciones para DatetimePicker
-                //  >> Rellenando con la fecha actual
-                ////date_ini: new Date(),
+                //Opciones para cada DatetimePicker
                 //  >> Rellenando con una fecha fija
-                date_ini: '01/02/2019',
-                options_date_ini: {
+                //  >> Rellenando con la fecha actual
+                ////fecha_fin: new Date(),
+                ////fecha_ini: '01/02/2019',
+                ////fecha_fin: new Date(),
+                options_fecha_ini: {
                     format: 'DD/MM/YYYY',
                     useCurrent: false,
                 },
-
-                //Opciones para DatetimePicker
-                date_fin: new Date(),
-                options_date_fin: {
+                options_fecha_fin: {
                     format: 'DD/MM/YYYY',
                     useCurrent: false,
+                },
+                objRecetasAltaXFechas: {
+                    'fecha_ini': '01/02/2019',
+                    'fecha_fin': new Date(),
                 },
 
                 // Array will be automatically processed with visualization.arrayToDataTable function
-                chartData: [
+                /*chartData: [
                     ['Día', 'Recetas'],
                     ['01/02/2019', 1000,],
                     ['02/02/2019', 1170,],
                     ['03/02/2019', 660,],
                     ['04/02/2019', 1030,],
+                ],*/
+                chartRecetasAltaXFechas_Data: [
+                    ['Día', 'Recetas'],
                 ],
-                chartOptions: {
+                chartRecetasAltaXFechas_Options: {
                     chart: {
                         title: 'Alta de Recetas en rango de Fechas',
                         subtitle: 'Recetas registradas en un rango',
@@ -254,12 +260,22 @@
             },
 
             /**
+             * Carga de gráfica(s)
+            */
+            getCharts() {
+                this.chartRecetasAltaXFechas();
+            },
+
+            /**
              * Carga de gráfica de Altas de Recetas
              * dentro de un rango de fechas dado
             */
             chartRecetasAltaXFechas() {
-                //
                 alert(':: Se cargará la gráfica según el rango de fechas seleccionado ::');
+                this.chartRecetasAltaXFechas_Data.push(['01/02/2019', 1000,]);
+                this.chartRecetasAltaXFechas_Data.push(['02/02/2019', 1170,]);
+                this.chartRecetasAltaXFechas_Data.push(['03/02/2019', 660,]);
+                this.chartRecetasAltaXFechas_Data.push(['04/02/2019', 1030,]);
             },
 
         },

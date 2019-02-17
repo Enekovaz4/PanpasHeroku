@@ -4,6 +4,15 @@ use Illuminate\Database\Seeder;
 
 class perfiles_seeder extends Seeder
 {
+    protected $_arr_perfiles = [
+        [
+            'nombre' => 'Administrador', 'descripcion' => 'Usuario tipo Root',
+        ],
+        [
+            'nombre' => 'Usuario', 'descripcion' => 'Usuario Normal',
+        ],
+    ];
+
     /**
      * Run the database seeds.
      *
@@ -11,14 +20,11 @@ class perfiles_seeder extends Seeder
      */
     public function run()
     {
-        DB::table('perfiles')->insert([
-            'nombre' => 'Administrador',
-            'descripcion' => 'Usuario Root',
-        ]);
-
-        DB::table('perfiles')->insert([
-            'nombre' => 'Usuario',
-            'descripcion' => 'Usuario Normal',
-        ]);
+        foreach ($this->_arr_perfiles as $row) {
+            DB::table('perfiles')->insert([
+                'nombre' => $row['nombre'],
+                'descripcion' => $row['descripcion'],
+            ]);
+        }
     }
 }
