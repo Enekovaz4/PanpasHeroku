@@ -68,7 +68,7 @@ class UserPerfilController extends Controller
     {
         $image = $request->input('newAvatar');
 
-        
+
 
         $user = Auth::user();
 
@@ -93,6 +93,8 @@ class UserPerfilController extends Controller
         $user->name = $input['name'];
         $user->lastname = $input['lastname'];
         $user->email = $input['email'];
+        $user->city = $input['city'];
+        $user->country = $input['country'];
 
         $user->save();
 

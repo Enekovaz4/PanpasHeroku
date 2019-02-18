@@ -6,7 +6,7 @@ class perfiles_seeder extends Seeder
 {
     protected $_arr_perfiles = [
         [
-            'nombre' => 'Administrador', 'descripcion' => 'Usuario tipo Root',
+            'nombre' => 'Administrador', 'descripcion' => 'Usuario Root',
         ],
         [
             'nombre' => 'Usuario', 'descripcion' => 'Usuario Normal',

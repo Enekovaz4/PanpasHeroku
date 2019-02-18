@@ -5083,7 +5083,7 @@ __webpack_require__.r(__webpack_exports__);
 
       /**
        * Se obtiene cada dimensión del array "elemKey" gracias al cuál
-       * se pueden examinar los valores del cada uno de los objetos "elem_usu"
+       * se pueden examinar los valores de cada uno de los objetos "elem_usu"
        * recorridos en el bucle
        */
       var elem_usu;
@@ -5265,34 +5265,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //librería para tratar los errores capturados en el servidor
  // '../../libs/errors.js';
 
@@ -5300,34 +5272,39 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    console.log('Component mounted.'); //Recibiendo evento(s) si emitido(s) (en este caso, desde su componente Padre)
+    console.log('Component mounted.'); //Carga de usuarios a asignar como autor
+
+    this.getElems(); //Recibiendo evento(s) si emitido(s) (en este caso, desde su componente Padre)
 
     BusEvent.$on('insModeChangeEvent', function (status) {
       _this.insModeChange(status);
     });
-    BusEvent.$on('fillFormEvent', function (user, status) {
-      _this.fillEditUser(user, status);
+    BusEvent.$on('fillFormEvent', function (reg, status) {
+      _this.fillEditReg(reg, status);
     });
   },
   //datos devueltos por el componente:
   data: function data() {
     return {
-      urlBase: '/api/users',
+      urlBase: '/api/recipes',
+      urlSec: '/api/users',
       //variable que guarda el archivo seleccionado
-      avatarSelecc: null,
+      imgSelecc: null,
       //variable para almacenar los datos del registro a almacenar
-      objUser: {
-        'name': '',
-        'lastname': '',
-        'username': '',
-        'email': '',
-        'password': '',
-        'password_confirmation': '',
-        'perfil_id': '',
-        'avatar': '',
+      objReg: {
+        'titulo': '',
+        'descripcion': '',
+        'categoria': '',
+        'elaboracion': '',
+        'ingredientes': '',
+        'votos': '',
+        'user_id': '',
+        'imagen': '',
         //para la edición
         'id': ''
       },
+      elems: {},
+      //variable contenedora de los registros a listar (usuarios > autor)
       //útil para condicionar el muestreo del modal para crear o editar registro
       insMode: true,
       //posibles errores
@@ -5345,20 +5322,20 @@ __webpack_require__.r(__webpack_exports__);
      * En el evento de seleccionar archivo, se captura el archivo elegido
      * guardándolo en la variable correspondiente
     */
-    onAvatarSelecc: function onAvatarSelecc(evento) {
-      console.log(evento); ////this.avatarSelecc = evento.target.files[0];
-      //this.objUser.avatar = evento.target.files[0];
+    onImgSelecc: function onImgSelecc(evento) {
+      console.log(evento); ////this.imgSelecc = evento.target.files[0];
+      //this.objReg.imagen = evento.target.files[0];
     },
 
     /**
      * Almacenando nuevo registro
     */
-    storeUser: function storeUser() {
+    storeReg: function storeReg() {
       var _this2 = this;
 
       console.log('Registrando nuevo registro...');
       var url = this.urlBase;
-      axios.post(url, this.objUser).then(function (response) {
+      axios.post(url, this.objReg).then(function (response) {
         //SI TODO OK
         ////document.location = '/';
         //reseteando panel
@@ -5372,7 +5349,7 @@ __webpack_require__.r(__webpack_exports__);
 
         $('#regInsEditModal').modal('hide'); //Emitiendo solicitud de recarga del listado
 
-        _this2.$emit('insModifUserEvent');
+        _this2.$emit('insModifRegEvent');
       }).catch(function (error) {
         //SI HAY ALGÚN ERROR
         //registrando los errores recibidos
@@ -5383,19 +5360,19 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Mostrando registro para editar
     */
-    fillEditUser: function fillEditUser(user, status) {
+    fillEditReg: function fillEditReg(reg, status) {
       //rellenando la variable de datos para la edición
-      this.objUser = {
-        'name': user.name,
-        'lastname': user.lastname,
-        'username': user.username,
-        'email': user.email,
-        'password': user.password,
-        //'password_confirmation': '',
-        'perfil_id': user.perfil_id,
-        //'avatar': '',
+      this.objReg = {
+        'titulo': reg.titulo,
+        'descripcion': reg.descripcion,
+        'categoria': reg.categoria,
+        'elaboracion': reg.elaboracion,
+        'ingredientes': reg.ingredientes,
+        'votos': reg.votos,
+        'user_id': reg.user_id,
+        //'imagen': reg.imagen,
         //para la edición
-        'id': user.id
+        'id': reg.id
       }; //desactivando el modo de inserto
 
       console.log('STATUS recibido por evento: ' + status);
@@ -5403,17 +5380,31 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     /**
-     * Actualizando registro
+     * Obteniendo listado de registros de posibles autores
     */
-    updateUser: function updateUser() {
+    getElems: function getElems() {
       var _this3 = this;
 
-      console.log('Actualizando registro... [' + this.objUser.id + ']');
-      var url = this.urlBase + '/' + this.objUser.id;
-      axios.put(url, this.objUser).then(function (response) {
+      //URL hacia la ruta del listado de registros
+      var url = this.urlSec;
+      axios.get(url).then(function (response) {
+        ////console.log(response.data)
+        _this3.elems = response.data;
+      });
+    },
+
+    /**
+     * Actualizando registro
+    */
+    updateReg: function updateReg() {
+      var _this4 = this;
+
+      console.log('Actualizando registro... [' + this.objReg.id + ']');
+      var url = this.urlBase + '/' + this.objReg.id;
+      axios.put(url, this.objReg).then(function (response) {
         //SI TODO OK
         //reseteando panel
-        _this3.restartPanel(); //Lanzando notificación satisfactoria
+        _this4.restartPanel(); //Lanzando notificación satisfactoria
 
 
         toast({
@@ -5423,25 +5414,25 @@ __webpack_require__.r(__webpack_exports__);
 
         $('#regInsEditModal').modal('hide'); //Emitiendo solicitud de recarga del listado
 
-        _this3.$emit('insModifUserEvent');
+        _this4.$emit('insModifRegEvent');
       }).catch(function (error) {
         //SI HAY ALGÚN ERROR
         //registrando los errores recibidos
-        _this3.errors.record(error.response.data.errors);
+        _this4.errors.record(error.response.data.errors);
       });
       /**/
     },
     restartPanel: function restartPanel() {
       //reseteando a vacío la variable de datos
-      this.objUser = {
-        'name': '',
-        'lastname': '',
-        'username': '',
-        'email': '',
-        'password': '',
-        'password_confirmation': '',
-        'perfil_id': '',
-        'avatar': '',
+      this.objReg = {
+        'titulo': '',
+        'descripcion': '',
+        'categoria': '',
+        'elaboracion': '',
+        'ingredientes': '',
+        'votos': '',
+        'user_id': '',
+        'imagen': '',
         'id': ''
       }; //vaciando los posibles errores que se produjeron
 
@@ -5461,6 +5452,24 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5611,6 +5620,8 @@ __webpack_require__.r(__webpack_exports__);
       //Puede ser también     >>      elems: [],
       elems: {},
       //variable contenedora de los registros a listar
+      elemsTotNotifON: 0,
+      //total de registros con Notif en ON
       term: '' //término por el que filtrar resultados
 
     };
@@ -5641,7 +5652,32 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get(url).then(function (response) {
         ////console.log(response.data)
-        _this2.elems = response.data;
+        _this2.elems = response.data; //Total de notif_creation
+
+        _this2.getElemsTOTNotifON();
+      });
+    },
+
+    /**
+     * Obteniendo total de registros
+     * en estado de notificación ON
+     *
+     * Se obtiene cada dimensión del array "elemKey" gracias al cuál
+     * se pueden examinar los valores de cada uno de los objetos "elem_reg"
+     * recorridos en el bucle
+    */
+    getElemsTOTNotifON: function getElemsTOTNotifON() {
+      var _this3 = this;
+
+      //Reiniciando total
+      this.elemsTotNotifON = 0;
+      var elem_reg;
+      Object.keys(this.elems).forEach(function (elemKey) {
+        elem_reg = _this3.elems[elemKey];
+
+        if (elem_reg.notif_creation) {
+          _this3.elemsTotNotifON++;
+        }
       });
     },
 
@@ -5649,7 +5685,7 @@ __webpack_require__.r(__webpack_exports__);
      * Obteniendo listado de registros filtrados por término de búsqueda
     */
     search: function search() {
-      var _this3 = this;
+      var _this4 = this;
 
       console.log('Enviando filtrado de búsqueda...por [' + this.term + ']'); //URL hacia la ruta del listado de registros
       //  >> SIN paginación
@@ -5667,11 +5703,47 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         //SI TODO OK
         ////console.log(response.data)
-        _this3.elems = response.data;
+        _this4.elems = response.data;
       }).catch(function (error) {
         //SI HAY ALGÚN ERROR
         console.log(error.response.data.errors);
       });
+    },
+
+    /**
+     * Actualizando campo
+    */
+    updateField: function updateField(id, field, newValue) {
+      var _this5 = this;
+
+      var msg_success = '';
+
+      if (id == 0) {
+        msg_success = 'Registros marcados como NOTIFICADOS';
+      } else {
+        msg_success = 'Registro marcado como ';
+        if (newValue == 0) msg_success += 'NOTIFICADO';else msg_success += 'PARA NOTIFICAR';
+      }
+
+      console.log('Actualizando campo del registro... [' + id + ']');
+      var url = this.urlBase + '/editar/' + id + '/' + field + '/' + newValue;
+      axios.get(url).then(function (response) {
+        //SI TODO OK
+        //refrescando listado
+        _this5.getElems(); //Lanzando notificación satisfactoria
+
+
+        toast({
+          type: 'success',
+          title: msg_success
+        }); //Emitiendo evento de recarga de total
+
+        BusEvent.$emit('notifRecargaLeidosNoTotEvent');
+      }).catch(function (error) {
+        //SI HAY ALGÚN ERROR
+        console.log(error.response.data.errors);
+      });
+      /**/
     },
 
     /**
@@ -5705,7 +5777,7 @@ __webpack_require__.r(__webpack_exports__);
      * Mandar a papelera / Borrado definitivo del registro
     */
     trashDeleteElem: function trashDeleteElem(id) {
-      var _this4 = this;
+      var _this6 = this;
 
       /* BORRADO CON CONFIRMACIÓN */
 
@@ -5727,14 +5799,14 @@ __webpack_require__.r(__webpack_exports__);
           /**/
           console.log('Se efectuará un Soft Delete...'); //URL hacia la ruta de borrado temporal de registro
 
-          var url = _this4.urlBase + '/' + id; //Empleado el método DELETE de Axios, el cliente AJAX,
+          var url = _this6.urlBase + '/' + id; //Empleado el método DELETE de Axios, el cliente AJAX,
           //que es el método referido a la ruta llamada
 
           axios.delete(url).then(function (response) {
             //SI TODO OK
             //tras borrado temporal, si todo OK, se muestra
             //el listado tras recargarlo
-            _this4.getElems();
+            _this6.getElems();
 
             var server_msg_del = response.data.message;
             console.log(server_msg_del); //Lanzando notificación satisfactoria
@@ -5750,7 +5822,7 @@ __webpack_require__.r(__webpack_exports__);
           }); //Pulsando el botón equivalente a CANCELAR la acción
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           //Borrado definitivo del registro
-          _this4.deleteTotalElem(id); //Pulsando cualquier otra equivalencia (ESC, fuera de la ventana,...)
+          _this6.deleteTotalElem(id); //Pulsando cualquier otra equivalencia (ESC, fuera de la ventana,...)
 
         } else {
           console.log('Acción cancelada');
@@ -5762,7 +5834,7 @@ __webpack_require__.r(__webpack_exports__);
      * Restaurar / Borrado definitivo del registro
     */
     restoreDeleteElem: function restoreDeleteElem(id) {
-      var _this5 = this;
+      var _this7 = this;
 
       /* BORRADO CON CONFIRMACIÓN */
 
@@ -5782,14 +5854,14 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           /**/
           //URL hacia la ruta de restaurar de la papelera el registro
-          var url = _this5.urlBase + '/restore-delete/' + id; //Empleado el método GET de Axios, el cliente AJAX,
+          var url = _this7.urlBase + '/restore-delete/' + id; //Empleado el método GET de Axios, el cliente AJAX,
           //que es el método referido a la ruta llamada
 
           axios.get(url).then(function (response) {
             //SI TODO OK
             //tras restaurar de la papelera, si todo OK, se muestra
             //el listado tras recargarlo
-            _this5.getElems();
+            _this7.getElems();
 
             var server_msg_del = response.data.message;
             console.log(server_msg_del); //Lanzando notificación satisfactoria
@@ -5805,7 +5877,7 @@ __webpack_require__.r(__webpack_exports__);
           }); //Pulsando el botón equivalente a CANCELAR la acción
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           //Borrado definitivo del registro
-          _this5.deleteTotalElem(id); //Pulsando cualquier otra equivalencia (ESC, fuera de la ventana,...)
+          _this7.deleteTotalElem(id); //Pulsando cualquier otra equivalencia (ESC, fuera de la ventana,...)
 
         } else {
           console.log('Acción cancelada');
@@ -5817,7 +5889,7 @@ __webpack_require__.r(__webpack_exports__);
      * Borrado definitivo del registro
     */
     deleteTotalElem: function deleteTotalElem(id) {
-      var _this6 = this;
+      var _this8 = this;
 
       //URL hacia la ruta de borrado definitivo de registro
       var url = this.urlBase + '/force-delete/' + id; //Empleado el método GET de Axios, el cliente AJAX,
@@ -5827,7 +5899,7 @@ __webpack_require__.r(__webpack_exports__);
         //SI TODO OK
         //tras borrado definitivo, si todo OK, se muestra
         //el listado tras recargarlo
-        _this6.getElems();
+        _this8.getElems();
 
         var server_msg_del = response.data.message;
         console.log(server_msg_del); //Lanzando notificación satisfactoria
@@ -6000,6 +6072,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //librería para tratar los errores capturados en el servidor
  // '../../libs/errors.js';
 
@@ -6026,6 +6110,8 @@ __webpack_require__.r(__webpack_exports__);
       objUser: {
         'name': '',
         'lastname': '',
+        'country': '',
+        'city': '',
         'username': '',
         'email': '',
         'password': '',
@@ -6095,6 +6181,8 @@ __webpack_require__.r(__webpack_exports__);
       this.objUser = {
         'name': user.name,
         'lastname': user.lastname,
+        'country': user.country,
+        'city': user.city,
         'username': user.username,
         'email': user.email,
         'password': user.password,
@@ -6143,6 +6231,8 @@ __webpack_require__.r(__webpack_exports__);
       this.objUser = {
         'name': '',
         'lastname': '',
+        'country': '',
+        'city': '',
         'username': '',
         'email': '',
         'password': '',
@@ -6420,6 +6510,20 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _libs_errors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../libs/errors */ "./resources/js/libs/errors.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7124,6 +7228,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     var _this = this;
@@ -7148,6 +7270,8 @@ __webpack_require__.r(__webpack_exports__);
       //Puede ser también     >>      users: [],
       users: {},
       //variable contenedora de los registros a listar
+      elemsTotNotifON: 0,
+      //total de registros con Notif en ON
       term: '' //término por el que filtrar resultados
 
     };
@@ -7178,7 +7302,32 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get(url).then(function (response) {
         ////console.log(response.data)
-        _this2.users = response.data;
+        _this2.users = response.data; //Total de notif_creation
+
+        _this2.getElemsTOTNotifON();
+      });
+    },
+
+    /**
+     * Obteniendo total de registros
+     * en estado de notificación ON
+     *
+     * Se obtiene cada dimensión del array "elemKey" gracias al cuál
+     * se pueden examinar los valores de cada uno de los objetos "elem_usu"
+     * recorridos en el bucle
+    */
+    getElemsTOTNotifON: function getElemsTOTNotifON() {
+      var _this3 = this;
+
+      //Reiniciando total
+      this.elemsTotNotifON = 0;
+      var elem_usu;
+      Object.keys(this.users).forEach(function (elemKey) {
+        elem_usu = _this3.users[elemKey];
+
+        if (elem_usu.notif_creation) {
+          _this3.elemsTotNotifON++;
+        }
       });
     },
 
@@ -7186,7 +7335,7 @@ __webpack_require__.r(__webpack_exports__);
      * Obteniendo listado de registros filtrados por término de búsqueda
     */
     search: function search() {
-      var _this3 = this;
+      var _this4 = this;
 
       console.log('Enviando filtrado de búsqueda...por [' + this.term + ']'); //URL hacia la ruta del listado de registros
       //  >> SIN paginación
@@ -7204,11 +7353,47 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         //SI TODO OK
         ////console.log(response.data)
-        _this3.users = response.data;
+        _this4.users = response.data;
       }).catch(function (error) {
         //SI HAY ALGÚN ERROR
         console.log(error.response.data.errors);
       });
+    },
+
+    /**
+     * Actualizando campo
+    */
+    updateField: function updateField(id, field, newValue) {
+      var _this5 = this;
+
+      var msg_success = '';
+
+      if (id == 0) {
+        msg_success = 'Registros marcados como NOTIFICADOS';
+      } else {
+        msg_success = 'Registro marcado como ';
+        if (newValue == 0) msg_success += 'NOTIFICADO';else msg_success += 'PARA NOTIFICAR';
+      }
+
+      console.log('Actualizando campo del registro... [' + id + ']');
+      var url = this.urlBase + '/editar/' + id + '/' + field + '/' + newValue;
+      axios.get(url).then(function (response) {
+        //SI TODO OK
+        //refrescando listado
+        _this5.getUsers(); //Lanzando notificación satisfactoria
+
+
+        toast({
+          type: 'success',
+          title: msg_success
+        }); //Emitiendo evento de recarga de total
+
+        BusEvent.$emit('notifRecargaLeidosNoTotEvent');
+      }).catch(function (error) {
+        //SI HAY ALGÚN ERROR
+        console.log(error.response.data.errors);
+      });
+      /**/
     },
 
     /**
@@ -7242,7 +7427,7 @@ __webpack_require__.r(__webpack_exports__);
      * Mandar a papelera / Borrado definitivo del registro
     */
     trashDeleteUser: function trashDeleteUser(id) {
-      var _this4 = this;
+      var _this6 = this;
 
       /* BORRADO SIN CONFIRMACIÓN */
 
@@ -7299,14 +7484,14 @@ __webpack_require__.r(__webpack_exports__);
           /**/
           console.log('Se efectuará un Soft Delete...'); //URL hacia la ruta de borrado temporal de registro
 
-          var url = _this4.urlBase + '/' + id; //Empleado el método DELETE de Axios, el cliente AJAX,
+          var url = _this6.urlBase + '/' + id; //Empleado el método DELETE de Axios, el cliente AJAX,
           //que es el método referido a la ruta llamada
 
           axios.delete(url).then(function (response) {
             //SI TODO OK
             //tras borrado temporal, si todo OK, se muestra
             //el listado tras recargarlo
-            _this4.getUsers();
+            _this6.getUsers();
 
             var server_msg_del = response.data.message;
             console.log(server_msg_del); //Lanzando notificación satisfactoria
@@ -7322,7 +7507,7 @@ __webpack_require__.r(__webpack_exports__);
           }); //Pulsando el botón equivalente a CANCELAR la acción
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           //Borrado definitivo del registro
-          _this4.deleteTotalUser(id); //Pulsando cualquier otra equivalencia (ESC, fuera de la ventana,...)
+          _this6.deleteTotalUser(id); //Pulsando cualquier otra equivalencia (ESC, fuera de la ventana,...)
 
         } else {
           console.log('Acción cancelada');
@@ -7334,7 +7519,7 @@ __webpack_require__.r(__webpack_exports__);
      * Restaurar / Borrado definitivo del registro
     */
     restoreDeleteUser: function restoreDeleteUser(id) {
-      var _this5 = this;
+      var _this7 = this;
 
       /* BORRADO CON CONFIRMACIÓN */
 
@@ -7354,14 +7539,14 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           /**/
           //URL hacia la ruta de restaurar de la papelera el registro
-          var url = _this5.urlBase + '/restore-delete/' + id; //Empleado el método GET de Axios, el cliente AJAX,
+          var url = _this7.urlBase + '/restore-delete/' + id; //Empleado el método GET de Axios, el cliente AJAX,
           //que es el método referido a la ruta llamada
 
           axios.get(url).then(function (response) {
             //SI TODO OK
             //tras restaurar de la papelera, si todo OK, se muestra
             //el listado tras recargarlo
-            _this5.getUsers();
+            _this7.getUsers();
 
             var server_msg_del = response.data.message;
             console.log(server_msg_del); //Lanzando notificación satisfactoria
@@ -7377,7 +7562,7 @@ __webpack_require__.r(__webpack_exports__);
           }); //Pulsando el botón equivalente a CANCELAR la acción
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           //Borrado definitivo del registro
-          _this5.deleteTotalUser(id); //Pulsando cualquier otra equivalencia (ESC, fuera de la ventana,...)
+          _this7.deleteTotalUser(id); //Pulsando cualquier otra equivalencia (ESC, fuera de la ventana,...)
 
         } else {
           console.log('Acción cancelada');
@@ -7389,7 +7574,7 @@ __webpack_require__.r(__webpack_exports__);
      * Borrado definitivo del registro
     */
     deleteTotalUser: function deleteTotalUser(id) {
-      var _this6 = this;
+      var _this8 = this;
 
       //URL hacia la ruta de borrado definitivo de registro
       var url = this.urlBase + '/force-delete/' + id; //Empleado el método GET de Axios, el cliente AJAX,
@@ -7399,7 +7584,7 @@ __webpack_require__.r(__webpack_exports__);
         //SI TODO OK
         //tras borrado definitivo, si todo OK, se muestra
         //el listado tras recargarlo
-        _this6.getUsers();
+        _this8.getUsers();
 
         var server_msg_del = response.data.message;
         console.log(server_msg_del); //Lanzando notificación satisfactoria
@@ -70295,7 +70480,7 @@ var render = function() {
               on: {
                 submit: function($event) {
                   $event.preventDefault()
-                  _vm.insMode ? _vm.storeUser() : _vm.updateUser()
+                  _vm.insMode ? _vm.storeReg() : _vm.updateReg()
                 }
               }
             },
@@ -70356,9 +70541,9 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "form-row" }, [
-                  _c("div", { staticClass: "col-md-6 mb-3" }, [
-                    _c("label", { attrs: { for: "name-id" } }, [
-                      _vm._v("Nombre")
+                  _c("div", { staticClass: "col-md-10 mb-3" }, [
+                    _c("label", { attrs: { for: "titulo-id" } }, [
+                      _vm._v("Título*")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -70366,399 +70551,86 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.objUser.name,
-                          expression: "objUser.name"
+                          value: _vm.objReg.titulo,
+                          expression: "objReg.titulo"
                         }
                       ],
                       staticClass: "form-control",
-                      class: { "is-invalid": _vm.errors.has("name") },
+                      class: { "is-invalid": _vm.errors.has("titulo") },
                       attrs: {
                         type: "text",
-                        name: "name",
-                        id: "name-id",
-                        placeholder: "Nombre"
-                      },
-                      domProps: { value: _vm.objUser.name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.objUser, "name", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.has("name")
-                      ? _c(
-                          "span",
-                          { staticClass: "block text-sm text-danger mt-2" },
-                          [_vm._v(_vm._s(_vm.errors.get("name")))]
-                        )
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6 mb-3" }, [
-                    _c("label", { attrs: { for: "lastname-id" } }, [
-                      _vm._v("Apellido")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.objUser.lastname,
-                          expression: "objUser.lastname"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      class: { "is-invalid": _vm.errors.has("lastname") },
-                      attrs: {
-                        type: "text",
-                        name: "lastname",
-                        id: "lastname-id",
-                        placeholder: "Apellido"
-                      },
-                      domProps: { value: _vm.objUser.lastname },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.objUser, "lastname", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.has("lastname")
-                      ? _c(
-                          "span",
-                          { staticClass: "block text-sm text-danger mt-2" },
-                          [_vm._v(_vm._s(_vm.errors.get("lastname")))]
-                        )
-                      : _vm._e()
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-row" }, [
-                  _c("div", { staticClass: "col-md-6 mb-3" }, [
-                    _c("label", { attrs: { for: "email-id" } }, [
-                      _vm._v("Email*")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.objUser.email,
-                          expression: "objUser.email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      class: { "is-invalid": _vm.errors.has("email") },
-                      attrs: {
-                        type: "text",
-                        name: "email",
-                        id: "email-id",
-                        placeholder: "Email",
+                        name: "titulo",
+                        id: "titulo-id",
+                        placeholder: "Título",
                         required: ""
                       },
-                      domProps: { value: _vm.objUser.email },
+                      domProps: { value: _vm.objReg.titulo },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.objUser, "email", $event.target.value)
+                          _vm.$set(_vm.objReg, "titulo", $event.target.value)
                         }
                       }
                     }),
                     _vm._v(" "),
-                    _vm.errors.has("email")
+                    _vm.errors.has("titulo")
                       ? _c(
                           "span",
                           { staticClass: "block text-sm text-danger mt-2" },
-                          [_vm._v(_vm._s(_vm.errors.get("email")))]
+                          [_vm._v(_vm._s(_vm.errors.get("titulo")))]
                         )
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6 mb-3" }, [
-                    _c("label", { attrs: { for: "username-id" } }, [
-                      _vm._v("Nick*")
+                  _c("div", { staticClass: "col-md-2 mb-3" }, [
+                    _c("label", { attrs: { for: "votos-id" } }, [
+                      _vm._v("Votos")
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "input-group" }, [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.objUser.username,
-                            expression: "objUser.username"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        class: [
-                          { "is-invalid": _vm.errors.has("username") },
-                          {
-                            borde_redondeo_lateral_dcho: _vm.errors.has(
-                              "username"
-                            )
-                          }
-                        ],
-                        attrs: {
-                          type: "text",
-                          name: "username",
-                          id: "username-id",
-                          placeholder: "Nick",
-                          "aria-describedby": "inputGroupUserN",
-                          required: ""
-                        },
-                        domProps: { value: _vm.objUser.username },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.objUser,
-                              "username",
-                              $event.target.value
-                            )
-                          }
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.objReg.votos,
+                          expression: "objReg.votos"
                         }
-                      }),
-                      _vm._v(" "),
-                      _vm.errors.has("username")
-                        ? _c(
-                            "span",
-                            { staticClass: "block text-sm text-danger mt-2" },
-                            [_vm._v(_vm._s(_vm.errors.get("username")))]
-                          )
-                        : _vm._e()
-                    ])
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.errors.has("votos") },
+                      attrs: {
+                        type: "text",
+                        name: "votos",
+                        id: "votos-id",
+                        placeholder: "Votos"
+                      },
+                      domProps: { value: _vm.objReg.votos },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.objReg, "votos", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("votos")
+                      ? _c(
+                          "span",
+                          { staticClass: "block text-sm text-danger mt-2" },
+                          [_vm._v(_vm._s(_vm.errors.get("votos")))]
+                        )
+                      : _vm._e()
                   ])
                 ]),
-                _vm._v(" "),
-                _vm.insMode
-                  ? _c("div", { staticClass: "form-row" }, [
-                      _c("div", { staticClass: "col-md-6 mb-3" }, [
-                        _c("label", { attrs: { for: "pass_id" } }, [
-                          _vm._v("Contraseña*")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "input-group" }, [
-                          _vm._m(1),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.objUser.password,
-                                expression: "objUser.password"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: [
-                              { "is-invalid": _vm.errors.has("password") },
-                              {
-                                borde_redondeo_lateral_dcho: _vm.errors.has(
-                                  "password"
-                                )
-                              }
-                            ],
-                            attrs: {
-                              type: "password",
-                              name: "password",
-                              id: "pass_id",
-                              placeholder: "Contraseña",
-                              "aria-describedby": "inputGroupPass",
-                              required: ""
-                            },
-                            domProps: { value: _vm.objUser.password },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.objUser,
-                                  "password",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm.errors.has("password")
-                            ? _c(
-                                "span",
-                                {
-                                  staticClass: "block text-sm text-danger mt-2"
-                                },
-                                [_vm._v(_vm._s(_vm.errors.get("password")))]
-                              )
-                            : _vm._e()
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6 mb-3" }, [
-                        _c("label", { attrs: { for: "pass_confirm_id" } }, [
-                          _vm._v("Confirmar contraseña*")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "input-group" }, [
-                          _vm._m(2),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.objUser.password_confirmation,
-                                expression: "objUser.password_confirmation"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "password",
-                              name: "password_confirmation",
-                              id: "pass_confirm_id",
-                              placeholder: "Confirmar contraseña",
-                              "aria-describedby": "inputGroupPassConf",
-                              required: ""
-                            },
-                            domProps: {
-                              value: _vm.objUser.password_confirmation
-                            },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.objUser,
-                                  "password_confirmation",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    ])
-                  : _c("div", { staticClass: "form-row" }, [
-                      _c("div", { staticClass: "col-md-6 mb-3" }, [
-                        _vm._m(3),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "input-group" }, [
-                          _vm._m(4),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.objUser.password,
-                                expression: "objUser.password"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: [
-                              { "is-invalid": _vm.errors.has("password") },
-                              {
-                                borde_redondeo_lateral_dcho: _vm.errors.has(
-                                  "password"
-                                )
-                              }
-                            ],
-                            attrs: {
-                              type: "password",
-                              name: "password",
-                              id: "pass_id",
-                              placeholder: "Contraseña",
-                              "aria-describedby": "inputGroupPass"
-                            },
-                            domProps: { value: _vm.objUser.password },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.objUser,
-                                  "password",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm.errors.has("password")
-                            ? _c(
-                                "span",
-                                {
-                                  staticClass: "block text-sm text-danger mt-2"
-                                },
-                                [_vm._v(_vm._s(_vm.errors.get("password")))]
-                              )
-                            : _vm._e()
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6 mb-3" }, [
-                        _vm._m(5),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "input-group" }, [
-                          _vm._m(6),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.objUser.password_confirmation,
-                                expression: "objUser.password_confirmation"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "password",
-                              name: "password_confirmation",
-                              id: "pass_confirm_id",
-                              placeholder: "Confirmar contraseña",
-                              "aria-describedby": "inputGroupPassConf"
-                            },
-                            domProps: {
-                              value: _vm.objUser.password_confirmation
-                            },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.objUser,
-                                  "password_confirmation",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "col-md-4 mb-3" }, [
-                    _c("label", { attrs: { for: "perfil-id" } }, [
-                      _vm._v("Perfil*")
+                    _c("label", { attrs: { for: "categ-id" } }, [
+                      _vm._v("Categoría*")
                     ]),
                     _vm._v(" "),
                     _c(
@@ -70768,15 +70640,15 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.objUser.perfil_id,
-                            expression: "objUser.perfil_id"
+                            value: _vm.objReg.categoria,
+                            expression: "objReg.categoria"
                           }
                         ],
                         staticClass: "custom-select",
-                        class: { "is-invalid": _vm.errors.has("perfil_id") },
+                        class: { "is-invalid": _vm.errors.has("categoria") },
                         attrs: {
-                          name: "perfil_id",
-                          id: "perfil-id",
+                          name: "categoria",
+                          id: "categ-id",
                           required: ""
                         },
                         on: {
@@ -70790,8 +70662,8 @@ var render = function() {
                                 return val
                               })
                             _vm.$set(
-                              _vm.objUser,
-                              "perfil_id",
+                              _vm.objReg,
+                              "categoria",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -70801,24 +70673,238 @@ var render = function() {
                       },
                       [
                         _c("option", { attrs: { value: "" } }, [
-                          _vm._v("Seleccionar un perfil")
+                          _vm._v("Seleccionar una")
                         ]),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("Administrador")
+                        _c("option", { attrs: { value: "panadería" } }, [
+                          _vm._v("Panadería")
                         ]),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "2" } }, [
-                          _vm._v("Usuario")
+                        _c("option", { attrs: { value: "pastelería" } }, [
+                          _vm._v("Pastelería")
                         ])
                       ]
                     ),
                     _vm._v(" "),
-                    _vm.errors.has("perfil_id")
+                    _vm.errors.has("categoria")
                       ? _c(
                           "span",
                           { staticClass: "block text-sm text-danger mt-2" },
-                          [_vm._v(_vm._s(_vm.errors.get("perfil_id")))]
+                          [_vm._v(_vm._s(_vm.errors.get("categoria")))]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-8 mb-3" }, [
+                    _c("label", { attrs: { for: "user-id" } }, [
+                      _vm._v("Autor*")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.objReg.user_id,
+                            expression: "objReg.user_id"
+                          }
+                        ],
+                        staticClass: "custom-select",
+                        class: { "is-invalid": _vm.errors.has("user_id") },
+                        attrs: { name: "user_id", id: "user-id", required: "" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.objReg,
+                              "user_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Seleccionar uno")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.elems, function(elem, index) {
+                          return _c(
+                            "option",
+                            {
+                              key: index,
+                              domProps: {
+                                value: elem.id,
+                                selected: _vm.objReg.user_id == elem.id
+                              }
+                            },
+                            [_vm._v(_vm._s(elem.username))]
+                          )
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _vm.errors.has("user_id")
+                      ? _c(
+                          "span",
+                          { staticClass: "block text-sm text-danger mt-2" },
+                          [_vm._v(_vm._s(_vm.errors.get("user_id")))]
+                        )
+                      : _vm._e()
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-row" }, [
+                  _c("div", { staticClass: "col-md-12 mb-3" }, [
+                    _c("label", { attrs: { for: "descripcion-id" } }, [
+                      _vm._v("Descripción*")
+                    ]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.objReg.descripcion,
+                          expression: "objReg.descripcion"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.errors.has("descripcion") },
+                      attrs: {
+                        name: "descripcion",
+                        id: "descripcion-id",
+                        placeholder: "Descripción",
+                        required: ""
+                      },
+                      domProps: { value: _vm.objReg.descripcion },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.objReg,
+                            "descripcion",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("descripcion")
+                      ? _c(
+                          "span",
+                          { staticClass: "block text-sm text-danger mt-2" },
+                          [_vm._v(_vm._s(_vm.errors.get("descripcion")))]
+                        )
+                      : _vm._e()
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-row" }, [
+                  _c("div", { staticClass: "col-md-12 mb-3" }, [
+                    _c("label", { attrs: { for: "ingredientes-id" } }, [
+                      _vm._v("Ingredientes*")
+                    ]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.objReg.ingredientes,
+                          expression: "objReg.ingredientes"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.errors.has("ingredientes") },
+                      attrs: {
+                        name: "ingredientes",
+                        id: "ingredientes-id",
+                        placeholder: "Ingredientes",
+                        required: ""
+                      },
+                      domProps: { value: _vm.objReg.ingredientes },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.objReg,
+                            "ingredientes",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("ingredientes")
+                      ? _c(
+                          "span",
+                          { staticClass: "block text-sm text-danger mt-2" },
+                          [_vm._v(_vm._s(_vm.errors.get("ingredientes")))]
+                        )
+                      : _vm._e()
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-row" }, [
+                  _c("div", { staticClass: "col-md-12 mb-3" }, [
+                    _c("label", { attrs: { for: "elaboracion-id" } }, [
+                      _vm._v("Elaboración*")
+                    ]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.objReg.elaboracion,
+                          expression: "objReg.elaboracion"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.errors.has("elaboracion") },
+                      attrs: {
+                        name: "elaboracion",
+                        id: "elaboracion-id",
+                        placeholder: "Elaboración",
+                        required: ""
+                      },
+                      domProps: { value: _vm.objReg.elaboracion },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.objReg,
+                            "elaboracion",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("elaboracion")
+                      ? _c(
+                          "span",
+                          { staticClass: "block text-sm text-danger mt-2" },
+                          [_vm._v(_vm._s(_vm.errors.get("elaboracion")))]
                         )
                       : _vm._e()
                   ])
@@ -70826,7 +70912,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
-                _vm._m(7),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("div", [
                   _c(
@@ -70882,90 +70968,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        { staticClass: "input-group-text", attrs: { id: "inputGroupUserN" } },
-        [_vm._v("@")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        { staticClass: "input-group-text", attrs: { id: "inputGroupPass" } },
-        [_vm._v("•")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        {
-          staticClass: "input-group-text",
-          attrs: { id: "inputGroupPassConf" }
-        },
-        [_vm._v("•")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "pass_id" } }, [
-      _vm._v("Contraseña "),
-      _c("small", [_vm._v("(solo para modificarla)")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        { staticClass: "input-group-text", attrs: { id: "inputGroupPass" } },
-        [_vm._v("•")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "pass_confirm_id" } }, [
-      _vm._v("Confirmar "),
-      _c("small", [_vm._v("(si especificada nueva)")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c(
-        "span",
-        {
-          staticClass: "input-group-text",
-          attrs: { id: "inputGroupPassConf" }
-        },
-        [_vm._v("•")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -71134,7 +71136,60 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body table-responsive p-0" }, [
                   _c("table", { staticClass: "table table-hover" }, [
-                    _vm._m(2),
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", { staticClass: "text-center" }, [_vm._v("#")]),
+                        _vm._v(" "),
+                        _vm.elemsTotNotifON == 0
+                          ? _c("th", [_vm._m(2)])
+                          : _c("th", [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-primary",
+                                  attrs: {
+                                    href: "javascript: void(0);",
+                                    title:
+                                      "Marcar TODOS[" +
+                                      _vm.elemsTotNotifON +
+                                      "] como NOTIFICADO"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.updateField(0, "notif_creation", 0)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-bell",
+                                    attrs: { id: "ico_notif" }
+                                  })
+                                ]
+                              )
+                            ]),
+                        _vm._v(" "),
+                        _c("th", { staticClass: "text-center" }, [
+                          _vm._v("Imagen")
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Título")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Autor")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Descripción")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Categoría")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Votos")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Registro")]),
+                        _vm._v(" "),
+                        _c("th", { staticClass: "text-center" }, [
+                          _vm._v("Modificar")
+                        ])
+                      ])
+                    ]),
                     _vm._v(" "),
                     _vm.elems.length == 0
                       ? _c("tbody", [_vm._m(3)])
@@ -71175,6 +71230,62 @@ var render = function() {
                                   ]
                                 ),
                                 _vm._v(" "),
+                                _c("td", [
+                                  elem.notif_creation
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass: "text-primary",
+                                          attrs: {
+                                            href: "javascript: void(0);",
+                                            title:
+                                              "Notificando - Marcar como NOTIFICADO"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.updateField(
+                                                elem.id,
+                                                "notif_creation",
+                                                0
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fas fa-circle i_reg_notifON"
+                                          })
+                                        ]
+                                      )
+                                    : _c(
+                                        "a",
+                                        {
+                                          staticClass: "text-primary",
+                                          attrs: {
+                                            href: "javascript: void(0);",
+                                            title:
+                                              "Notificado - Marcar para NOTIFICAR"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.updateField(
+                                                elem.id,
+                                                "notif_creation",
+                                                1
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fas fa-circle i_reg_notifOFF"
+                                          })
+                                        ]
+                                      )
+                                ]),
+                                _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
                                   _c(
                                     "a",
@@ -71203,7 +71314,13 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(elem.user.username))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(elem.descripcion))]),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("resumenTxt")(elem.descripcion)
+                                    )
+                                  )
+                                ]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(elem.categoria))]),
                                 _vm._v(" "),
@@ -71213,7 +71330,15 @@ var render = function() {
                                   _c(
                                     "small",
                                     { attrs: { title: elem.created_at } },
-                                    [_vm._v(_vm._s(elem.created_at))]
+                                    [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("formatFHHaceTanto")(
+                                            elem.created_at
+                                          )
+                                        )
+                                      )
+                                    ]
                                   )
                                 ]),
                                 _vm._v(" "),
@@ -71326,7 +71451,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("recipe-ins-edit-component", {
-        on: { insModifRecipeEvent: _vm.getElems }
+        on: { insModifRegEvent: _vm.getElems }
       })
     ],
     1
@@ -71357,26 +71482,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { staticClass: "text-center" }, [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Imagen")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Título")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Autor")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Descripción")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Categoría")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Votos")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Registro")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Modificar")])
-      ])
+    return _c("span", { attrs: { title: "Sin novedad que notificar" } }, [
+      _c("i", { staticClass: "fas fa-bell", attrs: { id: "ico_notif" } })
     ])
   },
   function() {
@@ -71386,7 +71493,7 @@ var staticRenderFns = [
     return _c("tr", [
       _c(
         "td",
-        { staticClass: "text-muted text-center", attrs: { colspan: "9" } },
+        { staticClass: "text-muted text-center", attrs: { colspan: "10" } },
         [_vm._v("Ninguna receta registrada actualmente")]
       )
     ])
@@ -71576,6 +71683,92 @@ var render = function() {
                           "span",
                           { staticClass: "block text-sm text-danger mt-2" },
                           [_vm._v(_vm._s(_vm.errors.get("lastname")))]
+                        )
+                      : _vm._e()
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-row" }, [
+                  _c("div", { staticClass: "col-md-6 mb-3" }, [
+                    _c("label", { attrs: { for: "city-id" } }, [
+                      _vm._v("Ciudad")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.objUser.city,
+                          expression: "objUser.city"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.errors.has("city") },
+                      attrs: {
+                        type: "text",
+                        name: "city",
+                        id: "city-id",
+                        placeholder: "Ciudad"
+                      },
+                      domProps: { value: _vm.objUser.city },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.objUser, "city", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("city")
+                      ? _c(
+                          "span",
+                          { staticClass: "block text-sm text-danger mt-2" },
+                          [_vm._v(_vm._s(_vm.errors.get("city")))]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6 mb-3" }, [
+                    _c("label", { attrs: { for: "country-id" } }, [
+                      _vm._v("País")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.objUser.country,
+                          expression: "objUser.country"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.errors.has("country") },
+                      attrs: {
+                        type: "text",
+                        name: "country",
+                        id: "country-id",
+                        placeholder: "País"
+                      },
+                      domProps: { value: _vm.objUser.country },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.objUser, "country", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("country")
+                      ? _c(
+                          "span",
+                          { staticClass: "block text-sm text-danger mt-2" },
+                          [_vm._v(_vm._s(_vm.errors.get("country")))]
                         )
                       : _vm._e()
                   ])
@@ -72748,6 +72941,95 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-row" }, [
+          _c("div", { staticClass: "col-md-6 mb-3" }, [
+            _c(
+              "label",
+              { staticClass: "control-label p-2", attrs: { for: "city-id" } },
+              [_vm._v("Ciudad")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.objReg.city,
+                  expression: "objReg.city"
+                }
+              ],
+              staticClass: "form-control",
+              class: { "is-invalid": _vm.errors.has("city") },
+              attrs: {
+                type: "text",
+                name: "city",
+                id: "city-id",
+                placeholder: "Ciudad"
+              },
+              domProps: { value: _vm.objReg.city },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.objReg, "city", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.has("city")
+              ? _c("span", { staticClass: "block text-sm text-danger mt-2" }, [
+                  _vm._v(_vm._s(_vm.errors.get("city")))
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6 mb-3" }, [
+            _c(
+              "label",
+              {
+                staticClass: "control-label p-2",
+                attrs: { for: "country-id" }
+              },
+              [_vm._v("País")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.objReg.country,
+                  expression: "objReg.country"
+                }
+              ],
+              staticClass: "form-control",
+              class: { "is-invalid": _vm.errors.has("country") },
+              attrs: {
+                type: "text",
+                name: "country",
+                id: "country-id",
+                placeholder: "País"
+              },
+              domProps: { value: _vm.objReg.country },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.objReg, "country", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.has("country")
+              ? _c("span", { staticClass: "block text-sm text-danger mt-2" }, [
+                  _vm._v(_vm._s(_vm.errors.get("country")))
+                ])
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-row" }, [
           _c("div", { staticClass: "col-md-5 mb-3" }, [
             _c(
               "label",
@@ -73535,7 +73817,60 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body table-responsive p-0" }, [
                   _c("table", { staticClass: "table table-hover" }, [
-                    _vm._m(2),
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", { staticClass: "text-center" }, [_vm._v("#")]),
+                        _vm._v(" "),
+                        _vm.elemsTotNotifON == 0
+                          ? _c("th", [_vm._m(2)])
+                          : _c("th", [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-primary",
+                                  attrs: {
+                                    href: "javascript: void(0);",
+                                    title:
+                                      "Marcar TODOS[" +
+                                      _vm.elemsTotNotifON +
+                                      "] como NOTIFICADO"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.updateField(0, "notif_creation", 0)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-bell",
+                                    attrs: { id: "ico_notif" }
+                                  })
+                                ]
+                              )
+                            ]),
+                        _vm._v(" "),
+                        _c("th", { staticClass: "text-center" }, [
+                          _vm._v("Avatar")
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Nombre")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Apellido")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("NICK")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Email")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Perfil")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Registro")]),
+                        _vm._v(" "),
+                        _c("th", { staticClass: "text-center" }, [
+                          _vm._v("Modificar")
+                        ])
+                      ])
+                    ]),
                     _vm._v(" "),
                     _vm.users.length == 0
                       ? _c("tbody", [_vm._m(3)])
@@ -73575,6 +73910,62 @@ var render = function() {
                                         )
                                   ]
                                 ),
+                                _vm._v(" "),
+                                _c("td", [
+                                  user.notif_creation
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass: "text-primary",
+                                          attrs: {
+                                            href: "javascript: void(0);",
+                                            title:
+                                              "Notificando - Marcar como NOTIFICADO"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.updateField(
+                                                user.id,
+                                                "notif_creation",
+                                                0
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fas fa-circle i_reg_notifON"
+                                          })
+                                        ]
+                                      )
+                                    : _c(
+                                        "a",
+                                        {
+                                          staticClass: "text-primary",
+                                          attrs: {
+                                            href: "javascript: void(0);",
+                                            title:
+                                              "Notificado - Marcar para NOTIFICAR"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.updateField(
+                                                user.id,
+                                                "notif_creation",
+                                                1
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fas fa-circle i_reg_notifOFF"
+                                          })
+                                        ]
+                                      )
+                                ]),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
                                   _c(
@@ -73645,7 +74036,15 @@ var render = function() {
                                   _c(
                                     "small",
                                     { attrs: { title: user.created_at } },
-                                    [_vm._v(_vm._s(user.created_at))]
+                                    [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("formatFHHaceTanto")(
+                                            user.created_at
+                                          )
+                                        )
+                                      )
+                                    ]
                                   )
                                 ]),
                                 _vm._v(" "),
@@ -73787,26 +74186,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { staticClass: "text-center" }, [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Avatar")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Nombre")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Apellido")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("NICK")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Perfil")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Registro")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Modificar")])
-      ])
+    return _c("span", { attrs: { title: "Sin novedad que notificar" } }, [
+      _c("i", { staticClass: "fas fa-bell", attrs: { id: "ico_notif" } })
     ])
   },
   function() {
@@ -73816,7 +74197,7 @@ var staticRenderFns = [
     return _c("tr", [
       _c(
         "td",
-        { staticClass: "text-muted text-center", attrs: { colspan: "9" } },
+        { staticClass: "text-muted text-center", attrs: { colspan: "10" } },
         [_vm._v("Ningún usuario registrado actualmente")]
       )
     ])

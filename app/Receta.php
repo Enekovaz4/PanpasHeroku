@@ -20,7 +20,7 @@ class Receta extends Model
      * @var array
      */
     protected $fillable = [
-        'titulo', 'descripcion', 'imagen', 'elaboracion', 'ingredientes', 'user_id', 'categoria'
+        'titulo', 'descripcion', 'imagen', 'elaboracion', 'ingredientes', 'user_id', 'categoria', 'notif_creation',
     ];
 
     /**

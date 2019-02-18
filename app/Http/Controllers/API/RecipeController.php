@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Receta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RecipeStoreRequest;
 use App\Http\Requests\RecipeUpdateRequest;
@@ -47,16 +48,32 @@ class RecipeController extends Controller
     public function search(Request $request)
     {
         $termino = $request->term;
-        return Receta::withTrashed()
-                ->with('user:id,username,name,lastname')
-                //para Caso INSENSITIVO a Mayúsculas
-                //  >> sacando resultados que coincidan
-                //  ya sea en mayúsc. o minúsculas
-                ->where('titulo', 'ilike', "%{$termino}%")
-                ->orWhere('descripcion', 'ilike', "%{$termino}%")
-                ->orWhere('elaboracion', 'ilike', "%{$termino}%")
-                ->orWhere('ingredientes', 'ilike', "%{$termino}%")
-                ->orderBy('id', 'desc')->get();
+        $db_driver_actual = config('database.default', 'mysql');
+
+        if($db_driver_actual == 'mysql') {
+            return Receta::withTrashed()
+                    ->with('user:id,username,name,lastname')
+                    //para Caso INSENSITIVO a Mayúsculas
+                    //  >> sacando resultados que coincidan
+                    //  ya sea en mayúsc. o minúsculas
+                    ->where(DB::raw('LOWER(titulo)'), 'LIKE', "%".strtolower($termino)."%")
+                    ->orWhere(DB::raw('LOWER(descripcion)'), 'LIKE', "%".strtolower($termino)."%")
+                    ->orWhere(DB::raw('LOWER(elaboracion)'), 'LIKE', "%".strtolower($termino)."%")
+                    ->orWhere(DB::raw('LOWER(ingredientes)'), 'LIKE', "%".strtolower($termino)."%")
+                    ->orderBy('id', 'desc')->get();
+
+        } else if($db_driver_actual == 'pgsql') {
+            return Receta::withTrashed()
+                    ->with('user:id,username,name,lastname')
+                    //para Caso INSENSITIVO a Mayúsculas
+                    //  >> sacando resultados que coincidan
+                    //  ya sea en mayúsc. o minúsculas
+                    ->where('titulo', 'ilike', "%{$termino}%")
+                    ->orWhere('descripcion', 'ilike', "%{$termino}%")
+                    ->orWhere('elaboracion', 'ilike', "%{$termino}%")
+                    ->orWhere('ingredientes', 'ilike', "%{$termino}%")
+                    ->orderBy('id', 'desc')->get();
+        }
     }
 
     /**
@@ -100,6 +117,31 @@ class RecipeController extends Controller
                 ->update($request->except('_token'));
 
         return ['message' => 'Actualizando el registro con ID => [' . $id . ']'];
+    }
+
+    /**
+     * Editing the field of an specified register.
+     *
+     * @param  int      $id
+     * @param  string   $campo
+     * @param  int      $valor
+     * @return \Illuminate\Http\Response
+     */
+    public function update_campo($id, $campo, $valor)
+    {
+        if($id == 0) {
+            Receta::query()
+                    ->update([
+                        $campo => $valor,
+                    ]);
+        } else {
+            Receta::where('id', $id)
+                    ->update([
+                        $campo => $valor,
+                    ]);
+        }
+
+        return;
     }
 
     /**

@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
 
-                <form @submit.prevent="insMode ? storeUser() : updateUser()" novalidate>
+                <form @submit.prevent="insMode ? storeReg() : updateReg()" novalidate>
 
                 <div class="modal-header">
                     <h5 v-show="insMode" class="modal-title" id="regInsEditModalLabel">Insertar registro</h5>
@@ -15,97 +15,69 @@
 
                 <div class="modal-body">
                     <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="name-id">Nombre</label>
-                            <input v-model="objUser.name" type="text" class="form-control" :class="{ 'is-invalid': errors.has('name') }" name="name" id="name-id" placeholder="Nombre">
-                            <span v-if="errors.has('name')" class="block text-sm text-danger mt-2">{{ errors.get('name') }}</span>
+                        <div class="col-md-10 mb-3">
+                            <label for="titulo-id">Título*</label>
+                            <input v-model="objReg.titulo" type="text" class="form-control" :class="{ 'is-invalid': errors.has('titulo') }" name="titulo" id="titulo-id" placeholder="Título" required>
+                            <span v-if="errors.has('titulo')" class="block text-sm text-danger mt-2">{{ errors.get('titulo') }}</span>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="lastname-id">Apellido</label>
-                            <input v-model="objUser.lastname" type="text" class="form-control" :class="{ 'is-invalid': errors.has('lastname') }" name="lastname" id="lastname-id" placeholder="Apellido">
-                            <span v-if="errors.has('lastname')" class="block text-sm text-danger mt-2">{{ errors.get('lastname') }}</span>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="email-id">Email*</label>
-                            <input v-model="objUser.email" type="text" class="form-control" :class="{ 'is-invalid': errors.has('email') }" name="email" id="email-id" placeholder="Email" required>
-                            <span v-if="errors.has('email')" class="block text-sm text-danger mt-2">{{ errors.get('email') }}</span>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="username-id">Nick*</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupUserN">@</span>
-                                </div>
-                                <input v-model="objUser.username" type="text" class="form-control" :class="[{ 'is-invalid': errors.has('username') }, { 'borde_redondeo_lateral_dcho': errors.has('username') }]" name="username" id="username-id" placeholder="Nick" aria-describedby="inputGroupUserN" required>
-                                <span v-if="errors.has('username')" class="block text-sm text-danger mt-2">{{ errors.get('username') }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-if="insMode" class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="pass_id">Contraseña*</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupPass">&bull;</span>
-                                </div>
-                                <input v-model="objUser.password" type="password" class="form-control" :class="[{ 'is-invalid': errors.has('password') }, { 'borde_redondeo_lateral_dcho': errors.has('password') }]" name="password" id="pass_id" placeholder="Contraseña" aria-describedby="inputGroupPass" required>
-                                <span v-if="errors.has('password')" class="block text-sm text-danger mt-2">{{ errors.get('password') }}</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="pass_confirm_id">Confirmar contraseña*</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupPassConf">&bull;</span>
-                                </div>
-                                <input v-model="objUser.password_confirmation" type="password" class="form-control" name="password_confirmation" id="pass_confirm_id" placeholder="Confirmar contraseña" aria-describedby="inputGroupPassConf" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-else class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="pass_id">Contraseña <small>(solo para modificarla)</small></label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupPass">&bull;</span>
-                                </div>
-                                <input v-model="objUser.password" type="password" class="form-control" :class="[{ 'is-invalid': errors.has('password') }, { 'borde_redondeo_lateral_dcho': errors.has('password') }]" name="password" id="pass_id" placeholder="Contraseña" aria-describedby="inputGroupPass">
-                                <span v-if="errors.has('password')" class="block text-sm text-danger mt-2">{{ errors.get('password') }}</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="pass_confirm_id">Confirmar <small>(si especificada nueva)</small></label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupPassConf">&bull;</span>
-                                </div>
-                                <input v-model="objUser.password_confirmation" type="password" class="form-control" name="password_confirmation" id="pass_confirm_id" placeholder="Confirmar contraseña" aria-describedby="inputGroupPassConf">
-                            </div>
+                        <div class="col-md-2 mb-3">
+                            <label for="votos-id">Votos</label>
+                            <input v-model="objReg.votos" type="text" class="form-control" :class="{ 'is-invalid': errors.has('votos') }" name="votos" id="votos-id" placeholder="Votos">
+                            <span v-if="errors.has('votos')" class="block text-sm text-danger mt-2">{{ errors.get('votos') }}</span>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label for="perfil-id">Perfil*</label>
-                            <select v-model="objUser.perfil_id" name="perfil_id" id="perfil-id" class="custom-select" :class="{ 'is-invalid': errors.has('perfil_id') }" required>
-                                <option value="">Seleccionar un perfil</option>
-                                <option value="1">Administrador</option>
-                                <option value="2">Usuario</option>
+                            <label for="categ-id">Categoría*</label>
+                            <select v-model="objReg.categoria" name="categoria" id="categ-id" class="custom-select" :class="{ 'is-invalid': errors.has('categoria') }" required>
+                                <option value="">Seleccionar una</option>
+                                <option value="panadería">Panadería</option>
+                                <option value="pastelería">Pastelería</option>
                             </select>
-                            <span v-if="errors.has('perfil_id')" class="block text-sm text-danger mt-2">{{ errors.get('perfil_id') }}</span>
+                            <span v-if="errors.has('categoria')" class="block text-sm text-danger mt-2">{{ errors.get('categoria') }}</span>
                         </div>
-                        <!--<div class="col-md-8 mb-3">
+                        <div class="col-md-8 mb-3">
+                            <label for="user-id">Autor*</label>
+                            <select v-model="objReg.user_id" name="user_id" id="user-id" class="custom-select" :class="{ 'is-invalid': errors.has('user_id') }" required>
+                                <option value="">Seleccionar uno</option>
+                                <option v-for="(elem, index) in elems" :key="index" :value="elem.id" :selected="objReg.user_id == elem.id">{{ elem.username }}</option>
+                            </select>
+                            <span v-if="errors.has('user_id')" class="block text-sm text-danger mt-2">{{ errors.get('user_id') }}</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="descripcion-id">Descripción*</label>
+                            <textarea v-model="objReg.descripcion" class="form-control" :class="{ 'is-invalid': errors.has('descripcion') }" name="descripcion" id="descripcion-id" placeholder="Descripción" required></textarea>
+                            <span v-if="errors.has('descripcion')" class="block text-sm text-danger mt-2">{{ errors.get('descripcion') }}</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="ingredientes-id">Ingredientes*</label>
+                            <textarea v-model="objReg.ingredientes" class="form-control" :class="{ 'is-invalid': errors.has('ingredientes') }" name="ingredientes" id="ingredientes-id" placeholder="Ingredientes" required></textarea>
+                            <span v-if="errors.has('ingredientes')" class="block text-sm text-danger mt-2">{{ errors.get('ingredientes') }}</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="elaboracion-id">Elaboración*</label>
+                            <textarea v-model="objReg.elaboracion" class="form-control" :class="{ 'is-invalid': errors.has('elaboracion') }" name="elaboracion" id="elaboracion-id" placeholder="Elaboración" required></textarea>
+                            <span v-if="errors.has('elaboracion')" class="block text-sm text-danger mt-2">{{ errors.get('elaboracion') }}</span>
+                        </div>
+                    </div>
+                    <!--<div class="form-row">
+                        <div class="col-md-8 mb-3">
                             <label for="avatar-id">Avatar</label>
-                            <input @change="onAvatarSelecc" type="file" class="form-control" name="avatar" id="avatar-id" placeholder="Avatar">
+                            <input @change="onImgSelecc" type="file" class="form-control" name="avatar" id="avatar-id" placeholder="Avatar">
                              <div class="valid-feedback">
                                 ¡OK!
                             </div>
                             <div class="invalid-feedback">
                                 Por favor, escoge un AVATAR.
                             </div>
-                        </div> -->
-                    </div>
+                        </div>
+                    </div>-->
 
                     <!-- Sacando panel de errores - todos juntos -->
                     <!--<div class="col-xs|sm|md|lg|xl-1-12">
@@ -140,34 +112,39 @@
         mounted() {
             console.log('Component mounted.');
 
+            //Carga de usuarios a asignar como autor
+            this.getElems();
+
             //Recibiendo evento(s) si emitido(s) (en este caso, desde su componente Padre)
             BusEvent.$on('insModeChangeEvent', (status) => {
                 this.insModeChange(status);
             });
-            BusEvent.$on('fillFormEvent', (user, status) => {
-                this.fillEditUser(user, status);
+            BusEvent.$on('fillFormEvent', (reg, status) => {
+                this.fillEditReg(reg, status);
             });
         },
 
         //datos devueltos por el componente:
         data() {
             return {
-                urlBase: '/api/users',
+                urlBase: '/api/recipes',
+                urlSec: '/api/users',
                 //variable que guarda el archivo seleccionado
-                avatarSelecc: null,
+                imgSelecc: null,
                 //variable para almacenar los datos del registro a almacenar
-                objUser: {
-                    'name': '',
-                    'lastname': '',
-                    'username': '',
-                    'email': '',
-                    'password': '',
-                    'password_confirmation': '',
-                    'perfil_id': '',
-                    'avatar': '',
+                objReg: {
+                    'titulo': '',
+                    'descripcion': '',
+                    'categoria': '',
+                    'elaboracion': '',
+                    'ingredientes': '',
+                    'votos': '',
+                    'user_id': '',
+                    'imagen': '',
                     //para la edición
                     'id': '',
                 },
+                elems: {},  //variable contenedora de los registros a listar (usuarios > autor)
                 //útil para condicionar el muestreo del modal para crear o editar registro
                 insMode: true,
                 //posibles errores
@@ -187,19 +164,19 @@
              * En el evento de seleccionar archivo, se captura el archivo elegido
              * guardándolo en la variable correspondiente
             */
-            onAvatarSelecc(evento) {
+            onImgSelecc(evento) {
                 console.log(evento);
-                ////this.avatarSelecc = evento.target.files[0];
-                //this.objUser.avatar = evento.target.files[0];
+                ////this.imgSelecc = evento.target.files[0];
+                //this.objReg.imagen = evento.target.files[0];
             },
 
             /**
              * Almacenando nuevo registro
             */
-            storeUser() {
+            storeReg() {
                 console.log('Registrando nuevo registro...');
                 let url = this.urlBase;
-                axios.post(url, this.objUser)
+                axios.post(url, this.objReg)
                 .then((response) => {       //SI TODO OK
                     ////document.location = '/';
 
@@ -216,7 +193,7 @@
                     $('#regInsEditModal').modal('hide');
 
                     //Emitiendo solicitud de recarga del listado
-                    this.$emit('insModifUserEvent');
+                    this.$emit('insModifRegEvent');
                 })
                 .catch(error => {           //SI HAY ALGÚN ERROR
                     //registrando los errores recibidos
@@ -227,19 +204,19 @@
             /**
              * Mostrando registro para editar
             */
-            fillEditUser(user, status) {
+            fillEditReg(reg, status) {
                 //rellenando la variable de datos para la edición
-                this.objUser = {
-                    'name': user.name,
-                    'lastname': user.lastname,
-                    'username': user.username,
-                    'email': user.email,
-                    'password': user.password,
-                    //'password_confirmation': '',
-                    'perfil_id': user.perfil_id,
-                    //'avatar': '',
+                this.objReg = {
+                    'titulo': reg.titulo,
+                    'descripcion': reg.descripcion,
+                    'categoria': reg.categoria,
+                    'elaboracion': reg.elaboracion,
+                    'ingredientes': reg.ingredientes,
+                    'votos': reg.votos,
+                    'user_id': reg.user_id,
+                    //'imagen': reg.imagen,
                     //para la edición
-                    'id': user.id,
+                    'id': reg.id,
                 };
                 //desactivando el modo de inserto
                 console.log('STATUS recibido por evento: ' + status);
@@ -247,12 +224,24 @@
             },
 
             /**
+             * Obteniendo listado de registros de posibles autores
+            */
+            getElems() {
+                //URL hacia la ruta del listado de registros
+                let url = this.urlSec;
+                axios.get(url).then( response => {
+                    ////console.log(response.data)
+                    this.elems = response.data
+                });
+            },
+
+            /**
              * Actualizando registro
             */
-            updateUser() {
-                console.log('Actualizando registro... [' + this.objUser.id + ']');
-                let url = this.urlBase + '/' + this.objUser.id;
-                axios.put(url, this.objUser)
+            updateReg() {
+                console.log('Actualizando registro... [' + this.objReg.id + ']');
+                let url = this.urlBase + '/' + this.objReg.id;
+                axios.put(url, this.objReg)
                 .then((response) => {       //SI TODO OK
 
                     //reseteando panel
@@ -268,7 +257,7 @@
                     $('#regInsEditModal').modal('hide');
 
                     //Emitiendo solicitud de recarga del listado
-                    this.$emit('insModifUserEvent');
+                    this.$emit('insModifRegEvent');
                 })
                 .catch(error => {           //SI HAY ALGÚN ERROR
                     //registrando los errores recibidos
@@ -278,15 +267,15 @@
 
             restartPanel() {
                 //reseteando a vacío la variable de datos
-                this.objUser = {
-                    'name': '',
-                    'lastname': '',
-                    'username': '',
-                    'email': '',
-                    'password': '',
-                    'password_confirmation': '',
-                    'perfil_id': '',
-                    'avatar': '',
+                this.objReg = {
+                    'titulo': '',
+                    'descripcion': '',
+                    'categoria': '',
+                    'elaboracion': '',
+                    'ingredientes': '',
+                    'votos': '',
+                    'user_id': '',
+                    'imagen': '',
                     'id': '',
                 };
 

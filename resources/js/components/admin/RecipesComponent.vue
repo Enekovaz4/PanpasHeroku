@@ -60,6 +60,16 @@
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">#</th>
+                                                    <th v-if="elemsTotNotifON == 0">
+                                                        <span title="Sin novedad que notificar">
+                                                            <i id="ico_notif" class="fas fa-bell"></i>
+                                                        </span>
+                                                    </th>
+                                                    <th v-else>
+                                                        <a href="javascript: void(0);" @click="updateField(0, 'notif_creation', 0)" class="text-primary" :title="'Marcar TODOS[' + elemsTotNotifON + '] como NOTIFICADO'">
+                                                            <i id="ico_notif" class="fas fa-bell"></i>
+                                                        </a>
+                                                    </th>
                                                     <th class="text-center">Imagen</th>
                                                     <th>Título</th>
                                                     <th>Autor</th>
@@ -72,7 +82,7 @@
                                             </thead>
                                             <tbody v-if="elems.length == 0">
                                                 <tr>
-                                                    <td colspan="9" class="text-muted text-center">Ninguna receta registrada actualmente</td>
+                                                    <td colspan="10" class="text-muted text-center">Ninguna receta registrada actualmente</td>
                                                 </tr>
                                             </tbody>
                                             <tbody v-else>
@@ -85,13 +95,21 @@
                                                         <span v-if="elem.deleted_at == null" class="reg-activo">{{ elems.length - index }}</span>
                                                         <span v-else class="reg-trashed">{{ elems.length - index }}</span>
                                                     </td>
+                                                    <td>
+                                                        <a v-if="elem.notif_creation" href="javascript: void(0);" @click="updateField(elem.id, 'notif_creation', 0)" class="text-primary" title="Notificando - Marcar como NOTIFICADO">
+                                                            <i class="fas fa-circle i_reg_notifON"></i>
+                                                        </a>
+                                                        <a v-else href="javascript: void(0);" @click="updateField(elem.id, 'notif_creation', 1)" class="text-primary" title="Notificado - Marcar para NOTIFICAR">
+                                                            <i class="fas fa-circle i_reg_notifOFF"></i>
+                                                        </a>
+                                                    </td>
                                                     <td class="text-center"><a :href="'/admin/recipes/' + elem.id" title="Ir al detalle" class="negrita"><img class="avatar" :src="elem.imagen" alt="Imagen de la receta"></a></td>
                                                     <td v-text="elem.titulo"></td>
                                                     <td>{{ elem.user.username }}</td>
-                                                    <td>{{ elem.descripcion }}</td>
+                                                    <td>{{ elem.descripcion | resumenTxt }}</td>
                                                     <td>{{ elem.categoria }}</td>
                                                     <td>{{ elem.votos }}</td>
-                                                    <td><small :title="elem.created_at">{{ elem.created_at }}</small></td>
+                                                    <td><small :title="elem.created_at">{{ elem.created_at | formatFHHaceTanto }}</small></td>
                                                     <td class="text-center">
                                                         <router-link :to="{ name: 'recipe_detail', params: {id: elem.id} }" class="text-success" :title="'Ficha completa [' + elem.id + ']'">
                                                             <i class="far fa-file-alt"></i>
@@ -117,7 +135,7 @@
                 <!-- /.content -->
 
                 <!-- Modal-inserto-edición :: ini -->
-                <recipe-ins-edit-component @insModifRecipeEvent="getElems"></recipe-ins-edit-component>
+                <recipe-ins-edit-component @insModifRegEvent="getElems"></recipe-ins-edit-component>
 
         <!-- CONTENIDO a Mostrar :: fin -->
 
@@ -150,6 +168,7 @@
                 urlBase: '/api/recipes',
                 //Puede ser también     >>      elems: [],
                 elems: {},  //variable contenedora de los registros a listar
+                elemsTotNotifON: 0,   //total de registros con Notif en ON
                 term: '',   //término por el que filtrar resultados
             }
         },
@@ -181,7 +200,30 @@
                 axios.get(url).then( response => {
                     ////console.log(response.data)
                     this.elems = response.data
+                    //Total de notif_creation
+                    this.getElemsTOTNotifON();
                 });
+            },
+
+            /**
+             * Obteniendo total de registros
+             * en estado de notificación ON
+             *
+             * Se obtiene cada dimensión del array "elemKey" gracias al cuál
+             * se pueden examinar los valores de cada uno de los objetos "elem_reg"
+             * recorridos en el bucle
+            */
+            getElemsTOTNotifON() {
+                //Reiniciando total
+                this.elemsTotNotifON = 0;
+                let elem_reg;
+                Object.keys(this.elems).forEach((elemKey) => {
+                    elem_reg = this.elems[elemKey];
+
+                    if(elem_reg.notif_creation) {
+                        this.elemsTotNotifON++;
+                    }
+                })
             },
 
             /**
@@ -208,6 +250,45 @@
                 .catch(error => {           //SI HAY ALGÚN ERROR
                     console.log(error.response.data.errors);
                 });
+            },
+
+            /**
+             * Actualizando campo
+            */
+            updateField(id, field, newValue) {
+                let msg_success = '';
+                if(id == 0) {
+                    msg_success = 'Registros marcados como NOTIFICADOS';
+
+                } else {
+                    msg_success = 'Registro marcado como ';
+                    if(newValue == 0)
+                        msg_success += 'NOTIFICADO'
+                    else
+                        msg_success += 'PARA NOTIFICAR'
+                }
+
+                console.log('Actualizando campo del registro... [' + id + ']');
+                let url = this.urlBase + '/editar/' + id + '/' + field + '/' + newValue;
+                axios.get(url)
+                .then((response) => {       //SI TODO OK
+
+                    //refrescando listado
+                    this.getElems();
+
+                    //Lanzando notificación satisfactoria
+                    toast({
+                        type: 'success',
+                        title: msg_success
+                    });
+
+                    //Emitiendo evento de recarga de total
+                    BusEvent.$emit('notifRecargaLeidosNoTotEvent');
+
+                })
+                .catch(error => {           //SI HAY ALGÚN ERROR
+                    console.log(error.response.data.errors);
+                });/**/
             },
 
             /**

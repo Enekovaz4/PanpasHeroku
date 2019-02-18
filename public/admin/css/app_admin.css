@@ -29903,15 +29903,19 @@ a.text-warning-trash:focus {
 }
 
 .i_mens_contacto_leidoOK,
-.i_mens_contacto_leidoNOK {
+.i_mens_contacto_leidoNOK,
+.i_reg_notifOFF,
+.i_reg_notifON {
   font-size: 11px;
 }
 
-.i_mens_contacto_leidoOK {
+.i_mens_contacto_leidoOK,
+.i_reg_notifOFF {
   color: #d2d6de;
 }
 
-.i_mens_contacto_leidoNOK {
+.i_mens_contacto_leidoNOK,
+.i_reg_notifON {
   color: #3490dc;
 }
 

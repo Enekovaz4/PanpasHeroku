@@ -64,7 +64,7 @@ Si no los has dejado reposar de un día para otro no pasa nada. Con tenerlos 3 h
                 //'votos' => random_int(0, 0),
                 'categoria' => 'pastelería',
                 ////'created_at' => $faker->date($format = 'Y-m-d H:i:s', $max = 'now'),
-                'created_at' => new DateTime('2019-02-14'),
+                'created_at' => new DateTime('2018-12-14'),
             ]);
 
                 DB::table('recetas')->insert([
@@ -72,7 +72,7 @@ Si no los has dejado reposar de un día para otro no pasa nada. Con tenerlos 3 h
                 'descripcion' => "Eva Arguiñano prepara una receta de pastelitos de mora, un postre delicioso y muy fácil de hacer. Anímate a probarlo.",
                 'ingredientes' => "Harina 150g, Mantequilla 75g, Azúcar Moreno 40g, Copos Avena 20g, Huevo 1, Moras 20, Mermelada 150g, Hojas de Menta 2",
                 'imagen' => "https://www.hogarmania.com/archivos/201809/6218-pastelitos-de-mora-pin-XxXx80.jpg",
-                'elaboracion' => "<h3>Paso 1</h3><p>Coloca la harina en un bol, añade la avena, el azúcar moreno, la avellana molida y una pizca de sal. Mezcla, incorpora la mantequilla a punto de pomada y el huevo. Amasa con la mano.</p> 
+                'elaboracion' => "<h3>Paso 1</h3><p>Coloca la harina en un bol, añade la avena, el azúcar moreno, la avellana molida y una pizca de sal. Mezcla, incorpora la mantequilla a punto de pomada y el huevo. Amasa con la mano.</p>
 <h3>Paso 2</h3>
 <p>
 Extiende un papel de horno y coloca encima la masa, coloca otro papel de horno y estírala con un rodillo. Coloca la masa (con los papeles de horno) en una placa de horno y hornéala a 170º C durante 15 minutos.</p>
@@ -89,7 +89,7 @@ Decora con unas hojitas de menta.</p>",
                 'user_id' => 2,
                 'votos' => 0,
                 'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-03-14'),
+                'created_at' => new DateTime('2019-01-07'),
             ]);
 
                 DB::table('recetas')->insert([
@@ -113,7 +113,7 @@ Decora con unas hojitas de menta.</p>",
                 'user_id' => 3,
                 'votos' => 0,
                 'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-03-14'),
+                'created_at' => new DateTime('2019-02-15'),
             ]);
 
     }

@@ -7,6 +7,7 @@ use App\Receta;
 use App\Contacto;
 use App\Comentario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserStoreRequest;
@@ -99,6 +100,7 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $termino = $request->term;
+        $db_driver_actual = config('database.default', 'mysql');
 
         /**
          * ¡¡ATENCIÓN!!
@@ -110,28 +112,48 @@ class UserController extends Controller
          *
          *      //investigar la forma correcta
          *      ->where('LOWER(name), 'LIKE', "%{$termino}%")
+         *
+         *      Otras posibles formas de buscar:
+         *          Receta::whereRaw("UPPER(titulo) LIKE '%'". strtoupper($termino)."'%'");
+         *          Receta::where('titulo', 'LIKE', '%' . ($termino_UP || $termino_LOW) . '%' );
+         *          Receta::where('titulo', 'LIKE', "%{$termino}%");
          */
 
-        return User::withTrashed()
-                ->with('perfil:id,nombre')
-                //para Caso SENSITIVO a Mayúsculas
-                //  >> sacando solo resultados que coincidan exactamente
-                ////->where('name', 'LIKE', "%{$termino}%")
-                ////->orWhere('lastname', 'LIKE', "%{$termino}%")
-                ////->orWhere('username', 'LIKE', "%{$termino}%")
-                ////->orWhere('email', 'LIKE', "%{$termino}%")
-                //para Caso INSENSITIVO a Mayúsculas
-                //  >> sacando resultados que coincidan
-                //  ya sea en mayúsc. o minúsculas
-                ->where('name', 'ilike', "%{$termino}%")
-                ->orWhere('lastname', 'ilike', "%{$termino}%")
-                ->orWhere('username', 'ilike', "%{$termino}%")
-                ->orWhere('email', 'ilike', "%{$termino}%")
-                ->orderBy('id', 'desc')->get()
-                ->map(function ($user) {//Registrando si el usuario recorrido está conectado
-                    $user->isOnline = $user->isOnline();
-                    return $user;
-                });
+        if($db_driver_actual == 'mysql') {
+            return User::withTrashed()
+                    ->with('perfil:id,nombre')
+                    //para Caso SENSITIVO a Mayúsculas
+                    //  >> sacando solo resultados que coincidan exactamente
+                    ////->where('name', 'LIKE', "%{$termino}%")
+                    ////->orWhere('lastname', 'LIKE', "%{$termino}%")
+                    ////->orWhere('username', 'LIKE', "%{$termino}%")
+                    ////->orWhere('email', 'LIKE', "%{$termino}%")
+                    //para Caso INSENSITIVO a Mayúsculas
+                    //  >> sacando resultados que coincidan
+                    //  ya sea en mayúsc. o minúsculas
+                    ->where(DB::raw('LOWER(name)'), 'LIKE', "%".strtolower($termino)."%")
+                    ->orWhere(DB::raw('LOWER(lastname)'), 'LIKE', "%".strtolower($termino)."%")
+                    ->orWhere(DB::raw('LOWER(username)'), 'LIKE', "%".strtolower($termino)."%")
+                    ->orWhere(DB::raw('LOWER(email)'), 'LIKE', "%".strtolower($termino)."%")
+                    ->orderBy('id', 'desc')->get()
+                    ->map(function ($user) {//Registrando si el usuario recorrido está conectado
+                        $user->isOnline = $user->isOnline();
+                        return $user;
+                    });
+
+        } else if($db_driver_actual == 'pgsql') {
+            return User::withTrashed()
+                    ->with('perfil:id,nombre')
+                    ->where('name', 'ilike', "%{$termino}%")
+                    ->orWhere('lastname', 'ilike', "%{$termino}%")
+                    ->orWhere('username', 'ilike', "%{$termino}%")
+                    ->orWhere('email', 'ilike', "%{$termino}%")
+                    ->orderBy('id', 'desc')->get()
+                    ->map(function ($user) {//Registrando si el usuario recorrido está conectado
+                        $user->isOnline = $user->isOnline();
+                        return $user;
+                    });
+        }
     }
 
     /**
@@ -156,6 +178,8 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->name = $request->name;
         $user->lastname = $request->lastname;
+        $user->country = $request->country;
+        $user->city = $request->city;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->perfil_id = $request->perfil_id;
@@ -309,6 +333,8 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->name = $request->name;
         $user->lastname = $request->lastname;
+        $user->country = $request->country;
+        $user->city = $request->city;
         $user->email = $request->email;
         //Si no es NULO
         if( !is_null($request->password) ) {
@@ -318,6 +344,31 @@ class UserController extends Controller
         $user->save();
 
         return ['message' => 'Actualizando el registro con ID => [' . $id . ']'];
+    }
+
+    /**
+     * Editing the field of an specified register.
+     *
+     * @param  int      $id
+     * @param  string   $campo
+     * @param  int      $valor
+     * @return \Illuminate\Http\Response
+     */
+    public function update_campo($id, $campo, $valor)
+    {
+        if($id == 0) {
+            User::query()
+                    ->update([
+                        $campo => $valor,
+                    ]);
+        } else {
+            User::where('id', $id)
+                    ->update([
+                        $campo => $valor,
+                    ]);
+        }
+
+        return;
     }
 
     /**

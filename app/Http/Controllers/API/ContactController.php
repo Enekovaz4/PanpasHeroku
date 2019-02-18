@@ -235,10 +235,11 @@ class ContactController extends Controller
     /**
      * Editing the field of an specified register.
      *
-     * @param  \App\User  $user
+     * @param  int      $id
+     * @param  string   $campo
+     * @param  int      $valor
      * @return \Illuminate\Http\Response
      */
-    ////public function update_campo(User $user)
     public function update_campo($id, $campo, $valor)
     {
         Contacto::where('id', $id)

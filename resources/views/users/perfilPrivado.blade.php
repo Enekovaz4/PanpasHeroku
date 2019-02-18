@@ -34,7 +34,7 @@
             }
 
 
-        
+
         </style>
 
 
@@ -52,7 +52,7 @@
                            $("input[name=sub_avatar]").css("visibility", "hidden");
                         },
                         success: function(){
-                           alertify.notify('Imagen Encontrada', 'success', 2); 
+                           alertify.notify('Imagen Encontrada', 'success', 2);
                            $("input[name=sub_avatar]").css("visibility", "visible");
                         }
 
@@ -75,14 +75,14 @@
                 <div class="row justify-content-center">
                     <div class="col-md-9">
                         <div class="card">
-                            <div class="card-header"><h1 style=";">Perfil Privado</h1> 
+                            <div class="card-header"><h1 style=";">Perfil Privado</h1>
 
                             <div class="card-body">
                                 <h2>Modificar Avatar:</h2>
                                 {{--
                                 <form action="/user/guardarFotoPerfil" method="post" enctype="multipart/form-data" class="centrado">
                                 <div><input type="file" name="newAvatar" class="btn btn-secondary col-12" required ><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
-                                
+
                                 	<img src="{{$user->avatar}}" class="avatar" alt="Tu foto de perfil actual">
                                     <div class="col-12" style="max-width: 390px; float: right;">
                                          <canvas id="graph_recetas" alt="gráfico de todas las recetas que has insertado separado por 12 meses."></canvas>
@@ -92,7 +92,7 @@
 
                                 <form action="/user/guardarFotoPerfilURL" method="post" enctype="multipart/form-data" class="centrado">
                                 <div><input type="text" name="newAvatar" class="btn btn-secondary col-12" required placeholder="inserta URL de imagen" oninput="validarImagenURL();" autocomplete="off"><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
-                                
+
                                     <img src="{{$user->avatar}}" class="avatar" alt="Tu foto de perfil actual.">
                                     <div class="col-12" style="max-width: 390px; float: right;">
                                          <canvas id="graph_recetas" alt="gráfico de todas las recetas que has insertado separado por 12 meses."></canvas>
@@ -114,6 +114,14 @@
                                         </p>
                                         <p class="col-lg-5 col-md-9">
                                             <label>Correo:</label>              <input type="text" name="email" value="{{$user->email}}" class="w3-input" >
+                                        </p>
+                                        <p class="col-lg-5 col-md-9">
+                                            <label>Ciudad:</label>
+                                            <input type="text" name="city" value="{{$user->city}}" class="w3-input" >
+                                        </p>
+                                        <p class="col-lg-5 col-md-9">
+                                            <label>País:</label>
+                                            <input type="text" name="country" value="{{$user->country}}" class="w3-input" >
                                         </p>
                                         <input type="submit" name="sub_avatar", value="Actualizar" class="btn btn-primary right" >
                                     </form>
@@ -187,15 +195,15 @@
 
         <script type="text/javascript">
             function confirmaciónEliminarCuenta(){
-                alertify.confirm('¿Seguro que quieres eliminar tu cuenta?', '', function(){ eliminarCuenta() }, 
+                alertify.confirm('¿Seguro que quieres eliminar tu cuenta?', '', function(){ eliminarCuenta() },
                     function(){ alertify.error('CANCELADO')});
             }
 
             function eliminarCuenta(){
                     window.location.href = '{{url("/users/eliminarCuenta")}}';
             }
-                    
-                
+
+
         </script>
 
 @endsection

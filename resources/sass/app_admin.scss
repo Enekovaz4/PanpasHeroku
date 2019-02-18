@@ -217,11 +217,12 @@ a.text-warning-trash:hover, a.text-warning-trash:focus {
     padding: 5px;
     font-size: 18px;
 }
-.i_mens_contacto_leidoOK, .i_mens_contacto_leidoNOK {
+.i_mens_contacto_leidoOK, .i_mens_contacto_leidoNOK,
+.i_reg_notifOFF, .i_reg_notifON {
     font-size: 11px;
 }
-.i_mens_contacto_leidoOK { color: #d2d6de; }
-.i_mens_contacto_leidoNOK { color: #3490dc ; }
+.i_mens_contacto_leidoOK, .i_reg_notifOFF { color: #d2d6de; }
+.i_mens_contacto_leidoNOK, .i_reg_notifON { color: #3490dc ; }
 
 .leidoOK_leidoNOK_con_borde {
     border: 1px solid black;

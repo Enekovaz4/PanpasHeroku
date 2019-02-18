@@ -32,6 +32,9 @@ Route::apiResources([
 //Listar usuarios conectados
 Route::get('/users/online/list', 'API\UserController@onlineList')
     ->name('user.online.list');
+//Marcar como notificado Si/NO
+Route::get('/users/editar/{id}/{campo}/{valor}', 'API\UserController@update_campo')
+    ->name('user_editar_campo');
 //Buscador para filtrar resultados en el listado
 //  >> término que buscar
 Route::post('/users/search', 'API\UserController@search')
@@ -55,6 +58,9 @@ Route::get('/users/prof-activity/{id}', 'API\UserController@profileActivity')
 // ===============================================================================
 // RECETAS :: Otros
 // -------------------------------------------------------------------------------
+//Marcar como notificado Si/NO
+Route::get('/recipes/editar/{id}/{campo}/{valor}', 'API\RecipeController@update_campo')
+    ->name('recipe_editar_campo');
 //Buscador para filtrar resultados en el listado
 //  >> término que buscar
 Route::post('/recipes/search', 'API\RecipeController@search')

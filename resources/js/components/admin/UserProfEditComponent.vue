@@ -33,6 +33,20 @@
                 </div>
             </div>
             <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="city-id" class="control-label p-2">Ciudad</label>
+
+                    <input v-model="objReg.city" type="text" class="form-control" :class="{ 'is-invalid': errors.has('city') }" name="city" id="city-id" placeholder="Ciudad">
+                    <span v-if="errors.has('city')" class="block text-sm text-danger mt-2">{{ errors.get('city') }}</span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="country-id" class="control-label p-2">País</label>
+
+                    <input v-model="objReg.country" type="text" class="form-control" :class="{ 'is-invalid': errors.has('country') }" name="country" id="country-id" placeholder="País">
+                    <span v-if="errors.has('country')" class="block text-sm text-danger mt-2">{{ errors.get('country') }}</span>
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="col-md-5 mb-3">
                     <label for="email-id" class="control-label p-2">Email*</label>
 

@@ -88,6 +88,8 @@ class UserStoreRequest extends FormRequest
             'perfil_id' => 'required',
             'name' => 'nullable|regex:/^[áàäâÁÀÄÂéèëêÉÈËÊíìïîÍÌÏÎóòöôÓÒÖÔúùüûÚÙÜÛñÑA-Za-z\s_-]+$/|max:50',
             'lastname' => 'nullable|regex:/^[áàäâÁÀÄÂéèëêÉÈËÊíìïîÍÌÏÎóòöôÓÒÖÔúùüûÚÙÜÛñÑA-Za-z\s_-]+$/|max:74',
+            'country' => 'nullable|regex:/^[áàäâÁÀÄÂéèëêÉÈËÊíìïîÍÌÏÎóòöôÓÒÖÔúùüûÚÙÜÛñÑA-Za-z\s_-]+$/|max:50',
+            'city' => 'nullable|regex:/^[áàäâÁÀÄÂéèëêÉÈËÊíìïîÍÌÏÎóòöôÓÒÖÔúùüûÚÙÜÛñÑA-Za-z\s_-]+$/|max:74',
         ];
 
         return $rules;
@@ -111,6 +113,12 @@ class UserStoreRequest extends FormRequest
             'lastname.string' => 'El APELLIDO debe ser de tipo string',
             'lastname.regex' => 'El APELLIDO debe ser de formato string',
             'lastname.max'  => 'El APELLIDO con un Máx. de :max caracteres',
+            'country.string' => 'El PAÍS debe ser de tipo string',
+            'country.regex' => 'El PAÍS debe ser de formato string',
+            'country.max'  => 'El PAÍS con un Máx. de :max caracteres',
+            'city.string' => 'La CIUDAD debe ser de tipo string',
+            'city.regex' => 'La CIUDAD debe ser de formato string',
+            'city.max'  => 'La CIUDAD con un Máx. de :max caracteres',
             'email.required' => 'El EMAIL es obligatorio',
             'email.string' => 'El EMAIL de ser de tipo string',
             'email.email' => 'El EMAIL no es un correo válido',

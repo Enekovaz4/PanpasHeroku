@@ -268,7 +268,7 @@
 
                 /**
                  * Se obtiene cada dimensión del array "elemKey" gracias al cuál
-                 * se pueden examinar los valores del cada uno de los objetos "elem_usu"
+                 * se pueden examinar los valores de cada uno de los objetos "elem_usu"
                  * recorridos en el bucle
                  */
                 let elem_usu;

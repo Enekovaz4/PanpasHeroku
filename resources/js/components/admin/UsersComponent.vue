@@ -60,6 +60,16 @@
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">#</th>
+                                                    <th v-if="elemsTotNotifON == 0">
+                                                        <span title="Sin novedad que notificar">
+                                                            <i id="ico_notif" class="fas fa-bell"></i>
+                                                        </span>
+                                                    </th>
+                                                    <th v-else>
+                                                        <a href="javascript: void(0);" @click="updateField(0, 'notif_creation', 0)" class="text-primary" :title="'Marcar TODOS[' + elemsTotNotifON + '] como NOTIFICADO'">
+                                                            <i id="ico_notif" class="fas fa-bell"></i>
+                                                        </a>
+                                                    </th>
                                                     <th class="text-center">Avatar</th>
                                                     <th>Nombre</th>
                                                     <th>Apellido</th>
@@ -72,7 +82,7 @@
                                             </thead>
                                             <tbody v-if="users.length == 0">
                                                 <tr>
-                                                    <td colspan="9" class="text-muted text-center">Ningún usuario registrado actualmente</td>
+                                                    <td colspan="10" class="text-muted text-center">Ningún usuario registrado actualmente</td>
                                                 </tr>
                                             </tbody>
                                             <tbody v-else>
@@ -85,6 +95,14 @@
                                                         <span v-if="user.deleted_at == null" class="reg-activo">{{ users.length - index }}</span>
                                                         <span v-else class="reg-trashed">{{ users.length - index }}</span>
                                                     </td>
+                                                    <td>
+                                                        <a v-if="user.notif_creation" href="javascript: void(0);" @click="updateField(user.id, 'notif_creation', 0)" class="text-primary" title="Notificando - Marcar como NOTIFICADO">
+                                                            <i class="fas fa-circle i_reg_notifON"></i>
+                                                        </a>
+                                                        <a v-else href="javascript: void(0);" @click="updateField(user.id, 'notif_creation', 1)" class="text-primary" title="Notificado - Marcar para NOTIFICAR">
+                                                            <i class="fas fa-circle i_reg_notifOFF"></i>
+                                                        </a>
+                                                    </td>
                                                     <td class="text-center"><a :href="'/admin/users/' + user.id" :title="[user.isOnline ? 'Ir al detalle::ON' : 'Ir al detalle::OFF']" class="negrita"><img class="avatar" :class="[ user.isOnline ? 'marco-useron-list' : 'marco-useroff-list' ]" :src="user.avatar" alt="Avatar del usuario"></a></td>
                                                     <td v-if="user.name == ''"><small>Sin detallar</small></td>
                                                     <td v-else-if="user.name == null"><small>Sin detallar</small></td>
@@ -95,7 +113,7 @@
                                                     <td>{{ user.username }}</td>
                                                     <td>{{ user.email }}</td>
                                                     <td>{{ user.perfil.nombre }}</td>
-                                                    <td><small :title="user.created_at">{{ user.created_at }}</small></td>
+                                                    <td><small :title="user.created_at">{{ user.created_at | formatFHHaceTanto }}</small></td>
                                                     <td class="text-center">
                                                         <router-link :to="{ name: 'user_profile', params: {id: user.id} }" class="text-success" :title="'Perfil completo [' + user.id + ']'">
                                                             <i class="fas fa-user-circle"></i>
@@ -154,6 +172,7 @@
                 urlBase: '/api/users',
                 //Puede ser también     >>      users: [],
                 users: {},  //variable contenedora de los registros a listar
+                elemsTotNotifON: 0,   //total de registros con Notif en ON
                 term: '',   //término por el que filtrar resultados
             }
         },
@@ -185,7 +204,30 @@
                 axios.get(url).then( response => {
                     ////console.log(response.data)
                     this.users = response.data
+                    //Total de notif_creation
+                    this.getElemsTOTNotifON();
                 });
+            },
+
+            /**
+             * Obteniendo total de registros
+             * en estado de notificación ON
+             *
+             * Se obtiene cada dimensión del array "elemKey" gracias al cuál
+             * se pueden examinar los valores de cada uno de los objetos "elem_usu"
+             * recorridos en el bucle
+            */
+            getElemsTOTNotifON() {
+                //Reiniciando total
+                this.elemsTotNotifON = 0;
+                let elem_usu;
+                Object.keys(this.users).forEach((elemKey) => {
+                    elem_usu = this.users[elemKey];
+
+                    if(elem_usu.notif_creation) {
+                        this.elemsTotNotifON++;
+                    }
+                })
             },
 
             /**
@@ -212,6 +254,45 @@
                 .catch(error => {           //SI HAY ALGÚN ERROR
                     console.log(error.response.data.errors);
                 });
+            },
+
+            /**
+             * Actualizando campo
+            */
+            updateField(id, field, newValue) {
+                let msg_success = '';
+                if(id == 0) {
+                    msg_success = 'Registros marcados como NOTIFICADOS';
+
+                } else {
+                    msg_success = 'Registro marcado como ';
+                    if(newValue == 0)
+                        msg_success += 'NOTIFICADO'
+                    else
+                        msg_success += 'PARA NOTIFICAR'
+                }
+
+                console.log('Actualizando campo del registro... [' + id + ']');
+                let url = this.urlBase + '/editar/' + id + '/' + field + '/' + newValue;
+                axios.get(url)
+                .then((response) => {       //SI TODO OK
+
+                    //refrescando listado
+                    this.getUsers();
+
+                    //Lanzando notificación satisfactoria
+                    toast({
+                        type: 'success',
+                        title: msg_success
+                    });
+
+                    //Emitiendo evento de recarga de total
+                    BusEvent.$emit('notifRecargaLeidosNoTotEvent');
+
+                })
+                .catch(error => {           //SI HAY ALGÚN ERROR
+                    console.log(error.response.data.errors);
+                });/**/
             },
 
             /**
