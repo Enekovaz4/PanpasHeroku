@@ -109,6 +109,9 @@ Route::get('/admin/dashboard', 'AdminPanelController@index')
 Route::get('/admin/dashboard/get-tots', 'AdminPanelController@getTots')
     ->middleware('can:isAdmin')
     ->name('admin_pnl_index_tots');
+Route::post('/admin/dashboard/search-recipes-date-range', 'AdminPanelController@searchRecipesXDateRange')
+    ->middleware('can:isAdmin')
+    ->name('admin_pnl_index_recipes-date-range');
 
 //Para aceptar URLs de todo tipo dentro de  este controlador
 //  >> establecido para aceptar peticiones GET a las rutas

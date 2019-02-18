@@ -4538,9 +4538,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_bootstrap_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-bootstrap-datetimepicker */ "./node_modules/vue-bootstrap-datetimepicker/dist/vue-bootstrap-datetimepicker.js");
-/* harmony import */ var vue_bootstrap_datetimepicker__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_bootstrap_datetimepicker__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_google_charts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-google-charts */ "./node_modules/vue-google-charts/index.js");
+/* harmony import */ var _libs_errors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../libs/errors */ "./resources/js/libs/errors.js");
+/* harmony import */ var vue_bootstrap_datetimepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-bootstrap-datetimepicker */ "./node_modules/vue-bootstrap-datetimepicker/dist/vue-bootstrap-datetimepicker.js");
+/* harmony import */ var vue_bootstrap_datetimepicker__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_bootstrap_datetimepicker__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_google_charts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-google-charts */ "./node_modules/vue-google-charts/index.js");
 //
 //
 //
@@ -4718,6 +4719,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//librería para tratar los errores capturados en el servidor
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4730,11 +4737,12 @@ __webpack_require__.r(__webpack_exports__);
     this.getCharts();
   },
   components: {
-    GChart: vue_google_charts__WEBPACK_IMPORTED_MODULE_1__["GChart"]
+    GChart: vue_google_charts__WEBPACK_IMPORTED_MODULE_2__["GChart"]
   },
   //datos devueltos por el componente:
   data: function data() {
     return {
+      urlBase: '/admin/dashboard',
       //variable para almacenar los datos del registro a almacenar
       objTotRecursos: {},
       //Opciones para cada DatetimePicker
@@ -4744,17 +4752,27 @@ __webpack_require__.r(__webpack_exports__);
       ////fecha_ini: '01/02/2019',
       ////fecha_fin: new Date(),
       options_fecha_ini: {
-        format: 'DD/MM/YYYY',
-        useCurrent: false
+        ////format: 'DD/MM/YYYY',
+        ////format: 'YYYY/MM/DD',
+        format: 'DD-MM-YYYY',
+        useCurrent: false,
+        locale: 'es'
       },
       options_fecha_fin: {
-        format: 'DD/MM/YYYY',
-        useCurrent: false
+        ////format: 'DD/MM/YYYY',
+        ////format: 'YYYY/MM/DD',
+        format: 'DD-MM-YYYY',
+        useCurrent: false,
+        locale: 'es'
       },
       objRecetasAltaXFechas: {
-        'fecha_ini': '01/02/2019',
+        ////'fecha_ini': '01/02/2019',
+        ////'fecha_ini': '2019/02/01',
+        'fecha_ini': '01-02-2019',
         'fecha_fin': new Date()
       },
+      //carga previa de resultados para gráfica "Alta de Recetas"
+      objRecetasAltaXFechas_previo: {},
       // Array will be automatically processed with visualization.arrayToDataTable function
 
       /*chartData: [
@@ -4764,14 +4782,16 @@ __webpack_require__.r(__webpack_exports__);
           ['03/02/2019', 660,],
           ['04/02/2019', 1030,],
       ],*/
-      chartRecetasAltaXFechas_Data: [['Día', 'Recetas']],
+      chartRecetasAltaXFechas_Data: [['Día', 'Recetas'], ['0', 0]],
       chartRecetasAltaXFechas_Options: {
         chart: {
           title: 'Alta de Recetas en rango de Fechas',
           subtitle: 'Recetas registradas en un rango'
         },
         colors: ['#fed136']
-      }
+      },
+      //posibles errores
+      errors: new _libs_errors__WEBPACK_IMPORTED_MODULE_0__["Errors"]()
     };
   },
   methods: {
@@ -4783,7 +4803,7 @@ __webpack_require__.r(__webpack_exports__);
 
       console.log('Cargando totales de los recursos disponibles'); //Haciendo la petición de datos
 
-      var url = '/admin/dashboard/get-tots';
+      var url = this.urlBase + '/get-tots';
       axios.get(url).then(function (response) {
         //SI TODO OK
         console.log(response.data);
@@ -4806,11 +4826,52 @@ __webpack_require__.r(__webpack_exports__);
      * dentro de un rango de fechas dado
     */
     chartRecetasAltaXFechas: function chartRecetasAltaXFechas() {
-      console.log(':: Se cargará la gráfica según el rango de fechas seleccionado ::');
-      this.chartRecetasAltaXFechas_Data.push(['01/02/2019', 1000]);
-      this.chartRecetasAltaXFechas_Data.push(['02/02/2019', 1170]);
-      this.chartRecetasAltaXFechas_Data.push(['03/02/2019', 660]);
-      this.chartRecetasAltaXFechas_Data.push(['04/02/2019', 1030]);
+      var _this2 = this;
+
+      console.log(':: Se cargará la gráfica según el rango de fechas seleccionado ::'); //Reiniciando datos antes de un nueva carga
+
+      this.chartRecetasAltaXFechas_Data = [['Día', 'Recetas']]; ////this.chartRecetasAltaXFechas_Data.push(['01/02/2019', 1000,]);
+      ////this.chartRecetasAltaXFechas_Data.push(['02/02/2019', 1170,]);
+      ////this.chartRecetasAltaXFechas_Data.push(['03/02/2019', 660,]);
+      ////this.chartRecetasAltaXFechas_Data.push(['04/02/2019', 1030,]);
+      ////this.chartRecetasAltaXFechas_Data.push(['2019-02-15 11:16:24', 2040,]);
+
+      var url = this.urlBase + '/search-recipes-date-range';
+      axios.post(url, this.objRecetasAltaXFechas).then(function (response) {
+        //SI TODO OK
+        //vaciando los posibles errores que se produjeron
+        _this2.errors.clear(); ////console.log('Resultados para Gráfica "Alta de Recetas":', response.data)
+
+
+        _this2.objRecetasAltaXFechas_previo = response.data;
+        var elem_result;
+        Object.keys(_this2.objRecetasAltaXFechas_previo).forEach(function (elemKey) {
+          elem_result = _this2.objRecetasAltaXFechas_previo[elemKey]; //dia_alta | totalRecetas
+
+          _this2.chartRecetasAltaXFechas_Data.push([_this2.formatFechaDMY(elem_result.dia_alta), elem_result.totalRecetas]);
+        });
+      }).catch(function (error) {
+        //SI HAY ALGÚN ERROR
+        //registrando los errores recibidos
+        _this2.errors.record(error.response.data.errors);
+      });
+    },
+
+    /**
+     * Transformar fecha pasada a formato dd/mm/YYYY
+     * fecha recibida (YYYY-mm-dd 00:00:00)
+    */
+    formatFechaDMY: function formatFechaDMY(fecha) {
+      var fechaDMY = '';
+      var separador = '/'; //Capturando solo la parte de fecha
+
+      var arr_fecha_hora = fecha.split(' ');
+      fecha = arr_fecha_hora[0]; //Separando partes de la fecha Y-m-d
+
+      var arr_YMD_fecha = fecha.split('-'); //Invirtiendo partes y añadiendo separador deseado
+
+      fechaDMY = arr_YMD_fecha[2] + separador + arr_YMD_fecha[1] + separador + arr_YMD_fecha[0];
+      return fechaDMY;
     }
   }
 });
@@ -69835,72 +69896,101 @@ var render = function() {
                 "div",
                 { staticClass: "card-body" },
                 [
-                  _c("div", { staticClass: "row" }, [
-                    _c(
-                      "div",
-                      { staticClass: "col-5" },
-                      [
-                        _vm._v(
-                          "\n                                            Fecha inicial\n                                            "
+                  _c(
+                    "form",
+                    {
+                      attrs: { novalidate: "" },
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          _vm.chartRecetasAltaXFechas()
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "row" }, [
+                        _c(
+                          "div",
+                          { staticClass: "col-4" },
+                          [
+                            _vm._v(
+                              "\n                                            Fecha inicial\n                                            "
+                            ),
+                            _c("date-picker", {
+                              class: {
+                                "is-invalid": _vm.errors.has("fecha_ini")
+                              },
+                              attrs: { config: _vm.options_fecha_ini },
+                              model: {
+                                value: _vm.objRecetasAltaXFechas.fecha_ini,
+                                callback: function($$v) {
+                                  _vm.$set(
+                                    _vm.objRecetasAltaXFechas,
+                                    "fecha_ini",
+                                    $$v
+                                  )
+                                },
+                                expression: "objRecetasAltaXFechas.fecha_ini"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors.has("fecha_ini")
+                              ? _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "block text-sm text-danger mt-2"
+                                  },
+                                  [_vm._v(_vm._s(_vm.errors.get("fecha_ini")))]
+                                )
+                              : _vm._e()
+                          ],
+                          1
                         ),
-                        _c("date-picker", {
-                          attrs: { config: _vm.options_fecha_ini },
-                          model: {
-                            value: _vm.objRecetasAltaXFechas.fecha_ini,
-                            callback: function($$v) {
-                              _vm.$set(
-                                _vm.objRecetasAltaXFechas,
-                                "fecha_ini",
-                                $$v
-                              )
-                            },
-                            expression: "objRecetasAltaXFechas.fecha_ini"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-5" },
-                      [
-                        _vm._v(
-                          "\n                                            Fecha final\n                                            "
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-4" },
+                          [
+                            _vm._v(
+                              "\n                                            Fecha final\n                                            "
+                            ),
+                            _c("date-picker", {
+                              class: {
+                                "is-invalid": _vm.errors.has("fecha_fin")
+                              },
+                              attrs: { config: _vm.options_fecha_fin },
+                              model: {
+                                value: _vm.objRecetasAltaXFechas.fecha_fin,
+                                callback: function($$v) {
+                                  _vm.$set(
+                                    _vm.objRecetasAltaXFechas,
+                                    "fecha_fin",
+                                    $$v
+                                  )
+                                },
+                                expression: "objRecetasAltaXFechas.fecha_fin"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors.has("fecha_fin")
+                              ? _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "block text-sm text-danger mt-2"
+                                  },
+                                  [_vm._v(_vm._s(_vm.errors.get("fecha_fin")))]
+                                )
+                              : _vm._e()
+                          ],
+                          1
                         ),
-                        _c("date-picker", {
-                          attrs: { config: _vm.options_fecha_fin },
-                          model: {
-                            value: _vm.objRecetasAltaXFechas.fecha_fin,
-                            callback: function($$v) {
-                              _vm.$set(
-                                _vm.objRecetasAltaXFechas,
-                                "fecha_fin",
-                                $$v
-                              )
-                            },
-                            expression: "objRecetasAltaXFechas.fecha_fin"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-2" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "nav-link btn btn-primary txt_blanco",
-                          attrs: { type: "button", title: "Cargar gráfica" },
-                          on: { click: _vm.chartRecetasAltaXFechas }
-                        },
-                        [
-                          _c("i", { staticClass: "far fa-chart-bar" }),
-                          _vm._v(" Cargar")
-                        ]
-                      )
-                    ])
-                  ]),
+                        _vm._v(" "),
+                        _vm._m(7)
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _c("GChart", {
                     attrs: {
@@ -69914,7 +70004,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(7)
+            _vm._m(8)
           ])
         ])
       ])
@@ -70028,6 +70118,21 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h5", { staticClass: "m-0" }, [_vm._v("Gráfica de alta de Recetas")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-4" }, [
+      _c(
+        "button",
+        {
+          staticClass: "nav-link btn btn-primary txt_blanco",
+          attrs: { type: "submit", title: "Cargar gráfica con fechas elegidas" }
+        },
+        [_c("i", { staticClass: "far fa-chart-bar" }), _vm._v(" Cargar")]
+      )
     ])
   },
   function() {

@@ -130,19 +130,23 @@
                                         <h5 class="m-0">Gráfica de alta de Recetas</h5>
                                     </div>
                                     <div class="card-body">
+                                            <form @submit.prevent="chartRecetasAltaXFechas()" novalidate>
                                         <div class="row">
-                                            <div class="col-5">
+                                            <div class="col-4">
                                                 Fecha inicial
-                                                <date-picker v-model="objRecetasAltaXFechas.fecha_ini" :config="options_fecha_ini"></date-picker>
+                                                <date-picker v-model="objRecetasAltaXFechas.fecha_ini" :config="options_fecha_ini" :class="{ 'is-invalid': errors.has('fecha_ini') }"></date-picker>
+                                                <span v-if="errors.has('fecha_ini')" class="block text-sm text-danger mt-2">{{ errors.get('fecha_ini') }}</span>
                                             </div>
-                                            <div class="col-5">
+                                            <div class="col-4">
                                                 Fecha final
-                                                <date-picker v-model="objRecetasAltaXFechas.fecha_fin" :config="options_fecha_fin"></date-picker>
+                                                <date-picker v-model="objRecetasAltaXFechas.fecha_fin" :config="options_fecha_fin" :class="{ 'is-invalid': errors.has('fecha_fin') }"></date-picker>
+                                                <span v-if="errors.has('fecha_fin')" class="block text-sm text-danger mt-2">{{ errors.get('fecha_fin') }}</span>
                                             </div>
-                                            <div class="col-2">
-                                                <button class="nav-link btn btn-primary txt_blanco" type="button" title="Cargar gráfica" @click="chartRecetasAltaXFechas"><i class="far fa-chart-bar"></i> Cargar</button>
+                                            <div class="col-4">
+                                                <button class="nav-link btn btn-primary txt_blanco" type="submit" title="Cargar gráfica con fechas elegidas"><i class="far fa-chart-bar"></i> Cargar</button>
                                             </div>
                                         </div>
+                                            </form>
                                         <GChart
                                             type="ColumnChart"
                                             :data="chartRecetasAltaXFechas_Data"
@@ -176,6 +180,8 @@
 </template>
 
 <script>
+    //librería para tratar los errores capturados en el servidor
+    import { Errors } from '../../libs/errors';
     import datePicker from 'vue-bootstrap-datetimepicker';
     import { GChart } from 'vue-google-charts';
     export default {
@@ -197,6 +203,7 @@
         //datos devueltos por el componente:
         data() {
             return {
+                urlBase: '/admin/dashboard',
                 //variable para almacenar los datos del registro a almacenar
                 objTotRecursos: {},
 
@@ -207,17 +214,27 @@
                 ////fecha_ini: '01/02/2019',
                 ////fecha_fin: new Date(),
                 options_fecha_ini: {
-                    format: 'DD/MM/YYYY',
+                    ////format: 'DD/MM/YYYY',
+                    ////format: 'YYYY/MM/DD',
+                    format: 'DD-MM-YYYY',
                     useCurrent: false,
+                    locale: 'es',
                 },
                 options_fecha_fin: {
-                    format: 'DD/MM/YYYY',
+                    ////format: 'DD/MM/YYYY',
+                    ////format: 'YYYY/MM/DD',
+                    format: 'DD-MM-YYYY',
                     useCurrent: false,
+                    locale: 'es',
                 },
                 objRecetasAltaXFechas: {
-                    'fecha_ini': '01/02/2019',
+                    ////'fecha_ini': '01/02/2019',
+                    ////'fecha_ini': '2019/02/01',
+                    'fecha_ini': '01-02-2019',
                     'fecha_fin': new Date(),
                 },
+                //carga previa de resultados para gráfica "Alta de Recetas"
+                objRecetasAltaXFechas_previo: {},
 
                 // Array will be automatically processed with visualization.arrayToDataTable function
                 /*chartData: [
@@ -229,6 +246,7 @@
                 ],*/
                 chartRecetasAltaXFechas_Data: [
                     ['Día', 'Recetas'],
+                    ['0', 0,],
                 ],
                 chartRecetasAltaXFechas_Options: {
                     chart: {
@@ -237,6 +255,8 @@
                     },
                     colors: ['#fed136'],
                 },
+                //posibles errores
+                errors: new Errors(),
             }
         },
 
@@ -248,7 +268,7 @@
             getTotRecursos() {
                 console.log('Cargando totales de los recursos disponibles');
                 //Haciendo la petición de datos
-                let url = '/admin/dashboard/get-tots';
+                let url = this.urlBase + '/get-tots';
                 axios.get(url)
                 .then( response => {       //SI TODO OK
                     console.log(response.data)
@@ -272,10 +292,61 @@
             */
             chartRecetasAltaXFechas() {
                 console.log(':: Se cargará la gráfica según el rango de fechas seleccionado ::');
-                this.chartRecetasAltaXFechas_Data.push(['01/02/2019', 1000,]);
-                this.chartRecetasAltaXFechas_Data.push(['02/02/2019', 1170,]);
-                this.chartRecetasAltaXFechas_Data.push(['03/02/2019', 660,]);
-                this.chartRecetasAltaXFechas_Data.push(['04/02/2019', 1030,]);
+                //Reiniciando datos antes de un nueva carga
+                this.chartRecetasAltaXFechas_Data = [
+                    ['Día', 'Recetas'],
+                ];
+
+                ////this.chartRecetasAltaXFechas_Data.push(['01/02/2019', 1000,]);
+                ////this.chartRecetasAltaXFechas_Data.push(['02/02/2019', 1170,]);
+                ////this.chartRecetasAltaXFechas_Data.push(['03/02/2019', 660,]);
+                ////this.chartRecetasAltaXFechas_Data.push(['04/02/2019', 1030,]);
+                ////this.chartRecetasAltaXFechas_Data.push(['2019-02-15 11:16:24', 2040,]);
+
+
+                let url = this.urlBase + '/search-recipes-date-range';
+                axios.post(url, this.objRecetasAltaXFechas)
+                .then((response) => {       //SI TODO OK
+                    //vaciando los posibles errores que se produjeron
+                    this.errors.clear();
+
+                    ////console.log('Resultados para Gráfica "Alta de Recetas":', response.data)
+                    this.objRecetasAltaXFechas_previo = response.data
+
+                    let elem_result;
+                    Object.keys(this.objRecetasAltaXFechas_previo).forEach((elemKey) => {
+                        elem_result = this.objRecetasAltaXFechas_previo[elemKey];
+                        //dia_alta | totalRecetas
+
+                        this.chartRecetasAltaXFechas_Data.push([
+                            this.formatFechaDMY(elem_result.dia_alta),
+                            elem_result.totalRecetas,
+                        ]);
+                    })
+                })
+                .catch(error => {           //SI HAY ALGÚN ERROR
+                    //registrando los errores recibidos
+                    this.errors.record(error.response.data.errors);
+                });
+            },
+
+            /**
+             * Transformar fecha pasada a formato dd/mm/YYYY
+             * fecha recibida (YYYY-mm-dd 00:00:00)
+            */
+            formatFechaDMY(fecha) {
+                let fechaDMY = '';
+                let separador = '/';
+
+                //Capturando solo la parte de fecha
+                let arr_fecha_hora = fecha.split(' ');
+                fecha = arr_fecha_hora[0];
+                //Separando partes de la fecha Y-m-d
+                let arr_YMD_fecha = fecha.split('-');
+                //Invirtiendo partes y añadiendo separador deseado
+                fechaDMY = arr_YMD_fecha[2] + separador + arr_YMD_fecha[1] + separador + arr_YMD_fecha[0];
+
+                return fechaDMY;
             },
 
         },
