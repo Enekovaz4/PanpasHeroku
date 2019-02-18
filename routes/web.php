@@ -114,7 +114,7 @@ Route::get('/admin/dashboard/get-tots', 'AdminPanelController@getTots')
 //  >> establecido para aceptar peticiones GET a las rutas
 //  relacionadas con los componentes a cargar en él
 Route::get('/admin/{path}', 'AdminPanelController@index')
-    ->where( 'path', '([A-z\d-\/_.]+)?' )
+    ->where( 'path', '([A-z\d\-\/_.]+)?' )
     ->middleware('can:isAdmin');
 
 //==================================================
