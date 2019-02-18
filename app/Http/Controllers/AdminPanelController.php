@@ -85,13 +85,13 @@ class AdminPanelController extends Controller
         $db_driver_actual = config('database.default', 'mysql');
 
         if($db_driver_actual == 'mysql') {
-            return Receta::select(DB::raw('COUNT(*) AS totalRecetas, created_at as dia_alta'))
+            return Receta::select(DB::raw('COUNT(*) AS totalRecetas, created_at AS dia_alta'))
                     ->whereBetween('created_at', [$fecha_ini, $fecha_fin])
                     ->groupby('dia_alta')
                     ->get();
 
         } else if($db_driver_actual == 'pgsql') {
-            return Receta::select(DB::raw('COUNT(*) AS totalRecetas, created_at'), DB::raw('Extract(DAY FROM created_at) AS dia_alta'))
+            return Receta::select(DB::raw('COUNT(*) AS totalRecetas, created_at AS dia_alta'))
                     ->whereBetween('created_at', [$fecha_ini, $fecha_fin])
                     ->groupby('dia_alta')
                     ->get();
