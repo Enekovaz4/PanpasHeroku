@@ -27,7 +27,13 @@
                         <div class="row">
                             <section class="col-lg-12">
                                 <div class="card">
-                                    <div class="card-header d-flex justify-content-between align-middle p-0">
+                                    <div v-if="users.length < 1500" class="card-header d-flex justify-content-between align-middle p-0">
+                                        <h3 class="card-title p-3">
+                                            <i class="fas fa-cogs" title="Icono de estado de mantenimiento"></i>
+                                            <strong>En Mantenimiento</strong>
+                                        </h3>
+                                    </div>
+                                    <div v-else class="card-header d-flex justify-content-between align-middle p-0">
                                         <h3 class="card-title p-3">
                                             <i class="fa fa-comments mr-1" title="Icono de usuarios"></i>
                                             <!-- >> SIN Paginación-->
@@ -56,7 +62,16 @@
                                         </ul>
                                     </div><!-- /.card-header -->
                                     <div class="card-body table-responsive p-0">
-                                        <table class="table table-hover">
+                                        <table v-if="users.length < 1500" class="table table-hover">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-muted text-center">
+                                                        :: Sección en mantenimiento temporal ::
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table v-else class="table table-hover">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center">#</th>

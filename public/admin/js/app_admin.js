@@ -2334,6 +2334,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     var _this = this;
@@ -66864,315 +66879,354 @@ var render = function() {
           _c("div", { staticClass: "row" }, [
             _c("section", { staticClass: "col-lg-12" }, [
               _c("div", { staticClass: "card" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "card-header d-flex justify-content-between align-middle p-0"
-                  },
-                  [
-                    _c("h3", { staticClass: "card-title p-3" }, [
-                      _c("i", {
-                        staticClass: "fa fa-comments mr-1",
-                        attrs: { title: "Icono de usuarios" }
-                      }),
-                      _vm._v(" "),
-                      _vm._v("\n                                        ["),
-                      _c("strong", [_vm._v(_vm._s(_vm.users.length))]),
-                      _vm._v(
-                        " disponible(s)]\n                                        "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "form",
+                _vm.users.length < 1500
+                  ? _c(
+                      "div",
                       {
-                        staticClass: "form-inline ml-5",
-                        attrs: { method: "post" },
-                        on: {
-                          submit: function($event) {
-                            $event.preventDefault()
-                            _vm.search()
-                          }
-                        }
+                        staticClass:
+                          "card-header d-flex justify-content-between align-middle p-0"
+                      },
+                      [_vm._m(1)]
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          "card-header d-flex justify-content-between align-middle p-0"
                       },
                       [
+                        _c("h3", { staticClass: "card-title p-3" }, [
+                          _c("i", {
+                            staticClass: "fa fa-comments mr-1",
+                            attrs: { title: "Icono de usuarios" }
+                          }),
+                          _vm._v(" "),
+                          _vm._v("\n                                        ["),
+                          _c("strong", [_vm._v(_vm._s(_vm.users.length))]),
+                          _vm._v(
+                            " disponible(s)]\n                                        "
+                          )
+                        ]),
+                        _vm._v(" "),
                         _c(
-                          "div",
-                          { staticClass: "input-group input-group-sm" },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.term,
-                                  expression: "term"
-                                }
-                              ],
-                              staticClass: "form-control form-control-navbar",
-                              attrs: {
-                                type: "text",
-                                name: "term",
-                                placeholder: "Término...",
-                                "aria-label": "Search"
-                              },
-                              domProps: { value: _vm.term },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.term = $event.target.value
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm._m(1)
-                          ]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("ul", { staticClass: "nav ml-auto p-2" }, [
-                      _c("li", { staticClass: "nav-item" }, [
-                        _c(
-                          "button",
+                          "form",
                           {
-                            staticClass: "nav-link btn btn-primary txt_blanco",
-                            attrs: {
-                              type: "button",
-                              title: "Insertar registro"
-                            },
-                            on: { click: _vm.regInsModal }
+                            staticClass: "form-inline ml-5",
+                            attrs: { method: "post" },
+                            on: {
+                              submit: function($event) {
+                                $event.preventDefault()
+                                _vm.search()
+                              }
+                            }
                           },
                           [
-                            _c("i", { staticClass: "fa fa-user-plus" }),
-                            _vm._v(" Nuevo")
+                            _c(
+                              "div",
+                              { staticClass: "input-group input-group-sm" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.term,
+                                      expression: "term"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "form-control form-control-navbar",
+                                  attrs: {
+                                    type: "text",
+                                    name: "term",
+                                    placeholder: "Término...",
+                                    "aria-label": "Search"
+                                  },
+                                  domProps: { value: _vm.term },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.term = $event.target.value
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm._m(2)
+                              ]
+                            )
                           ]
-                        )
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body table-responsive p-0" }, [
-                  _c("table", { staticClass: "table table-hover" }, [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm.users.length == 0
-                      ? _c("tbody", [_vm._m(3)])
-                      : _c(
-                          "tbody",
-                          _vm._l(_vm.users, function(user, index) {
-                            return _c(
-                              "tr",
+                        ),
+                        _vm._v(" "),
+                        _c("ul", { staticClass: "nav ml-auto p-2" }, [
+                          _c("li", { staticClass: "nav-item" }, [
+                            _c(
+                              "button",
                               {
-                                key: user.id,
-                                staticClass: "lista-usuarios",
-                                staticStyle: { "vertical-align": "middle" }
+                                staticClass:
+                                  "nav-link btn btn-primary txt_blanco",
+                                attrs: {
+                                  type: "button",
+                                  title: "Insertar registro"
+                                },
+                                on: { click: _vm.regInsModal }
                               },
                               [
-                                _c(
-                                  "td",
-                                  { staticClass: "lista_indice text-center" },
-                                  [
-                                    user.deleted_at == null
-                                      ? _c(
-                                          "span",
-                                          { staticClass: "reg-activo" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(_vm.users.length - index)
-                                            )
-                                          ]
-                                        )
-                                      : _c(
-                                          "span",
-                                          { staticClass: "reg-trashed" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(_vm.users.length - index)
-                                            )
-                                          ]
-                                        )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "negrita",
-                                      attrs: {
-                                        href: "/admin/users/" + user.id,
-                                        title: [
-                                          user.isOnline
-                                            ? "Ir al detalle::ON"
-                                            : "Ir al detalle::OFF"
-                                        ]
-                                      }
-                                    },
-                                    [
-                                      _c("img", {
-                                        staticClass: "avatar",
-                                        class: [
-                                          user.isOnline
-                                            ? "marco-useron-list"
-                                            : "marco-useroff-list"
-                                        ],
-                                        attrs: {
-                                          src: user.avatar,
-                                          alt: "Avatar del usuario"
-                                        }
-                                      })
-                                    ]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                user.name == ""
-                                  ? _c("td", [
-                                      _c("small", [_vm._v("Sin detallar")])
-                                    ])
-                                  : user.name == null
-                                    ? _c("td", [
-                                        _c("small", [_vm._v("Sin detallar")])
-                                      ])
-                                    : _c("td", {
-                                        domProps: {
-                                          textContent: _vm._s(user.name)
-                                        }
-                                      }),
-                                _vm._v(" "),
-                                user.lastname == ""
-                                  ? _c("td", [
-                                      _c("small", [_vm._v("Sin detallar")])
-                                    ])
-                                  : user.lastname == null
-                                    ? _c("td", [
-                                        _c("small", [_vm._v("Sin detallar")])
-                                      ])
-                                    : _c("td", {
-                                        domProps: {
-                                          textContent: _vm._s(user.lastname)
-                                        }
-                                      }),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(user.username))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(user.email))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(user.perfil.nombre))]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "small",
-                                    { attrs: { title: user.created_at } },
-                                    [_vm._v(_vm._s(user.created_at))]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  { staticClass: "text-center" },
+                                _c("i", { staticClass: "fa fa-user-plus" }),
+                                _vm._v(" Nuevo")
+                              ]
+                            )
+                          ])
+                        ])
+                      ]
+                    ),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body table-responsive p-0" }, [
+                  _vm.users.length < 1500
+                    ? _c("table", { staticClass: "table table-hover" }, [
+                        _vm._m(3)
+                      ])
+                    : _c("table", { staticClass: "table table-hover" }, [
+                        _vm._m(4),
+                        _vm._v(" "),
+                        _vm.users.length == 0
+                          ? _c("tbody", [_vm._m(5)])
+                          : _c(
+                              "tbody",
+                              _vm._l(_vm.users, function(user, index) {
+                                return _c(
+                                  "tr",
+                                  {
+                                    key: user.id,
+                                    staticClass: "lista-usuarios",
+                                    staticStyle: { "vertical-align": "middle" }
+                                  },
                                   [
                                     _c(
-                                      "router-link",
+                                      "td",
                                       {
-                                        staticClass: "text-success",
-                                        attrs: {
-                                          to: {
-                                            name: "user_profile",
-                                            params: { id: user.id }
-                                          },
-                                          title:
-                                            "Perfil completo [" + user.id + "]"
-                                        }
+                                        staticClass: "lista_indice text-center"
                                       },
                                       [
-                                        _c("i", {
-                                          staticClass: "fas fa-user-circle"
-                                        })
+                                        user.deleted_at == null
+                                          ? _c(
+                                              "span",
+                                              { staticClass: "reg-activo" },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.users.length - index
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          : _c(
+                                              "span",
+                                              { staticClass: "reg-trashed" },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.users.length - index
+                                                  )
+                                                )
+                                              ]
+                                            )
                                       ]
                                     ),
                                     _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "text-primary",
-                                        attrs: {
-                                          href: "javascript: void(0);",
-                                          title:
-                                            "Editar registro [" + user.id + "]"
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.regEditModal(user)
+                                    _c("td", { staticClass: "text-center" }, [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "negrita",
+                                          attrs: {
+                                            href: "/admin/users/" + user.id,
+                                            title: [
+                                              user.isOnline
+                                                ? "Ir al detalle::ON"
+                                                : "Ir al detalle::OFF"
+                                            ]
                                           }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fas fa-edit" })]
-                                    ),
+                                        },
+                                        [
+                                          _c("img", {
+                                            staticClass: "avatar",
+                                            class: [
+                                              user.isOnline
+                                                ? "marco-useron-list"
+                                                : "marco-useroff-list"
+                                            ],
+                                            attrs: {
+                                              src: user.avatar,
+                                              alt: "Avatar del usuario"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ]),
                                     _vm._v(" "),
-                                    user.deleted_at == null
-                                      ? _c(
+                                    user.name == ""
+                                      ? _c("td", [
+                                          _c("small", [_vm._v("Sin detallar")])
+                                        ])
+                                      : user.name == null
+                                        ? _c("td", [
+                                            _c("small", [
+                                              _vm._v("Sin detallar")
+                                            ])
+                                          ])
+                                        : _c("td", {
+                                            domProps: {
+                                              textContent: _vm._s(user.name)
+                                            }
+                                          }),
+                                    _vm._v(" "),
+                                    user.lastname == ""
+                                      ? _c("td", [
+                                          _c("small", [_vm._v("Sin detallar")])
+                                        ])
+                                      : user.lastname == null
+                                        ? _c("td", [
+                                            _c("small", [
+                                              _vm._v("Sin detallar")
+                                            ])
+                                          ])
+                                        : _c("td", {
+                                            domProps: {
+                                              textContent: _vm._s(user.lastname)
+                                            }
+                                          }),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(user.username))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(user.email))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(_vm._s(user.perfil.nombre))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c(
+                                        "small",
+                                        { attrs: { title: user.created_at } },
+                                        [_vm._v(_vm._s(user.created_at))]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      { staticClass: "text-center" },
+                                      [
+                                        _c(
+                                          "router-link",
+                                          {
+                                            staticClass: "text-success",
+                                            attrs: {
+                                              to: {
+                                                name: "user_profile",
+                                                params: { id: user.id }
+                                              },
+                                              title:
+                                                "Perfil completo [" +
+                                                user.id +
+                                                "]"
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fas fa-user-circle"
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
                                           "a",
                                           {
-                                            staticClass: "text-danger",
+                                            staticClass: "text-primary",
                                             attrs: {
                                               href: "javascript: void(0);",
                                               title:
-                                                "A papelera / Borrar registro [" +
+                                                "Editar registro [" +
                                                 user.id +
                                                 "]"
                                             },
                                             on: {
                                               click: function($event) {
-                                                $event.preventDefault()
-                                                _vm.trashDeleteUser(user.id)
+                                                _vm.regEditModal(user)
                                               }
                                             }
                                           },
                                           [
                                             _c("i", {
-                                              staticClass: "fas fa-trash-alt"
+                                              staticClass: "fas fa-edit"
                                             })
                                           ]
-                                        )
-                                      : _c(
-                                          "a",
-                                          {
-                                            staticClass: "text-warning-trash",
-                                            attrs: {
-                                              href: "javascript: void(0);",
-                                              title:
-                                                "Restaurar / Borrar registro [" +
-                                                user.id +
-                                                "]"
-                                            },
-                                            on: {
-                                              click: function($event) {
-                                                $event.preventDefault()
-                                                _vm.restoreDeleteUser(user.id)
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass:
-                                                "fas fa-trash-restore-alt"
-                                            })
-                                          ]
-                                        )
-                                  ],
-                                  1
+                                        ),
+                                        _vm._v(" "),
+                                        user.deleted_at == null
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass: "text-danger",
+                                                attrs: {
+                                                  href: "javascript: void(0);",
+                                                  title:
+                                                    "A papelera / Borrar registro [" +
+                                                    user.id +
+                                                    "]"
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.preventDefault()
+                                                    _vm.trashDeleteUser(user.id)
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "fas fa-trash-alt"
+                                                })
+                                              ]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "text-warning-trash",
+                                                attrs: {
+                                                  href: "javascript: void(0);",
+                                                  title:
+                                                    "Restaurar / Borrar registro [" +
+                                                    user.id +
+                                                    "]"
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.preventDefault()
+                                                    _vm.restoreDeleteUser(
+                                                      user.id
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "fas fa-trash-restore-alt"
+                                                })
+                                              ]
+                                            )
+                                      ],
+                                      1
+                                    )
+                                  ]
                                 )
-                              ]
+                              }),
+                              0
                             )
-                          }),
-                          0
-                        )
-                  ])
+                      ])
                 ])
               ])
             ])
@@ -67198,12 +67252,39 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("h3", { staticClass: "card-title p-3" }, [
+      _c("i", {
+        staticClass: "fas fa-cogs",
+        attrs: { title: "Icono de estado de mantenimiento" }
+      }),
+      _vm._v(" "),
+      _c("strong", [_vm._v("En Mantenimiento")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-append" }, [
       _c(
         "button",
         { staticClass: "btn btn-navbar", attrs: { type: "submit" } },
         [_c("i", { staticClass: "fa fa-search", attrs: { title: "Buscar" } })]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tbody", [
+      _c("tr", [
+        _c("td", { staticClass: "text-muted text-center" }, [
+          _vm._v(
+            "\n                                                    :: Sección en mantenimiento temporal ::\n                                                "
+          )
+        ])
+      ])
     ])
   },
   function() {
