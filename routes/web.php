@@ -116,6 +116,16 @@ Route::get('/admin/dashboard/get-tots', 'AdminPanelController@getTots')
 Route::get('/admin/{path}', 'AdminPanelController@index')
     ->where( 'path', '([A-z\d\-\/_.]+)?' )
     ->middleware('can:isAdmin');
+/**
+ * ¡¡ATENCIÓN!!
+ * La siguiente expresión regular " ([A-z\d-\/_.]+)? ", por los requerimientos de Heroku
+ * sobre "PCRE - Perl Compatible Regular Expressions", no es totalmente válida y produce
+ * una excepción (aunque en LOCAL funcione correctamente).
+ * El ERROR se produce por el carácter "-" (hyphen) que se exige debe ser "escapado" (\-)
+ * o puesto en último lugar de la expresión siempre que no sirva para limitar un rango.
+ * En esta ocasión se opta por escaparlo:
+ *      '([A-z\d\-\/_.]+)?'
+ */
 
 //==================================================
 Route::get('/home', 'HomeController@index')
