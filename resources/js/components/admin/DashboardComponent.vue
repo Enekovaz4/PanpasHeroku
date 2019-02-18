@@ -316,11 +316,11 @@
                     let elem_result;
                     Object.keys(this.objRecetasAltaXFechas_previo).forEach((elemKey) => {
                         elem_result = this.objRecetasAltaXFechas_previo[elemKey];
-                        //dia_alta | totalRecetas
+                        //dia_alta | total_recetas
 
                         this.chartRecetasAltaXFechas_Data.push([
                             this.formatFechaDMY(elem_result.dia_alta),
-                            elem_result.totalRecetas,
+                            elem_result.total_recetas,
                         ]);
                     })
                 })

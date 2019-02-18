@@ -4846,9 +4846,9 @@ __webpack_require__.r(__webpack_exports__);
         _this2.objRecetasAltaXFechas_previo = response.data;
         var elem_result;
         Object.keys(_this2.objRecetasAltaXFechas_previo).forEach(function (elemKey) {
-          elem_result = _this2.objRecetasAltaXFechas_previo[elemKey]; //dia_alta | totalRecetas
+          elem_result = _this2.objRecetasAltaXFechas_previo[elemKey]; //dia_alta | total_recetas
 
-          _this2.chartRecetasAltaXFechas_Data.push([_this2.formatFechaDMY(elem_result.dia_alta), elem_result.totalRecetas]);
+          _this2.chartRecetasAltaXFechas_Data.push([_this2.formatFechaDMY(elem_result.dia_alta), elem_result.total_recetas]);
         });
       }).catch(function (error) {
         //SI HAY ALGÚN ERROR
