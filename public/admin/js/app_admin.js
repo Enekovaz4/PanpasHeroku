@@ -4791,7 +4791,7 @@ __webpack_require__.r(__webpack_exports__);
      * dentro de un rango de fechas dado
     */
     chartRecetasAltaXFechas: function chartRecetasAltaXFechas() {
-      alert(':: Se cargará la gráfica según el rango de fechas seleccionado ::');
+      console.log(':: Se cargará la gráfica según el rango de fechas seleccionado ::');
       this.chartRecetasAltaXFechas_Data.push(['01/02/2019', 1000]);
       this.chartRecetasAltaXFechas_Data.push(['02/02/2019', 1170]);
       this.chartRecetasAltaXFechas_Data.push(['03/02/2019', 660]);
