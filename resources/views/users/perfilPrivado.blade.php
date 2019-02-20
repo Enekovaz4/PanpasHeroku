@@ -39,7 +39,7 @@
 
 
 
-
+<!--
         <script type="text/javascript">
             function validarImagenURL(){
                var url = $("input[name=newAvatar]").val();
@@ -60,7 +60,7 @@
                 }
             }
         </script>
-
+-->
 
 
 @endsection
@@ -91,7 +91,7 @@
                                 --}}
 
                                 <form action="/user/guardarFotoPerfilURL" method="post" enctype="multipart/form-data" class="centrado">
-                                <div><input type="text" name="newAvatar" class="btn btn-secondary col-12" required placeholder="inserta URL de imagen" oninput="validarImagenURL();" autocomplete="off"><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
+                                <div><input type="text" name="newAvatar" class="btn btn-secondary col-12" placeholder="inserta URL de imagen" autocomplete="off"><input type="submit" name="sub_avatar" value="Cambiar" class="btn btn-primary"></div>
 
                                     <img src="{{$user->avatar}}" class="avatar" alt="Tu foto de perfil actual.">
                                     <div class="col-12" style="max-width: 390px; float: right;">

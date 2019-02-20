@@ -74,7 +74,11 @@ class UserPerfilController extends Controller
 
         $url = $image;
 
-        $user->avatar = $url;
+        if (strlen($image) != 0){
+            $user->avatar = $url;
+        } else 
+            $user->avatar = "https://image.freepik.com/free-icon/user-profile-icon_318-33925.jpg";
+      
 
         $user->save();
         Auth::login($user);
