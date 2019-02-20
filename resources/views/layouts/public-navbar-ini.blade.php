@@ -16,7 +16,7 @@
                             <a class="nav-link js-scroll-trigger" href="#ranking" title="Ir a la sección de Ranking">Ranking</a>
                         </li>
                         <li class="nav-item p-2">
-                            <a class="nav-link js-scroll-trigger" href="#clients" title="Ir a la sección de Clientes">Clientes</a>
+                            <a class="nav-link js-scroll-trigger" href="#clients" title="Ir a la sección de Patrocinadores">Patrocinadores</a>
                         </li>
                         <li class="nav-item p-2">
                             <a class="nav-link js-scroll-trigger" href="#contact" title="Ir a la sección de Contacto">Contacto</a>
@@ -35,7 +35,7 @@
                             <a class="btn btn-primary text-uppercase js-scroll-trigger" href="#" data-target="#registerModal" data-toggle="modal" title="Crear cuenta de usuario"><i class="fa fa-user-plus"></i> Registro</a>
                         </li>
 
-                        @else 
+                        @else
 
                          <li class="nav-item p-3">
                             <a class="btn btn-primary text-uppercase js-scroll-trigger" href="/users" title="Inicio"><i class="fas fa-sign-in-alt"></i> {{ Auth::user()->username }}</a>
