@@ -131,24 +131,24 @@
                     <div class="col-sm-4">
                         <div class="client">
                             <a href="#" title="Acceder a su perfil">
-                                <img class="mx-auto rounded-circle" src="images/clientes/ogitxerri.png" alt="Ogi Txerri - logo">
+                                <img class="mx-auto rounded-circle" src="images/clientes/troyano.png" alt="Troyano - logo">
                             </a>
-                            <h4>Ogi Txerri</h4>
-                            <p class="text-muted">Tu pan marrano</p>
+                            <h4>Troyano</h4>
+                            <p class="text-muted">A caballo y con sorpresa</p>
                             <ul class="list-inline social-buttons">
                                 <li class="list-inline-item">
                                     <a href="#" target="_blank" title="Visitar su Twitter">
-                                        <i class="fab fa-twitter" title="Ogi Txerri - Twitter"></i>
+                                        <i class="fab fa-twitter" title="Troyano - Twitter"></i>
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
                                     <a href="#" target="_blank" title="Visitar su Facebook">
-                                        <i class="fab fa-facebook-f" title="Ogi Txerri - Facebook"></i>
+                                        <i class="fab fa-facebook-f" title="Troyano - Facebook"></i>
                                     </a>
                                 </li>
                                     <li class="list-inline-item">
                                     <a href="#" target="_blank" title="Visitar su Linkedin">
-                                        <i class="fab fa-linkedin-in" title="Ogi Txerri - Linkedin"></i>
+                                        <i class="fab fa-linkedin-in" title="Troyano - Linkedin"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -207,6 +207,7 @@
                         </div>
                     </div>
                 </div>
+<!--
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="client">
@@ -287,7 +288,9 @@
                         </div>
                     </div>
                 </div>
+-->
             </div>
+
         </section>
 
         {{-- Contacto --}}

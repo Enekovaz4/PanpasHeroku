@@ -93,7 +93,7 @@
                                     <a href="#comentarios"><div class="btn btn-primary right">Comentarios</div></a>
                                 </h1>
                                 <img src="{{$receta->imagen}}" class="img-receta" alt="Foto de la Receta: {{$receta->titulo}}">
-							<p style="text-align: center; margin-top: 50px;">{{$receta->descripcion}}</p>
+							<p style="text-align: center; margin-top: 50px;">{{html_entity_decode($receta->descripcion)}}</p>
                             </div>
 
                             <div class="card-body">
@@ -107,8 +107,8 @@
       <ul>
 	      @foreach ($ingredientes as $ingrediente)
 	      		<li class="list-group-item d-flex justify-content-between align-items-center col-md-6 col-lg-4 col-xl-4 col-xs-12" style="margin: auto;" id="li_{{$ingrediente[0]}}">
-					<input type="checkbox" name="ingrediente" id="check_{{$ingrediente[0]}}">{{$ingrediente[0]}}
-				    <span class="badge badge-primary badge-pill">{{$ingrediente[1]}}</span>
+					<input type="checkbox" name="ingrediente" id="check_{{$ingrediente[0]}}">{{html_entity_decode($ingrediente[0])}}
+				    <span class="badge badge-primary badge-pill">{{html_entity_decode($ingrediente[1])}}</span>
 				</li>
 	      @endforeach
   		</ul>

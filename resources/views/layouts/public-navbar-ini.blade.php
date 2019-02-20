@@ -16,7 +16,7 @@
                             <a class="nav-link js-scroll-trigger" href="#ranking" title="Ir a la sección de Ranking">Ranking</a>
                         </li>
                         <li class="nav-item p-2">
-                            <a class="nav-link js-scroll-trigger" href="#clients" title="Ir a la sección de Clientes">Clientes</a>
+                            <a class="nav-link js-scroll-trigger" href="#clients" title="Ir a la sección de Patrocinadores">Patrocinadores</a>
                         </li>
                         <li class="nav-item p-2">
                             <a class="nav-link js-scroll-trigger" href="#contact" title="Ir a la sección de Contacto">Contacto</a>

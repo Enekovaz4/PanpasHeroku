@@ -315,7 +315,7 @@
                         <div style="margin-bottom: 10px;">
                             <div class="col-lg-8" style="display: inline-block;">
                                 <label><strong>Título</strong></label>
-                                <input type="text" name="titulo" class="col-lg-12 w3-input" required placeholder="Inserta un título" alt="Inserta un título" pattern="^[a-z 0-9]*$">
+                                <input type="text" name="titulo" class="col-lg-12 w3-input" required placeholder="Inserta un título" alt="Inserta un título" pattern="^[a-z A-Z 0-9]*$">
                             </div>
                             <div class="col-lg-3" style="display: inline-block;">
                                 <label><strong>Categoría</strong></label>
