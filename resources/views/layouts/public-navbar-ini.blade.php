@@ -35,7 +35,7 @@
                             <a class="btn btn-primary text-uppercase js-scroll-trigger" href="#" data-target="#registerModal" data-toggle="modal" title="Crear cuenta de usuario"><i class="fa fa-user-plus"></i> Registro</a>
                         </li>
 
-                        @else 
+                        @else
 
                          <li class="nav-item p-3">
                             <a class="btn btn-primary text-uppercase js-scroll-trigger" href="/users" title="Inicio"><i class="fas fa-sign-in-alt"></i> {{ Auth::user()->username }}</a>
