@@ -91764,7 +91764,7 @@ function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\inetpubapache-www\__laravel-homestead-proyectos\panpas-restructurado-git-heroku-20FEB\resources\js\app_admin.js */"./resources/js/app_admin.js");
+module.exports = __webpack_require__(/*! D:\inetpubapache-www\__laravel-homestead-proyectos\panpas-restructurado-git-heroku\resources\js\app_admin.js */"./resources/js/app_admin.js");
 
 
 /***/ })
