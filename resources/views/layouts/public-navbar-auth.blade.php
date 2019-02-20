@@ -1,6 +1,6 @@
 
         {{-- Navigation --}}
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-shrink" id="mainNav">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top" id="mainNav" style="background-color: rgb(20, 50, 53, .75)">
             <div class="container">
                 <a class="navbar-brand js-scroll-trigger" href="{{ route('index') }}" title="{{ config('app.name', 'PaNPaS') }} logo - inicio de la aplicación">{{ config('app.name', 'PaNPaS') }}</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
