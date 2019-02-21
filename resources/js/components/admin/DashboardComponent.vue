@@ -99,26 +99,26 @@
                             <div class="col-lg-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Últimos usuario(s) registrado(s)</h5>
+                                        <h5 class="card-title"><strong>Últimos usuario(s) registrado(s)</strong></h5>
 
                                         <p class="card-text">
                                             Kesi KEsi Kesito
                                         </p>
 
-                                        <a href="#" class="card-link">Card link</a>
-                                        <a href="#" class="card-link">Another link</a>
+                                        <a href="#" class="card-link">Ver Perfil</a>
+                                        <a href="#" class="card-link">Ver Actividad</a>
                                     </div>
                                 </div>
 
                                 <div class="card card-primary card-outline">
                                     <div class="card-body">
-                                        <h5 class="card-title">Últimas receta(s)</h5>
+                                        <h5 class="card-title"><strong>Últimas receta(s)</strong></h5>
 
                                         <p class="card-text">
                                             Pastel de mantequilla.
                                         </p>
-                                        <a href="#" class="card-link">Card link</a>
-                                        <a href="#" class="card-link">Another link</a>
+                                        <a href="#" class="card-link">Detalle</a>
+                                        <a href="#" class="card-link">Comentarios</a>
                                     </div>
                                 </div><!-- /.card -->
                             </div>

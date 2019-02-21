@@ -70273,7 +70273,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-body" }, [
           _c("h5", { staticClass: "card-title" }, [
-            _vm._v("Últimos usuario(s) registrado(s)")
+            _c("strong", [_vm._v("Últimos usuario(s) registrado(s)")])
           ]),
           _vm._v(" "),
           _c("p", { staticClass: "card-text" }, [
@@ -70283,11 +70283,11 @@ var staticRenderFns = [
           ]),
           _vm._v(" "),
           _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-            _vm._v("Card link")
+            _vm._v("Ver Perfil")
           ]),
           _vm._v(" "),
           _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-            _vm._v("Another link")
+            _vm._v("Ver Actividad")
           ])
         ])
       ]),
@@ -70295,7 +70295,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "card card-primary card-outline" }, [
         _c("div", { staticClass: "card-body" }, [
           _c("h5", { staticClass: "card-title" }, [
-            _vm._v("Últimas receta(s)")
+            _c("strong", [_vm._v("Últimas receta(s)")])
           ]),
           _vm._v(" "),
           _c("p", { staticClass: "card-text" }, [
@@ -70305,11 +70305,11 @@ var staticRenderFns = [
           ]),
           _vm._v(" "),
           _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-            _vm._v("Card link")
+            _vm._v("Detalle")
           ]),
           _vm._v(" "),
           _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-            _vm._v("Another link")
+            _vm._v("Comentarios")
           ])
         ])
       ])
