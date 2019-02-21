@@ -99,7 +99,7 @@
                             <div class="col-lg-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
+                                        <h5 class="card-title">Últimos usuario(s) registrado(s)</h5>
 
                                         <p class="card-text">
                                             Kesi KEsi Kesito
@@ -112,10 +112,10 @@
 
                                 <div class="card card-primary card-outline">
                                     <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
+                                        <h5 class="card-title">Últimas receta(s)</h5>
 
                                         <p class="card-text">
-                                            Some quick example text to build on the card title and make up the bulk of the card's content.
+                                            Pastel de mantequilla.
                                         </p>
                                         <a href="#" class="card-link">Card link</a>
                                         <a href="#" class="card-link">Another link</a>
@@ -155,7 +155,7 @@
                                     </div>
                                 </div>
 
-                                <div class="card card-primary card-outline">
+                                <!--<div class="card card-primary card-outline">
                                     <div class="card-header">
                                         <h5 class="m-0">Featured</h5>
                                     </div>
@@ -165,7 +165,7 @@
                                         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                                         <a href="#" class="btn btn-primary">Go somewhere</a>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                             <!-- /.col-md-6 -->
                         </div>
@@ -230,7 +230,7 @@
                 objRecetasAltaXFechas: {
                     ////'fecha_ini': '01/02/2019',
                     ////'fecha_ini': '2019/02/01',
-                    'fecha_ini': '01-02-2019',
+                    'fecha_ini': '01-12-2018',
                     'fecha_fin': new Date(),
                 },
                 //carga previa de resultados para gráfica "Alta de Recetas"
