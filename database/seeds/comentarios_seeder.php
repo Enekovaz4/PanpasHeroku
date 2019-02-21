@@ -2,7 +2,6 @@
 
 use App\User;
 use App\Receta;
-use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class comentarios_seeder extends Seeder
@@ -21,25 +20,39 @@ class comentarios_seeder extends Seeder
         static $recetas;
         $recetas = Receta::all();
 
-        $comentarios_faker_tot = 134;
 
-        $faker = Factory::create();
-        for ($i = 0; $i < $comentarios_faker_tot; $i++) {
-
-            ////$timestamp = mt_rand(1, time());
-            ////$randomDate = date('Y-m-d H:i:s', $timestamp);
-            $randomDate = $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now');
-
+        
             DB::table('comentarios')->insert([
                 'padre' => null,
-                'mensaje' => $faker->realText($faker->numberBetween(10,50)),
-                'user_id' => $users->random()->id,
-                'receta_id' => $recetas->random()->id,
+                'mensaje' => "Me encanta esta receta!",
+                'user_id' => 6,
+                'receta_id' => 1,
                 'time' => time(),
-                'leido' => $faker->numberBetween(0,1),
-                'created_at' => $randomDate,
-                'updated_at' => $randomDate,
+                'leido' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
-        }
+
+             DB::table('comentarios')->insert([
+                'padre' => null,
+                'mensaje' => "Creo que tengo que cambiar de horno... :(",
+                'user_id' => 4,
+                'receta_id' => 3,
+                'time' => time(),
+                'leido' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+             DB::table('comentarios')->insert([
+                'padre' => null,
+                'mensaje' => "Estoy a la espera de la siguiente receta...",
+                'user_id' => 5,
+                'receta_id' => 1,
+                'time' => time(),
+                'leido' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
     }
 }

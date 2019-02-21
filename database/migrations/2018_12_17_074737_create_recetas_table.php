@@ -16,9 +16,9 @@ class CreateRecetasTable extends Migration
         Schema::create('recetas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titulo');
-            $table->string('descripcion');
+            $table->longText('descripcion');
             $table->string('imagen');
-            $table->text('elaboracion')->nullable();
+            $table->longText('elaboracion')->nullable();
             $table->text('ingredientes')->nullable();
             $table->integer('votos')->default(0);
             $table->integer('user_id')->unsigned();

@@ -13,59 +13,41 @@ class follow_seeder extends Seeder
     {
 
             DB::table('user_user')->insert([
-                'follower' => 2,
-                'followed' => 3,
-            ]);
-
-            DB::table('user_user')->insert([
-                'follower' => 3,
+                'follower' => 4,
                 'followed' => 2,
             ]);
 
             DB::table('user_user')->insert([
-                'follower' => 2,
-                'followed' => 6,
+                'follower' => 3,
+                'followed' => 4,
             ]);
 
             DB::table('user_user')->insert([
-                'follower' => 2,
-                'followed' => 9,
+                'follower' => 3,
+                'followed' => 5,
             ]);
 
             DB::table('user_user')->insert([
-                'follower' => 2,
+                'follower' => 3,
                 'followed' => 6,
             ]);
 
             DB::table('user_user')->insert([
                 'follower' => 5,
-                'followed' => 7,
-            ]);
-
-            DB::table('user_user')->insert([
-                'follower' => 7,
                 'followed' => 6,
             ]);
 
             DB::table('user_user')->insert([
-                'follower' => 9,
-                'followed' => 2,
-            ]);
-
-            DB::table('user_user')->insert([
-                'follower' => 8,
-                'followed' => 7,
+                'follower' => 5,
+                'followed' => 3,
             ]);
 
             DB::table('user_user')->insert([
                 'follower' => 6,
-                'followed' => 7,
+                'followed' => 5,
             ]);
 
-            DB::table('user_user')->insert([
-                'follower' => 10,
-                'followed' => 2,
-            ]);
+            
 
     }
 }

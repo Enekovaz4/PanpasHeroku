@@ -16,28 +16,13 @@ class UsersTableSeeder extends Seeder
             'username' => 'Eneko', 'name' => 'Eneko', 'lastname' => 'Apellido', 'email' => 'Eneko@gmail.com', 'password' => 'usuario', 'avatar' => "https://omoro.ru/wp-content/uploads/2018/02/smileys-4.jpg",
         ],
         [
-            'username' => 'Robert', 'name' => 'Robert', 'lastname' => 'Baluta', 'email' => 'Robert@gmail.com', 'password' => 'usuario', 'avatar' => "https://nikewrites.files.wordpress.com/2016/11/pexels-photo.jpg?w=940",
+            'username' => 'Pedro', 'name' => 'Pedro', 'lastname' => 'Crespo', 'email' => 'Pedro@gmail.com', 'password' => 'usuario', 'avatar' => "https://nikewrites.files.wordpress.com/2016/11/pexels-photo.jpg?w=940",
         ],
         [
-            'username' => 'Ibai', 'name' => 'Ibai', 'lastname' => 'Alberdi', 'email' => 'Ibai@gmail.com', 'password' => 'usuario', 'avatar' => "https://cdn4.picryl.com/photo/1910/01/01/chinook-female-profile-640.jpg",
+            'username' => 'Sonia', 'name' => 'Sonia', 'lastname' => 'Ortiz', 'email' => 'Sonia@gmail.com', 'password' => 'usuario', 'avatar' => "http://naxio.com.ar/sites/default/files/imagen/blog/foto_perfil.jpeg",
         ],
         [
-            'username' => 'Jon', 'name' => 'Jon', 'lastname' => 'Artola', 'email' => 'JonA@gmail.com', 'password' => 'usuario', 'avatar' => "https://tse3.mm.bing.net/th?id=OIP.0qKvjuefI8ZQnXwQilmM6QHaE8&pid=Api",
-        ],
-        [
-            'username' => 'Yaiza', 'name' => 'Yaiza', 'lastname' => 'Muñoz', 'email' => 'Yaiza@gmail.com', 'password' => 'usuario', 'avatar' => "https://tse2.mm.bing.net/th?id=OIP.aa0Bx2M8Xq5l6rTkeYXHUgHaLH&pid=Api",
-        ],
-        [
-            'username' => 'David', 'name' => 'David', 'lastname' => 'Zabal', 'email' => 'David@gmail.com', 'password' => 'usuario', 'avatar' => "https://openclipart.org/image/2400px/svg_to_png/294182/Bearded-Man-Profile.png",
-        ],
-        [
-            'username' => 'Ander', 'name' => 'Ander', 'lastname' => 'Gonzalez', 'email' => 'Ander@gmail.com', 'password' => 'usuario', 'avatar' => "https://www.nameyourpets.com/images/pets/Donkey.jpg",
-        ],
-        [
-            'username' => 'Iker', 'name' => 'Iker', 'lastname' => 'Apaolaza', 'email' => 'Iker@gmail.com', 'password' => 'usuario', 'avatar' => "http://www.realnashvillenews.com/wp-content/uploads/2016/08/tomato-fest-man-800x600.png",
-        ],
-        [
-            'username' => 'Josu', 'name' => 'Josu', 'lastname' => 'Gomez', 'email' => 'Josu@gmail.com', 'password' => 'usuario', 'avatar' => "https://tse1.mm.bing.net/th?id=OIP.cxcqa9RvhGnRd8x3N2oBdgHaHn&pid=Api",
+            'username' => 'Xabi', 'name' => 'Xabi', 'lastname' => 'Perez', 'email' => 'XabiA@gmail.com', 'password' => 'usuario', 'avatar' => "https://tse3.mm.bing.net/th?id=OIP.0qKvjuefI8ZQnXwQilmM6QHaE8&pid=Api",
         ],
     ];//$_arr_users
 
@@ -60,24 +45,7 @@ class UsersTableSeeder extends Seeder
         [
             'country' => 'Spain', 'city' => 'Burgos',
         ],
-        [
-            'country' => 'France', 'city' => 'Hendaye',
-        ],
-        [
-            'country' => 'France', 'city' => 'Paris',
-        ],
-        [
-            'country' => 'France', 'city' => 'Marseille',
-        ],
-        [
-            'country' => 'Scotland', 'city' => 'Edimburgh',
-        ],
-        [
-            'country' => 'Canada', 'city' => 'Westville',
-        ],
-        [
-            'country' => 'Cuba', 'city' => 'La Habana',
-        ],
+        
     ];//$_arr_localization
 
     /**

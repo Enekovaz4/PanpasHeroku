@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
         //$this->call(ingredientesPanaderias_seeder::class);
         //$this->call(ingredientesRecetas_seeder::class);
 
-        //$this->call(comentarios_seeder::class);
-        //$this->call(comentarioUser_seeder::class);
+        $this->call(comentarios_seeder::class);
+        $this->call(comentarioUser_seeder::class);
 
         $this->call(follow_seeder::class);
     }

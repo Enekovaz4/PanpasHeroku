@@ -37,7 +37,7 @@
                                     @foreach (Auth::user()->recetas as $receta)                                    
                                         @foreach ($receta->comentarios as $comentario)
                                         <br>
-                                            @if ($comentario->time > (time() - 1000))
+                                            @if ($comentario->time > (time() - 20000))
                                                <li>
                                                 <div class="comment-main-level">
                                                     <!-- Avatar -->
