@@ -257,31 +257,6 @@ Decora con unas hojitas de menta.</p>",
             ]);
 
 
-                DB::table('recetas')->insert([
-                'titulo' => 'Pastel Mágico',
-                'descripcion' => "El pastel mágico es un postre sorprendente, además de sencillo. Su nombre se debe a que con una sola preparación, en el horno sucede una especie de magia. Sí, tal como te digo, cuando se hornea, la masa se divide en tres capas perfectamente diferenciadas. En la parte baja queda un pudin, denso y riquísimo, en el centro aparece un flan suave y cremoso y en la parte superior se distingue un delicado y esponjoso bizcocho. Así de sencillo y así de espectacular es esta tarta. Sin necesidad de decorar, solamente una preparación y espolvorear con azúcar glass al final.",
-                'ingredientes' => "Leche 500ml, Huevos 4, Azúcar 140g, Mantequilla 125g, Harina 115g, Ralladura Limón -, Esencia Vainilla -, Sal 3g",
-                'imagen' => "http://www.annarecetasfaciles.com/files/pastel-inteligente-3-815x458.jpg",
-                'elaboracion' => "
-1.- Forra el molde. Utiliza un molde apto para horno. El que yo he utilizado mide 24 centímetros de largo, por 19 de ancho y 6 de profundidad. Humedece el papel de horno con agua del grifo. Despliega el papel, adáptalo al molde y reserva este molde. Precalienta el horno con calor arriba y abajo a 180 grados.<br><br>
-
-2 .- Separa en dos boles las yemas de las claras y reserva las claras. Añade a las yemas la esencia de vainilla, la ralladura de limón y el azúcar. Bate todo con unas varillas hasta que las yemas hayan blanqueado y añade la mantequilla a temperatura ambiente. Bate todo otra vez y añade la leche poco a poco. Vuelve a batir y añade la harina a través de un colador. Mezcla todo bien y reserva.<br><br>
-
-3.- Monta las claras. Añade una pizquita de sal al bol de las claras y, con las varillas bien lavadas y secas, monta las claras.<br><br>
-
-4.- Incorpora las claras al resto de pastel. Mezcla con movimientos envolventes con mucho cuidado de no bajar las claras. Cuando esté mezclado, debe quedar con aspecto grumoso, pásalo al molde. Alisa la superficie y llévalo al horno previamente precalentado.<br><br>
-
-5.- Hornea el pastel. Los primeros 10 minutos, hornea a 180 grados con calor arriba y abajo. Pasados los 10 minutos, baja la temperatura a 160 grados con calor arriba y abajo y déjalo otros 40 minutos.<br><br>
-
-6.- Desmolda el pastel. Espera a que se enfríe para desmoldar. Puedes dejarlo sobre una rejilla para que enfríe antes. Separa el papel, pásalo al plato donde vayas a servirlo, y corta el sobrante.<br><br>
-",
-                'user_id' => 5,
-                'votos' => 0,
-                'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-02-15'),
-            ]);
-
-
             DB::table('recetas')->insert([
             'titulo' => 'Coca de hojaldre con piñones y cabello de ángel',
             'descripcion' => "La coca de hojaldre con cabello de ángel, es una coca dulce típica catalana. El relleno de cabello de ángel la hace muy jugosa y el contraste de crujiente y tierno es una verdadera delicia. Puedes preparar esta coca para acompañar un café con tus amigos o como postre para toda la familia. Sigue el paso a paso que te muestro y comprobarás lo sencillo que es agradar en la mesa a tus invitados.",
@@ -305,6 +280,85 @@ Decora con unas hojitas de menta.</p>",
             'categoria' => 'panadería',
             'created_at' => new DateTime('2019-02-15'),
         ]);
+
+
+        DB::table('recetas')->insert([
+        'titulo' => 'Pan para dieta',
+        'descripcion' => "El pan suele ser tolerado en las dietas pero con mucha moderación. Este pan que te presento hoy en realidad no es pan porque ni los ingredientes ni la preparación coinciden con lo que todos entendemos como pan. Pero, esta preparación, con aspecto de rico pan doradito y con sus semillas, hace a la perfección las veces de éste para preparar bocadillos estando a dieta y sin sentirse culpable.",
+        'ingredientes' => "Claras de huevo 2, Salvado de avena 30g, Cucharada sopera de queso fresco batido 1, Pizca de sal 1, Levadura química o polvo de hornear 2g, Semillas de lino para decorar X, Gotas de aceite para engrasar X",
+        'imagen' => "http://www.annarecetasfaciles.com/files/pan-dieta-1.jpg",
+        'elaboracion' => "
+1.- Empieza encendiendo el horno a 250º C.<br><br>
+
+2.- En un bol bate las claras hasta que espumen. No es necesario que lleguen al punto de nieve. Añade el queso fresco, el salvado de avena, la sal, la levadura tipo royal y bate bien hasta que quede una mezcla homogénea. Unta un molde forrado con papel de aluminio con unas gotas de aceite y  repártelo con los dedos. Vierte el preparado en el molde y alísa la superficie con una espátula. Si usas un molde tipo plum cake, será la medida ideal para que una vez terminado, partiéndolo por la mitad tengas dos rebanadas. Cubre la superficie con unas semillas de lino.<br><br>
+
+3.- Introduce el molde en el horno a media altura con calor arriba y abajo hasta que se dore bien. Esto puede tardar de diez a quince minutos. Lo que tarde. Una vez dorado, se saca del horno y el papel de aluminio se desprende fácilmente. Si se ha pegado, deja que se enfríe un poco y se soltará sin dificultad. Dejar enfriar encima de una rejilla porque desprende mucha humedad.
+
+
+",
+        'user_id' => 4,
+        'votos' => 1,
+        'categoria' => 'panadería',
+        'created_at' => new DateTime('2019-02-19'),
+    ]);
+
+
+    DB::table('recetas')->insert([
+    'titulo' => 'Tarde de Queso Oreo',
+    'descripcion' => "La tarta de queso o cheesecake Oreo te va a encantar por su sabor suave y cremoso, y por lo rápido y fácil que se prepara. Es una receta ideal si eres principiante en la cocina. Para su elaboración no es necesario el horno, de aquí que sea tan fácil ya que no tendrás que estar pendiente de tiempos ni de temperaturas. Lleva una base de galletas oreo y una crema de queso y nata que hará las delicias de todo el que la pruebe. Ya verás, seguro que dura un suspiro en la mesa. Anímate a prepararla y te aseguro que se volverá una tarta a la que recurras en muchas ocasiones en las que te apetece degustar algo delicioso, pero no dispones de mucho tiempo para dedicarlo a la cocina.",
+    'ingredientes' => "Galletas Oreo 24, Nata 500ml, Leche 250ml, Philadelphia 400g, Azúcar 250g, Esencia Vainilla -, Mantequilla 100g, Hojas Gelatina 8",
+    'imagen' => "http://www.annarecetasfaciles.com/files/tarta-de-queso-oreo-video-1miniatura-815x458.jpg",
+    'elaboracion' => "
+1.- Separa las galletas y la crema y colócalos en dos boles diferentes. Tritura las galletas en la picadora. Lo mejor es triturar primero la mitad y luego el resto. Cuando estén totalmente picadas, reserva dos o tres cucharadas soperas de la harina de galletas oreo, que emplearás en la decoración final de la tarta. Tamiza las galletas trituradas de la decoración para asegurarte de que el polvo de galleta es lo bastante fino.<br><br>
+
+2.- Añade la mantequilla derretida a las galletas trituradas y mezcla bien hasta que la galleta quede empapada completamente. Pasa la mezcla al molde para tartas y repártelo bien con la espátula cubriendo toda la base. Ayúdate con una espátula o lengua de gato para conseguir una capa lo más lisa y uniforme posible. Lleva al frigorífico para que la mantequilla se endurezca de nuevo.<br><br>
+
+3.- En un bol con agua, sumerge las láminas de gelatina para hidratarlas, antes de empezar a preparar la crema de queso.<br><br>
+
+4.- Coloca un cazo al fuego y calienta la leche. Cuando esté caliente añade la gelatina escurrida y remueve con las varillas hasta que se disuelva. Incorpora el queso crema. Remueve hasta que quede integrado por completo. Una vez integrado, retira del fuego y añade la crema de las galletas oreo, que habíamos reservado al principio. Bate con unas varillas manuales y reserva.<br><br>
+
+5.- Vierte la nata o crema de leche (crema para batir) en un bol y añade el azúcar. Para montar la nata con las varillas, empieza con una velocidad baja porque salpica mucho y poco a poco ve aumentando la intensidad. Cuando la nata dibuja el trazo, deja de batir o podría cortarse. Ya está la nata montada.<br><br>
+
+6.- Coloca la crema de queso, que se habrá enfriado un poco, en un bol y añade una cucharadita de esencia de vainilla (opcional). La esencia de vainilla tiñe un poco el color blanco de la tarta. Ve incorporando poco a poco la nata con movimientos envolventes para evitar que pierda el aire que hemos introducido al montarla. Cuando la crema esté bien mezclada, viértela en el molde de tarta.<br><br>
+
+7.-Lleva el molde a la nevera, mínimo 8 horas para que la gelatina actúe y cuaje la tarta de galletas oreo. Lo mejor es hacerla la víspera.<br><br>
+
+8.- Una vez bien fría, retira de la nevera y, con la ayuda de un colador, cubre por toda la superficie de la tarta con la harina de galletas oreo. Procura que quede toda la superficie uniforme y completamente negra, sin zonas blancas.<br><br>
+
+9.- Para retirar el molde, ayúdate de un cuchillo para despegar el borde de la tarta. Las paredes se despegarán con facilidad.
+
+
+",
+    'user_id' => 5,
+    'votos' => 0,
+    'categoria' => 'pastelería',
+    'created_at' => new DateTime('2019-02-21'),
+]);
+
+
+                DB::table('recetas')->insert([
+                'titulo' => 'Pastel Mágico',
+                'descripcion' => "El pastel mágico es un postre sorprendente, además de sencillo. Su nombre se debe a que con una sola preparación, en el horno sucede una especie de magia. Sí, tal como te digo, cuando se hornea, la masa se divide en tres capas perfectamente diferenciadas. En la parte baja queda un pudin, denso y riquísimo, en el centro aparece un flan suave y cremoso y en la parte superior se distingue un delicado y esponjoso bizcocho. Así de sencillo y así de espectacular es esta tarta. Sin necesidad de decorar, solamente una preparación y espolvorear con azúcar glass al final.",
+                'ingredientes' => "Leche 500ml, Huevos 4, Azúcar 140g, Mantequilla 125g, Harina 115g, Ralladura Limón -, Esencia Vainilla -, Sal 3g",
+                'imagen' => "http://www.annarecetasfaciles.com/files/pastel-inteligente-3-815x458.jpg",
+                'elaboracion' => "
+1.- Forra el molde. Utiliza un molde apto para horno. El que yo he utilizado mide 24 centímetros de largo, por 19 de ancho y 6 de profundidad. Humedece el papel de horno con agua del grifo. Despliega el papel, adáptalo al molde y reserva este molde. Precalienta el horno con calor arriba y abajo a 180 grados.<br><br>
+
+2 .- Separa en dos boles las yemas de las claras y reserva las claras. Añade a las yemas la esencia de vainilla, la ralladura de limón y el azúcar. Bate todo con unas varillas hasta que las yemas hayan blanqueado y añade la mantequilla a temperatura ambiente. Bate todo otra vez y añade la leche poco a poco. Vuelve a batir y añade la harina a través de un colador. Mezcla todo bien y reserva.<br><br>
+
+3.- Monta las claras. Añade una pizquita de sal al bol de las claras y, con las varillas bien lavadas y secas, monta las claras.<br><br>
+
+4.- Incorpora las claras al resto de pastel. Mezcla con movimientos envolventes con mucho cuidado de no bajar las claras. Cuando esté mezclado, debe quedar con aspecto grumoso, pásalo al molde. Alisa la superficie y llévalo al horno previamente precalentado.<br><br>
+
+5.- Hornea el pastel. Los primeros 10 minutos, hornea a 180 grados con calor arriba y abajo. Pasados los 10 minutos, baja la temperatura a 160 grados con calor arriba y abajo y déjalo otros 40 minutos.<br><br>
+
+6.- Desmolda el pastel. Espera a que se enfríe para desmoldar. Puedes dejarlo sobre una rejilla para que enfríe antes. Separa el papel, pásalo al plato donde vayas a servirlo, y corta el sobrante.<br><br>
+",
+                'user_id' => 5,
+                'votos' => 0,
+                'categoria' => 'pastelería',
+                'created_at' => new DateTime('2019-05-15'),
+            ]);
 
 
                 DB::table('recetas')->insert([
@@ -332,61 +386,7 @@ Decora con unas hojitas de menta.</p>",
                 'user_id' => 5,
                 'votos' => 0,
                 'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-02-19'),
-            ]);
-
-
-            DB::table('recetas')->insert([
-            'titulo' => 'Pan para dieta',
-            'descripcion' => "El pan suele ser tolerado en las dietas pero con mucha moderación. Este pan que te presento hoy en realidad no es pan porque ni los ingredientes ni la preparación coinciden con lo que todos entendemos como pan. Pero, esta preparación, con aspecto de rico pan doradito y con sus semillas, hace a la perfección las veces de éste para preparar bocadillos estando a dieta y sin sentirse culpable.",
-            'ingredientes' => "Claras de huevo 2, Salvado de avena 30g, Cucharada sopera de queso fresco batido 1, Pizca de sal 1, Levadura química o polvo de hornear 2g, Semillas de lino para decorar X, Gotas de aceite para engrasar X",
-            'imagen' => "http://www.annarecetasfaciles.com/files/pan-dieta-1.jpg",
-            'elaboracion' => "
-    1.- Empieza encendiendo el horno a 250º C.<br><br>
-
-    2.- En un bol bate las claras hasta que espumen. No es necesario que lleguen al punto de nieve. Añade el queso fresco, el salvado de avena, la sal, la levadura tipo royal y bate bien hasta que quede una mezcla homogénea. Unta un molde forrado con papel de aluminio con unas gotas de aceite y  repártelo con los dedos. Vierte el preparado en el molde y alísa la superficie con una espátula. Si usas un molde tipo plum cake, será la medida ideal para que una vez terminado, partiéndolo por la mitad tengas dos rebanadas. Cubre la superficie con unas semillas de lino.<br><br>
-
-    3.- Introduce el molde en el horno a media altura con calor arriba y abajo hasta que se dore bien. Esto puede tardar de diez a quince minutos. Lo que tarde. Una vez dorado, se saca del horno y el papel de aluminio se desprende fácilmente. Si se ha pegado, deja que se enfríe un poco y se soltará sin dificultad. Dejar enfriar encima de una rejilla porque desprende mucha humedad.
-
-
-    ",
-            'user_id' => 4,
-            'votos' => 1,
-            'categoria' => 'panadería',
-            'created_at' => new DateTime('2019-02-19'),
-        ]);
-
-
-                DB::table('recetas')->insert([
-                'titulo' => 'Tarde de Queso Oreo',
-                'descripcion' => "La tarta de queso o cheesecake Oreo te va a encantar por su sabor suave y cremoso, y por lo rápido y fácil que se prepara. Es una receta ideal si eres principiante en la cocina. Para su elaboración no es necesario el horno, de aquí que sea tan fácil ya que no tendrás que estar pendiente de tiempos ni de temperaturas. Lleva una base de galletas oreo y una crema de queso y nata que hará las delicias de todo el que la pruebe. Ya verás, seguro que dura un suspiro en la mesa. Anímate a prepararla y te aseguro que se volverá una tarta a la que recurras en muchas ocasiones en las que te apetece degustar algo delicioso, pero no dispones de mucho tiempo para dedicarlo a la cocina.",
-                'ingredientes' => "Galletas Oreo 24, Nata 500ml, Leche 250ml, Philadelphia 400g, Azúcar 250g, Esencia Vainilla -, Mantequilla 100g, Hojas Gelatina 8",
-                'imagen' => "http://www.annarecetasfaciles.com/files/tarta-de-queso-oreo-video-1miniatura-815x458.jpg",
-                'elaboracion' => "
-1.- Separa las galletas y la crema y colócalos en dos boles diferentes. Tritura las galletas en la picadora. Lo mejor es triturar primero la mitad y luego el resto. Cuando estén totalmente picadas, reserva dos o tres cucharadas soperas de la harina de galletas oreo, que emplearás en la decoración final de la tarta. Tamiza las galletas trituradas de la decoración para asegurarte de que el polvo de galleta es lo bastante fino.<br><br>
-
-2.- Añade la mantequilla derretida a las galletas trituradas y mezcla bien hasta que la galleta quede empapada completamente. Pasa la mezcla al molde para tartas y repártelo bien con la espátula cubriendo toda la base. Ayúdate con una espátula o lengua de gato para conseguir una capa lo más lisa y uniforme posible. Lleva al frigorífico para que la mantequilla se endurezca de nuevo.<br><br>
-
-3.- En un bol con agua, sumerge las láminas de gelatina para hidratarlas, antes de empezar a preparar la crema de queso.<br><br>
-
-4.- Coloca un cazo al fuego y calienta la leche. Cuando esté caliente añade la gelatina escurrida y remueve con las varillas hasta que se disuelva. Incorpora el queso crema. Remueve hasta que quede integrado por completo. Una vez integrado, retira del fuego y añade la crema de las galletas oreo, que habíamos reservado al principio. Bate con unas varillas manuales y reserva.<br><br>
-
-5.- Vierte la nata o crema de leche (crema para batir) en un bol y añade el azúcar. Para montar la nata con las varillas, empieza con una velocidad baja porque salpica mucho y poco a poco ve aumentando la intensidad. Cuando la nata dibuja el trazo, deja de batir o podría cortarse. Ya está la nata montada.<br><br>
-
-6.- Coloca la crema de queso, que se habrá enfriado un poco, en un bol y añade una cucharadita de esencia de vainilla (opcional). La esencia de vainilla tiñe un poco el color blanco de la tarta. Ve incorporando poco a poco la nata con movimientos envolventes para evitar que pierda el aire que hemos introducido al montarla. Cuando la crema esté bien mezclada, viértela en el molde de tarta.<br><br>
-
-7.-Lleva el molde a la nevera, mínimo 8 horas para que la gelatina actúe y cuaje la tarta de galletas oreo. Lo mejor es hacerla la víspera.<br><br>
-
-8.- Una vez bien fría, retira de la nevera y, con la ayuda de un colador, cubre por toda la superficie de la tarta con la harina de galletas oreo. Procura que quede toda la superficie uniforme y completamente negra, sin zonas blancas.<br><br>
-
-9.- Para retirar el molde, ayúdate de un cuchillo para despegar el borde de la tarta. Las paredes se despegarán con facilidad.
-
-
-",
-                'user_id' => 5,
-                'votos' => 0,
-                'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-02-21'),
+                'created_at' => new DateTime('2019-07-19'),
             ]);
 
 
