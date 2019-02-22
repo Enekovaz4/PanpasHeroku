@@ -21,7 +21,7 @@ class comentarios_seeder extends Seeder
         $recetas = Receta::all();
 
 
-        
+
             DB::table('comentarios')->insert([
                 'padre' => null,
                 'mensaje' => "Me encanta esta receta!",
@@ -37,7 +37,7 @@ class comentarios_seeder extends Seeder
                 'padre' => null,
                 'mensaje' => "Creo que tengo que cambiar de horno... :(",
                 'user_id' => 4,
-                'receta_id' => 3,
+                'receta_id' => 4,
                 'time' => time(),
                 'leido' => 0,
                 'created_at' => now(),

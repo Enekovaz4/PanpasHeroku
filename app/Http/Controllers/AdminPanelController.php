@@ -13,6 +13,8 @@ class AdminPanelController extends Controller
 {
     //EmailADMIN remitente de respuesta(s)
     protected $app_email;
+    //Capturando valor de esta configuración sobre la BD
+    protected $db_driver_actual;
 
     /**
      * Create a new controller instance.
@@ -25,6 +27,7 @@ class AdminPanelController extends Controller
         $this->middleware(['auth', 'verified']);
 
         $this->app_email = config('mail.from.address', 'panpas.zm@gmail.com');
+        $this->db_driver_actual = config('database.default', 'mysql');
     }
 
     public function index()
@@ -42,15 +45,41 @@ class AdminPanelController extends Controller
         $_arr_detalle = [];
 
         $tot_users          = User::withTrashed()->count();
-        $tot_recetas        = Receta::count();
-        $tot_comentarios    = Comentario::count();
-        $tot_mens_contacto  = Contacto::where('correo', '!=', $this->app_email)
+        $tot_recetas        = Receta::withTrashed()->count();
+        $tot_comentarios    = Comentario::withTrashed()->count();
+        $tot_mens_contacto  = Contacto::withTrashed()->where('correo', '!=', $this->app_email)
                                         ->count();//sin los enviados por ADMIN como respuesta
 
         $_arr_detalle['tot_users']          = $tot_users;
         $_arr_detalle['tot_recetas']        = $tot_recetas;
         $_arr_detalle['tot_comentarios']    = $tot_comentarios;
         $_arr_detalle['tot_mens_contacto']  = $tot_mens_contacto;
+
+        return $_arr_detalle;
+    }
+
+    /**
+     * Devolviendo últimos usuarios y recetas registrad@s
+     *
+     * @return void
+     */
+    public function lastRegisterUsersRecipes()
+    {
+        $_arr_detalle = [];
+
+        $ultim_users = User::withTrashed()
+                            ->orderBy('created_at', 'DESC')//primero, por fecha DESC
+                            ->orderBy('id', 'DESC')//segundo, por ID DESC
+                            ->take(3)->get();
+
+        $ultim_recetas = Receta::withTrashed()
+                            ->with('user')
+                            ->orderBy('created_at', 'DESC')//primero, por fecha DESC
+                            ->orderBy('id', 'DESC')//segundo, por ID DESC
+                            ->take(3)->get();
+
+        $_arr_detalle['ultim_users'] = $ultim_users;
+        $_arr_detalle['ultim_recetas'] = $ultim_recetas;
 
         return $_arr_detalle;
     }
@@ -82,18 +111,58 @@ class AdminPanelController extends Controller
         $fecha_ini = date('Y-m-d', strtotime($request->fecha_ini));
         $fecha_fin = date('Y-m-d', strtotime($request->fecha_fin));
         //dd('REQUEST: ', $request, 'fecha_ini: ', $fecha_ini, 'fecha_fin: ', $fecha_fin);
-        $db_driver_actual = config('database.default', 'mysql');
 
-        if($db_driver_actual == 'mysql') {
+        //Según tipo de BD...
+        if($this->db_driver_actual == 'mysql') {
             return Receta::select(DB::raw('COUNT(*) AS total_recetas, created_at AS dia_alta'))
                     ->whereBetween('created_at', [$fecha_ini, $fecha_fin])
                     ->groupby('dia_alta')
                     ->get();
 
-        } else if($db_driver_actual == 'pgsql') {
+        } else if($this->db_driver_actual == 'pgsql') {
             return Receta::select(DB::raw('COUNT(*) AS total_recetas, created_at AS dia_alta'))
                     ->whereBetween('created_at', [$fecha_ini, $fecha_fin])
                     ->groupby('dia_alta')
+                    ->get();
+        }
+    }
+
+    /**
+     * Filtrar total de usuarios registros por país de procedencia
+     *
+     * @return void
+     */
+    public function searchUsersWorld()
+    {
+        //Según tipo de BD...
+        if($this->db_driver_actual == 'mysql') {
+            return User::select(DB::raw('COUNT(*) AS total_users, country'))
+                    ->groupby('country')
+                    ->get();
+
+        } else if($this->db_driver_actual == 'pgsql') {
+            return User::select(DB::raw('COUNT(*) AS total_users, country'))
+                    ->groupby('country')
+                    ->get();
+        }
+    }
+
+    /**
+     * Filtrar total de recetas por categoría
+     *
+     * @return void
+     */
+    public function searchRecipesXCateg()
+    {
+        //Según tipo de BD...
+        if($this->db_driver_actual == 'mysql') {
+            return Receta::select(DB::raw('COUNT(*) AS total_recetas, categoria'))
+                    ->groupby('categoria')
+                    ->get();
+
+        } else if($this->db_driver_actual == 'pgsql') {
+            return Receta::select(DB::raw('COUNT(*) AS total_recetas, categoria'))
+                    ->groupby('categoria')
                     ->get();
         }
     }

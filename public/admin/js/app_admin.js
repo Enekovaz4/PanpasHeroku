@@ -4723,6 +4723,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //librería para tratar los errores capturados en el servidor
 
 
@@ -4734,6 +4771,7 @@ __webpack_require__.r(__webpack_exports__);
     BusEvent.$emit('notifCargaUsersOnlineEvent'); //para cargar total de recursos al llegar al componente
 
     this.getTotRecursos();
+    this.getLastRegisterUsersRecipes();
     this.getCharts();
   },
   components: {
@@ -4743,8 +4781,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       urlBase: '/admin/dashboard',
-      //variable para almacenar los datos del registro a almacenar
+      //variable para almacenar los datos totales de registros a mostrar
       objTotRecursos: {},
+      //variable para almacenar los datos de última actividad a mostrar
+      objActivReg: {},
       //Opciones para cada DatetimePicker
       //  >> Rellenando con una fecha fija
       //  >> Rellenando con la fecha actual
@@ -4784,12 +4824,52 @@ __webpack_require__.r(__webpack_exports__);
       ],*/
       chartRecetasAltaXFechas_Data: [['Día', 'Recetas'], ['0', 0]],
       chartRecetasAltaXFechas_Options: {
-        chart: {
-          title: 'Alta de Recetas en rango de Fechas',
-          subtitle: 'Recetas registradas en un rango'
-        },
+        ////chart: {
+        ////    title: 'Alta de Recetas en rango de Fechas',
+        ////    subtitle: 'Recetas registradas en un rango',
+        ////},
+        title: 'Alta de Recetas en rango de Fechas',
+        subtitle: 'Recetas registradas en un rango',
         colors: ['#fed136']
       },
+      //-------------------------------------------------
+      //Gráfica Usuarios Registrados por el Mundo
+      chartUsuariosMundo_Data: [//Para poder traducir los nmbre de los lugares pasados
+      //el mapa necesita una referencia que le indique a qué lugar se refiere
+      //el texto traducido. Por ello, se debe pasar el código del país
+      //antes de su nombre traducido
+      //https://developers.google.com/chart/interactive/docs/gallery/geochart#continent-hierarchy-and-codes
+
+      /*['Code', 'País', 'Registros'],
+      ['FR', 'Francia', 1200],
+      ['US', 'United States', 300],
+      ['BR', 'Brazil', 400],
+      ['CA', 'Canada', 500],
+      ['RU', 'RU', 700],*/
+      //SIN traducción de nombres
+      ['País', 'Registros'], ['France', 1200], ['United States', 300], ['Brazil', 400], ['Canada', 500], ['RU', 700]],
+      chartUsuariosMundo_Options: {
+        //Color de fondo del mapa
+        backgroundColor: '#81d4fa',
+        //Rango de colores para eje de valores (tantos colores como se desee)
+        //por defecto, de gris a verde
+        colorAxis: {
+          colors: ['#fed136', '#00853f']
+        }
+      },
+      //carga previa de resultados para gráfica "Usuarios en el Mundo"
+      objUsuariosMundo_previo: {},
+      //-------------------------------------------------
+      //Gráfica Recetas por Categoría
+      chartRecetasXCateg_Data: [['Categoría', 'Total'], ['0', 0]],
+      chartRecetasXCateg_Options: {
+        title: 'Cantidades Totales (tot y %)',
+        //Para hacerlo Tridimensional
+        is3D: true
+      },
+      //carga previa de resultados para gráfica "Recetas por Categoría"
+      objRecetasXCateg_previo: {},
+      //-------------------------------------------------
       //posibles errores
       errors: new _libs_errors__WEBPACK_IMPORTED_MODULE_0__["Errors"]()
     };
@@ -4815,10 +4895,84 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     /**
+     * Cargando datos de última actividad de registro
+    */
+    getLastRegisterUsersRecipes: function getLastRegisterUsersRecipes() {
+      var _this2 = this;
+
+      console.log('Cargando última actividad de registro de usuarios/recetas'); //Haciendo la petición de datos
+
+      var url = this.urlBase + '/last-register';
+      axios.get(url).then(function (response) {
+        //SI TODO OK
+        console.log(response.data);
+        _this2.objActivReg = response.data;
+      }).catch(function (error) {
+        //SI HAY ALGÚN ERROR
+        console.log(error.response.data.errors);
+      });
+    },
+
+    /**
      * Carga de gráfica(s)
     */
     getCharts: function getCharts() {
+      this.chartRecetasXCateg();
+      this.chartUsuariosMundo();
       this.chartRecetasAltaXFechas();
+    },
+
+    /**
+     * Carga de gráfica de Recetas por Categoría
+    */
+    chartRecetasXCateg: function chartRecetasXCateg() {
+      var _this3 = this;
+
+      console.log(':: Se cargará la gráfica recetas por categoría ::'); //Reiniciando datos antes de un nueva carga
+
+      this.chartRecetasXCateg_Data = [['Categoría', 'Total']];
+      var url = this.urlBase + '/search-recipes-x-categ';
+      axios.get(url).then(function (response) {
+        //SI TODO OK
+        ////console.log('Resultados para Gráfica "Recetas por Categoría":', response.data)
+        _this3.objRecetasXCateg_previo = response.data;
+        var elem_result;
+        Object.keys(_this3.objRecetasXCateg_previo).forEach(function (elemKey) {
+          elem_result = _this3.objRecetasXCateg_previo[elemKey]; //country | total_users
+
+          _this3.chartRecetasXCateg_Data.push([elem_result.categoria, elem_result.total_recetas]);
+        });
+      }).catch(function (error) {
+        //SI HAY ALGÚN ERROR
+        console.log(error.response.data.errors);
+      });
+    },
+
+    /**
+     * Carga de gráfica de Altas de Recetas
+     * dentro de un rango de fechas dado
+    */
+    chartUsuariosMundo: function chartUsuariosMundo() {
+      var _this4 = this;
+
+      console.log(':: Se cargará la gráfica usuarios registrados por el mundo ::'); //Reiniciando datos antes de un nueva carga
+
+      this.chartUsuariosMundo_Data = [['País', 'Registros'], ['France', 1200], ['United States', 300], ['Brazil', 400], ['Canada', 500], ['RU', 700]];
+      var url = this.urlBase + '/search-users-world';
+      axios.get(url).then(function (response) {
+        //SI TODO OK
+        ////console.log('Resultados para Gráfica "Usuarios por el Mundo":', response.data)
+        _this4.objUsuariosMundo_previo = response.data;
+        var elem_result;
+        Object.keys(_this4.objUsuariosMundo_previo).forEach(function (elemKey) {
+          elem_result = _this4.objUsuariosMundo_previo[elemKey]; //country | total_users
+
+          _this4.chartUsuariosMundo_Data.push([elem_result.country, elem_result.total_users]);
+        });
+      }).catch(function (error) {
+        //SI HAY ALGÚN ERROR
+        console.log(error.response.data.errors);
+      });
     },
 
     /**
@@ -4826,7 +4980,7 @@ __webpack_require__.r(__webpack_exports__);
      * dentro de un rango de fechas dado
     */
     chartRecetasAltaXFechas: function chartRecetasAltaXFechas() {
-      var _this2 = this;
+      var _this5 = this;
 
       console.log(':: Se cargará la gráfica según el rango de fechas seleccionado ::'); //Reiniciando datos antes de un nueva carga
 
@@ -4840,20 +4994,20 @@ __webpack_require__.r(__webpack_exports__);
       axios.post(url, this.objRecetasAltaXFechas).then(function (response) {
         //SI TODO OK
         //vaciando los posibles errores que se produjeron
-        _this2.errors.clear(); ////console.log('Resultados para Gráfica "Alta de Recetas":', response.data)
+        _this5.errors.clear(); ////console.log('Resultados para Gráfica "Alta de Recetas":', response.data)
 
 
-        _this2.objRecetasAltaXFechas_previo = response.data;
+        _this5.objRecetasAltaXFechas_previo = response.data;
         var elem_result;
-        Object.keys(_this2.objRecetasAltaXFechas_previo).forEach(function (elemKey) {
-          elem_result = _this2.objRecetasAltaXFechas_previo[elemKey]; //dia_alta | total_recetas
+        Object.keys(_this5.objRecetasAltaXFechas_previo).forEach(function (elemKey) {
+          elem_result = _this5.objRecetasAltaXFechas_previo[elemKey]; //dia_alta | total_recetas
 
-          _this2.chartRecetasAltaXFechas_Data.push([_this2.formatFechaDMY(elem_result.dia_alta), elem_result.total_recetas]);
+          _this5.chartRecetasAltaXFechas_Data.push([_this5.formatFechaDMY(elem_result.dia_alta), elem_result.total_recetas]);
         });
       }).catch(function (error) {
         //SI HAY ALGÚN ERROR
         //registrando los errores recibidos
-        _this2.errors.record(error.response.data.errors);
+        _this5.errors.record(error.response.data.errors);
       });
     },
 
@@ -69901,11 +70055,197 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _vm._m(5),
+          _c("div", { staticClass: "col-lg-6", attrs: { id: "activity" } }, [
+            _c("div", { staticClass: "card" }, [
+              _c(
+                "div",
+                { staticClass: "card-body" },
+                [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _vm.objActivReg.ultim_users == ""
+                    ? _c(
+                        "div",
+                        { staticClass: "callout callout-info user-block" },
+                        [
+                          _vm._m(6),
+                          _vm._v(" "),
+                          _c("span", [
+                            _vm._v(
+                              "\n                                            Ninguno publicado aún\n                                        "
+                            )
+                          ])
+                        ]
+                      )
+                    : _vm._l(_vm.objActivReg.ultim_users, function(
+                        user,
+                        index
+                      ) {
+                        return _c(
+                          "div",
+                          {
+                            key: index,
+                            staticClass: "callout callout-info user-block"
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "img-circle img-bordered-sm",
+                              attrs: {
+                                src: user.avatar,
+                                alt: "Imagen del usuario"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "username" }, [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "tit_receta",
+                                  attrs: {
+                                    href: "#",
+                                    target: "_blank",
+                                    title: "Acceder al detalle"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      user.name +
+                                        " " +
+                                        user.lastname +
+                                        " | @" +
+                                        user.username
+                                    )
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "description" }, [
+                              _vm._v("Registrad@ - " + _vm._s(user.created_at))
+                            ])
+                          ]
+                        )
+                      })
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card card-primary card-outline" }, [
+              _c(
+                "div",
+                { staticClass: "card-body" },
+                [
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _vm.objActivReg.ultim_recetas == ""
+                    ? _c(
+                        "div",
+                        { staticClass: "callout callout-info user-block" },
+                        [
+                          _vm._m(8),
+                          _vm._v(" "),
+                          _c("span", [
+                            _vm._v(
+                              "\n                                            Ninguna publicada aún\n                                        "
+                            )
+                          ])
+                        ]
+                      )
+                    : _vm._l(_vm.objActivReg.ultim_recetas, function(
+                        receta,
+                        index
+                      ) {
+                        return _c(
+                          "div",
+                          {
+                            key: index,
+                            staticClass: "callout callout-info user-block"
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "img-circle img-bordered-sm",
+                              attrs: {
+                                src: receta.imagen,
+                                alt: "Foto de la receta"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "username" }, [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "tit_receta",
+                                  attrs: {
+                                    href: "#",
+                                    target: "_blank",
+                                    title: "Acceder al detalle"
+                                  }
+                                },
+                                [_vm._v(_vm._s(receta.titulo))]
+                              ),
+                              _vm._v(", "),
+                              _c("small", [
+                                _vm._v("por @" + _vm._s(receta.user.username))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "description" }, [
+                              _vm._v("Publicada - " + _vm._s(receta.created_at))
+                            ])
+                          ]
+                        )
+                      })
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card card-outline" }, [
+              _vm._m(9),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "card-body" },
+                [
+                  _c("GChart", {
+                    attrs: {
+                      type: "PieChart",
+                      data: _vm.chartRecetasXCateg_Data,
+                      options: _vm.chartRecetasXCateg_Options,
+                      resizeDebounce: 500
+                    }
+                  })
+                ],
+                1
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-6" }, [
+            _c("div", { staticClass: "card card-primary card-outline" }, [
+              _vm._m(10),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "card-body" },
+                [
+                  _c("GChart", {
+                    attrs: {
+                      type: "GeoChart",
+                      data: _vm.chartUsuariosMundo_Data,
+                      options: _vm.chartUsuariosMundo_Options,
+                      resizeDebounce: 500
+                    }
+                  })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
             _c("div", { staticClass: "card" }, [
-              _vm._m(6),
+              _vm._m(11),
               _vm._v(" "),
               _c(
                 "div",
@@ -70002,7 +70342,7 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
-                        _vm._m(7)
+                        _vm._m(12)
                       ])
                     ]
                   ),
@@ -70011,7 +70351,8 @@ var render = function() {
                     attrs: {
                       type: "ColumnChart",
                       data: _vm.chartRecetasAltaXFechas_Data,
-                      options: _vm.chartRecetasAltaXFechas_Options
+                      options: _vm.chartRecetasAltaXFechas_Options,
+                      resizeDebounce: 500
                     }
                   })
                 ],
@@ -70083,49 +70424,56 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-6" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _c("h5", { staticClass: "card-title" }, [
-            _c("strong", [_vm._v("Últimos usuario(s) registrado(s)")])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v(
-              "\n                                        Kesi KEsi Kesito\n                                    "
-            )
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-            _vm._v("Ver Perfil")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-            _vm._v("Ver Actividad")
-          ])
-        ])
-      ]),
+    return _c("h5", { staticClass: "card-title" }, [
+      _c("i", { staticClass: "fas fa-users" }),
       _vm._v(" "),
-      _c("div", { staticClass: "card card-primary card-outline" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _c("h5", { staticClass: "card-title" }, [
-            _c("strong", [_vm._v("Últimas receta(s)")])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v(
-              "\n                                        Pastel de mantequilla.\n                                    "
-            )
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-            _vm._v("Detalle")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-            _vm._v("Comentarios")
-          ])
-        ])
+      _c("strong", [_vm._v("Último(s) usuario(s) registrado(s)")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      {
+        staticClass: "img-circle img-bordered-sm",
+        attrs: { title: "Icono genérico de usuario" }
+      },
+      [_c("i", { staticClass: "fas fa-user i_ultim_ninguno" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h5", { staticClass: "card-title" }, [
+      _c("i", { staticClass: "fas fa-book-open" }),
+      _vm._v(" "),
+      _c("strong", [_vm._v("Última(s) receta(s) publicada(s)")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      {
+        staticClass: "img-circle img-bordered-sm",
+        attrs: { title: "Icono genérico de receta" }
+      },
+      [_c("i", { staticClass: "fas fa-book-open i_ultim_ninguno" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "m-0" }, [
+        _c("i", { staticClass: "fas fa-chart-line" }),
+        _vm._v(" Recetas por Tipo")
       ])
     ])
   },
@@ -70134,7 +70482,21 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h5", { staticClass: "m-0" }, [_vm._v("Gráfica de alta de Recetas")])
+      _c("h5", { staticClass: "m-0" }, [
+        _c("i", { staticClass: "fas fa-chart-line" }),
+        _vm._v(" Usuarios en el Mundo")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "m-0" }, [
+        _c("i", { staticClass: "fas fa-chart-line" }),
+        _vm._v(" Gráfica de alta de Recetas")
+      ])
     ])
   },
   function() {
@@ -91740,7 +92102,7 @@ function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/panpas-restructurado-heroku/resources/js/app_admin.js */"./resources/js/app_admin.js");
+module.exports = __webpack_require__(/*! D:\inetpubapache-www\__laravel-homestead-proyectos\panpas-restructurado-git-heroku\resources\js\app_admin.js */"./resources/js/app_admin.js");
 
 
 /***/ })

@@ -248,20 +248,20 @@ class UserController extends Controller
 
         $_arr_detalle = [];
 
-        $ultim_recetas = Receta::where('user_id', $id)
+        $ultim_recetas = Receta::withTrashed()->where('user_id', $id)
                             ->with('comentarios')
                             ->orderBy('created_at', 'DESC')//primero, por fecha DESC
                             ->orderBy('id', 'DESC')//segundo, por ID DESC
                             ->take(3)->get();
 
-        $ultim_comentarios = Comentario::where('user_id', $id)
+        $ultim_comentarios = Comentario::withTrashed()->where('user_id', $id)
                             ->with('user')
                             ->with('receta:id,titulo')
                             ->orderBy('created_at', 'DESC')
                             ->orderBy('id', 'DESC')
                             ->take(3)->get();
 
-        $ultim_mens_contacto = Contacto::where('correo', $user->email)
+        $ultim_mens_contacto = Contacto::withTrashed()->where('correo', $user->email)
                             ->orderBy('created_at', 'DESC')
                             ->orderBy('id', 'DESC')
                             ->take(3)->get();

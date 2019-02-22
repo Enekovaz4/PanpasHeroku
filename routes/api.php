@@ -72,10 +72,6 @@ Route::get('/recipes/force-delete/{id}', 'API\RecipeController@forceDelete')
 //  >> para restaurar usuario en papelera
 Route::get('/recipes/restore-delete/{id}', 'API\RecipeController@restoreDelete')
     ->name('recipe.restore-delete');
-//Gráfica::Altas de recetas
-//  >> por rango de fechas
-Route::post('/recipes/search-date-range', 'API\RecipeController@searchXDateRange')
-    ->name('recipe.search-date-range');
 
 // ===============================================================================
 // COMENTARIOS :: Otros

@@ -95,7 +95,7 @@ Route::get('/unfollow/{id}', 'FollowController@unfollow')
 Route::get('/follow/{id}', 'FollowController@follow')
     ->name('follow_follow');
 
-//FAVORITOS SYSTEN routes
+//FAVORITOS SYSTEM routes
 Route::get('/fav/{id}', 'RecetaController@insertarFavoritos')
     ->name('fav_insertarFavoritos');
 Route::get('/unfav/{id}', 'RecetaController@eliminarFavoritos')
@@ -109,9 +109,18 @@ Route::get('/admin/dashboard', 'AdminPanelController@index')
 Route::get('/admin/dashboard/get-tots', 'AdminPanelController@getTots')
     ->middleware('can:isAdmin')
     ->name('admin_pnl_index_tots');
+Route::get('/admin/dashboard/last-register', 'AdminPanelController@lastRegisterUsersRecipes')
+    ->middleware('can:isAdmin')
+    ->name('admin_pnl_index_last_register');
 Route::post('/admin/dashboard/search-recipes-date-range', 'AdminPanelController@searchRecipesXDateRange')
     ->middleware('can:isAdmin')
     ->name('admin_pnl_index_recipes-date-range');
+Route::get('/admin/dashboard/search-users-world', 'AdminPanelController@searchUsersWorld')
+    ->middleware('can:isAdmin')
+    ->name('admin_pnl_index_users-world');
+Route::get('/admin/dashboard/search-recipes-x-categ', 'AdminPanelController@searchRecipesXCateg')
+    ->middleware('can:isAdmin')
+    ->name('admin_pnl_index_recipes-x-categ');
 
 //Para aceptar URLs de todo tipo dentro de  este controlador
 //  >> establecido para aceptar peticiones GET a las rutas

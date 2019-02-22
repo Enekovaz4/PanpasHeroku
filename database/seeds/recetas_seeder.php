@@ -48,12 +48,6 @@ class recetas_seeder extends Seeder
         $_arr_categoria = ['panadería', 'pastelería'];
 
 
-
-
-
-
-
-
             DB::table('recetas')->insert([
                 'titulo' => 'Diplomático',
                 'descripcion' => "Eva Arguiñano elabora en el programa de televisión Karlos Arguiñano en tu cocina el delicioso postre Diplomático ¿te lo vas a perder?",
@@ -81,7 +75,7 @@ Si no los has dejado reposar de un día para otro no pasa nada. Con tenerlos 3 h
                 //'votos' => random_int(0, 0),
                 'categoria' => 'pastelería',
                 ////'created_at' => $faker->date($format = 'Y-m-d H:i:s', $max = 'now'),
-                'created_at' => new DateTime('2018-12-14'),
+                'created_at' => new DateTime('2018-11-28'),
             ]);
 
                 DB::table('recetas')->insert([
@@ -106,7 +100,36 @@ Decora con unas hojitas de menta.</p>",
                 'user_id' => 2,
                 'votos' => 0,
                 'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-01-07'),
+                'created_at' => new DateTime('2018-12-07'),
+            ]);
+
+
+            DB::table('recetas')->insert([
+                'titulo' => 'Pan casero fácil y rápido',
+                'descripcion' => "Te enseño cómo preparar una hogaza de pan casero con harina de todo uso y sin apenas amasado ni levado. Fácil y rápido, ideal para principiantes. Queda una corteza crujiente y una miga muy tierna y esponjosa. El truco de esta receta de pan está en la forma en que se hornea. Pocas cosas hay tan deliciosas como acompañar tus comidas con un buen pan y, además, si el pan lo haces tú, el resultado te encantará. Con carne, pescado, en bocadillo o con unos huevos… Sorprende en casa con este pan casero y verás qué satisfechos quedan.",
+                'ingredientes' => "Harina de trigo 500g, Agua templada 350ml, Levadura deshidratada 6g, Sal 10g, Azúcar 15g, Cucharadas de aceite de oliva virgen extra 3",
+                'imagen' => "http://www.annarecetasfaciles.com/files/pan-1-815x458.jpg",
+                'elaboracion' => "
+1.- Lo primero es hidratar la levadura. Pon un poco de agua en un bol y agrega la levadura y el azúcar. Ahora, remueve (más o menos 2 minutos) con una cuchara de madera hasta que la levadura se disuelva por completo.<br><br>
+
+2.- En un bol, vierte el agua templada, la levadura hidratada, el aceite de oliva, y 5 cucharadas de harina. Mezcla bien y cuando esté todo bien integrado, tapa con un paño y deja reposar a temperatura ambiente durante unos 20 minutos. Después de 20 minutos, verás que la masa se ha llenado de burbujas y ha crecido. Es el momento de incorporar toda la harina.<br><br>
+
+3.- Ve incorporando la harina y mezclando. La masa tiene que quedar muy espesa. Añade la sal en este punto. Pasa la masa al mármol cuando esté muy compacta.<br><br>
+
+4.- Extiende un poco de harina sobre el mármol y vuelca toda la masa. Amasa durante un par de minutos. Si te untas las manos con un poco de aceite de oliva no se te pegará. Deja reposar la masa media hora, tapada con un paño, sobre la encimera enharinada.<br><br>
+
+5.- Unta un poco de aceite el papel de horno así como el interior del molde que te servirá para hornear. El molde que he usado mide 22 cm de diámetro. Tras 30 minutos, la masa ya está lista para hornear. Unta tus manos con aceite y quita el aire al pan. Pasa a la bandeja de horno y, con un cuchillo, hazle un par de cortes. Espolvorea con un poco de harina para darle un aspecto rústico al pan.<br><br>
+
+6.- Tapa la masa con el molde que servirá para que la humedad del pan no se escape y el pan crezca mucho más. Coloca la bandeja con el horno apagado y frío. Enciende el horno a 200 grados y hornea durante 45 minutos con calor arriba y abajo.<br><br>
+
+7.- Retira el pan del horno, quita el molde de pyrex y coloca el pan encima de una rejilla para que se enfríe.
+
+
+",
+                'user_id' => 4,
+                'votos' => 2,
+                'categoria' => 'panadería',
+                'created_at' => new DateTime('2019-01-20'),
             ]);
 
                 DB::table('recetas')->insert([
@@ -130,8 +153,37 @@ Decora con unas hojitas de menta.</p>",
                 'user_id' => 3,
                 'votos' => 0,
                 'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-02-15'),
+                'created_at' => new DateTime('2019-01-20'),
             ]);
+
+
+            DB::table('recetas')->insert([
+            'titulo' => 'Pan Muffuletta',
+            'descripcion' => "El pan Muffuletta es una variedad de origen italiano que triunfa en Nueva Orleans con una variedad de bocadillo del mismo nombre. Este bocadillo mundialmente conocido se hace a base de una ensalada de encurtidos, mortadela, queso y salami. Muy pronto de mostraré como prepararlo. La miga de este pan es muy tierna y su corteza es blanda, pero su base es lo bastante consistente para soportar el relleno generoso que le caracteriza.",
+            'ingredientes' => "Agua templada 240ml, Cucharada de azúcar 1, Levadura fresca 15g, Sal 10g, Harina de fuerza 375g, Sal 10g, Mantequilla 80g, Cucharadas de semillas de sésamo 2",
+            'imagen' => "http://www.annarecetasfaciles.com/files/pan-muffuletta-miniatura-815x458.jpg",
+            'elaboracion' => "
+1.- En un recipiente, vierte el agua catemplada, azúcar y la levadura fresca desmenuzada. Mezcla hasta que la levadura se disuelva por completo. Espera 10 o 15 minutos, cuando empiezan a salir burbujitas , añade la mantequilla a temperatura ambiente y parte de la harina.<br><br>
+
+2.- Con unas varillas con el accesorio de amasar o bien con una cuchara, empieza a mezclar. Cuando esté completamente mezclado, añade el resto de la harina a la que previamente debes ponerle sal. Ve mezclando la harina poco a poco (fíjate en el vídeo para saber la textura que debes conseguir). Si te queda demasiado clara puedes añadir más harina, y si te queda demasiado espesa, un poco más de agua.<br><br>
+
+3.- Coloca un chorro de aceite de oliva en un bol y repártelo con las manos. Pon la masa en el bol y alisa la superficie con las manos. Deja reposar a temperatura ambiente, tapado con film transparente, hasta que doble su volumen.<br><br>
+
+4.- Extiende un poco de harina en el mármol y verte toda la masa. Forma una bola con la masa y quítale el aire. Aplasta la masa con las manos hasta obtener un pan de unos 25 centímetros de diámetro.<br><br>
+
+5.- Extiende con las manos un poco de aceite de oliva en la bandeja de horno y coloca el pan encima. Acaba de dar la forma redonda y mójalo con un poco de agua para que las semillas de sésamo queden pegados. Las semillas de sésamo es algo opcional. Cubre el pan con un paño de cocina mojado y déjalo fermentar 2 horas en el horno frío y apagado.<br><br>
+
+6.- Cuando ya ha fermentado, introdúcelo en el horno precalentado a 220 grados. Lo he colocado en el segundo de los 5 niveles que tiene el horno. Pasados 10 minutos, verás que el pan empieza a dorarse, baja el fuego a 190 grados y que se siga horneando. En total, lo he tenido 25 minutos dentro del horno. La temperatura y el tiempo de horneado son relativos.<br><br>
+
+7.- Pásalo a una rejilla para que se enfríe.
+
+
+",
+            'user_id' => 4,
+            'votos' => 4,
+            'categoria' => 'panadería',
+            'created_at' => new DateTime('2019-01-20'),
+        ]);
 
 
                 DB::table('recetas')->insert([
@@ -151,11 +203,8 @@ Decora con unas hojitas de menta.</p>",
                 'user_id' => 4,
                 'votos' => 0,
                 'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-05-15'),
+                'created_at' => new DateTime('2019-01-30'),
             ]);
-
-
-
 
 
                 DB::table('recetas')->insert([
@@ -177,9 +226,8 @@ Decora con unas hojitas de menta.</p>",
                 'user_id' => 5,
                 'votos' => 0,
                 'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-07-15'),
+                'created_at' => new DateTime('2019-02-15'),
             ]);
-
 
 
                 DB::table('recetas')->insert([
@@ -205,9 +253,8 @@ Decora con unas hojitas de menta.</p>",
                 'user_id' => 5,
                 'votos' => 0,
                 'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-09-15'),
+                'created_at' => new DateTime('2019-02-15'),
             ]);
-
 
 
                 DB::table('recetas')->insert([
@@ -231,10 +278,33 @@ Decora con unas hojitas de menta.</p>",
                 'user_id' => 5,
                 'votos' => 0,
                 'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-11-15'),
+                'created_at' => new DateTime('2019-02-15'),
             ]);
 
 
+            DB::table('recetas')->insert([
+            'titulo' => 'Coca de hojaldre con piñones y cabello de ángel',
+            'descripcion' => "La coca de hojaldre con cabello de ángel, es una coca dulce típica catalana. El relleno de cabello de ángel la hace muy jugosa y el contraste de crujiente y tierno es una verdadera delicia. Puedes preparar esta coca para acompañar un café con tus amigos o como postre para toda la familia. Sigue el paso a paso que te muestro y comprobarás lo sencillo que es agradar en la mesa a tus invitados.",
+            'ingredientes' => "Lámina de hojaldre 1, Mermelada de cabello de ángel 1, Piñones 40g, Huevo 1, Cucharada de azúcar 1, Cucharada de harina para espolvorear el mármol 1",
+            'imagen' => "http://www.annarecetasfaciles.com/files/coca-de-hojaldre-con-cabello-de-angel-1-815x458.jpg",
+            'elaboracion' => "
+    1.- Enharina la superficie de trabajo para trabajar la masa sin dificultad. Con el rodillo, extiende la masa y cortala por la mitad. Una mitad servirá de base y la otra, de tapa. Puedes usar dos lamnas de hojaldre porque esta masa es casera y es bastante grande. Con la ayuda del rodillo, lleva la masa a la bandeja de horno. Coloca la masa sobre papel de horno espolvoreado con un poco de harina.<br><br>
+
+    2.- Coloca una capa de mermelada de cabello de ángel sobre la masa. Si no tienes esta mermelada, puedes utilizar cualquiera de frutas. Reparte bien con una cuchara. Deja el borde sin relleno y píntalo con huevo batido para luego pegar fácilmente la tapa de hojaldre.<br><br>
+
+    3.- Ayúdate de nuevo con el rodillo (mira en el vídeo cómo lo hago) y cubre la base con la tapa de hojaldre. Ajusta los bordes y pégalos bien. Corta con un cuchillo para pulir el hojaldre y que queden rectos todos los bordes.<br><br>
+
+    4.- Pinta todo el hojaldre con huevo batido y espolvorea con una fina capa de azúcar. Reparte los piñones por encima. Puedes usar, en lugar de piñones, unas almendras laminadas o picadas.<br><br>
+
+    5.- Introduce la coca de hojaldre con cabello de ángel el hojaldre en el horno precalentado a 180 grados. Lo he colocado en el segundo de los 5 niveles que tiene mi horno. Pincha la masa porque se va a inflar con el calor. Tras 30 minutos en el horno, ya tienes tu coca de hojaldre con piñones lista para comer.
+
+
+    ",
+            'user_id' => 4,
+            'votos' => 0,
+            'categoria' => 'panadería',
+            'created_at' => new DateTime('2019-02-15'),
+        ]);
 
 
                 DB::table('recetas')->insert([
@@ -262,8 +332,29 @@ Decora con unas hojitas de menta.</p>",
                 'user_id' => 5,
                 'votos' => 0,
                 'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-04-15'),
+                'created_at' => new DateTime('2019-02-19'),
             ]);
+
+
+            DB::table('recetas')->insert([
+            'titulo' => 'Pan para dieta',
+            'descripcion' => "El pan suele ser tolerado en las dietas pero con mucha moderación. Este pan que te presento hoy en realidad no es pan porque ni los ingredientes ni la preparación coinciden con lo que todos entendemos como pan. Pero, esta preparación, con aspecto de rico pan doradito y con sus semillas, hace a la perfección las veces de éste para preparar bocadillos estando a dieta y sin sentirse culpable.",
+            'ingredientes' => "Claras de huevo 2, Salvado de avena 30g, Cucharada sopera de queso fresco batido 1, Pizca de sal 1, Levadura química o polvo de hornear 2g, Semillas de lino para decorar X, Gotas de aceite para engrasar X",
+            'imagen' => "http://www.annarecetasfaciles.com/files/pan-dieta-1.jpg",
+            'elaboracion' => "
+    1.- Empieza encendiendo el horno a 250º C.<br><br>
+
+    2.- En un bol bate las claras hasta que espumen. No es necesario que lleguen al punto de nieve. Añade el queso fresco, el salvado de avena, la sal, la levadura tipo royal y bate bien hasta que quede una mezcla homogénea. Unta un molde forrado con papel de aluminio con unas gotas de aceite y  repártelo con los dedos. Vierte el preparado en el molde y alísa la superficie con una espátula. Si usas un molde tipo plum cake, será la medida ideal para que una vez terminado, partiéndolo por la mitad tengas dos rebanadas. Cubre la superficie con unas semillas de lino.<br><br>
+
+    3.- Introduce el molde en el horno a media altura con calor arriba y abajo hasta que se dore bien. Esto puede tardar de diez a quince minutos. Lo que tarde. Una vez dorado, se saca del horno y el papel de aluminio se desprende fácilmente. Si se ha pegado, deja que se enfríe un poco y se soltará sin dificultad. Dejar enfriar encima de una rejilla porque desprende mucha humedad.
+
+
+    ",
+            'user_id' => 4,
+            'votos' => 1,
+            'categoria' => 'panadería',
+            'created_at' => new DateTime('2019-02-19'),
+        ]);
 
 
                 DB::table('recetas')->insert([
@@ -295,12 +386,12 @@ Decora con unas hojitas de menta.</p>",
                 'user_id' => 5,
                 'votos' => 0,
                 'categoria' => 'pastelería',
-                'created_at' => new DateTime('2019-04-15'),
+                'created_at' => new DateTime('2019-02-21'),
             ]);
 
 
 
-                
+
 
     }
 }

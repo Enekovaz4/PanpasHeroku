@@ -96,41 +96,88 @@
 
                         <!-- Otros apartados -->
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div id="activity" class="col-lg-6">
+
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title"><strong>Últimos usuario(s) registrado(s)</strong></h5>
+                                        <h5 class="card-title"><i class="fas fa-users"></i> <strong>Último(s) usuario(s) registrado(s)</strong></h5>
 
-                                        <p class="card-text">
-                                            Kesi KEsi Kesito
-                                        </p>
-
-                                        <a href="#" class="card-link">Ver Perfil</a>
-                                        <a href="#" class="card-link">Ver Actividad</a>
+                                        <div v-if="objActivReg.ultim_users == ''" class="callout callout-info user-block">
+                                            <span class="img-circle img-bordered-sm" title="Icono genérico de usuario">
+                                                <i class="fas fa-user i_ultim_ninguno"></i>
+                                            </span>
+                                            <span>
+                                                Ninguno publicado aún
+                                            </span>
+                                        </div>
+                                        <div v-else v-for="(user, index) in objActivReg.ultim_users" :key="index" class="callout callout-info user-block">
+                                            <img class="img-circle img-bordered-sm" :src="user.avatar" alt="Imagen del usuario">
+                                            <span class="username">
+                                                <a href="#" class="tit_receta" target="_blank" title="Acceder al detalle">{{ user.name + ' ' + user.lastname + ' | @' + user.username }}</a>
+                                            </span>
+                                            <span class="description">Registrad@ - {{ user.created_at }}</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </div><!-- /.card -->
 
                                 <div class="card card-primary card-outline">
                                     <div class="card-body">
-                                        <h5 class="card-title"><strong>Últimas receta(s)</strong></h5>
+                                        <h5 class="card-title"><i class="fas fa-book-open"></i> <strong>Última(s) receta(s) publicada(s)</strong></h5>
 
-                                        <p class="card-text">
-                                            Pastel de mantequilla.
-                                        </p>
-                                        <a href="#" class="card-link">Detalle</a>
-                                        <a href="#" class="card-link">Comentarios</a>
+                                        <div v-if="objActivReg.ultim_recetas == ''" class="callout callout-info user-block">
+                                            <span class="img-circle img-bordered-sm" title="Icono genérico de receta">
+                                                <i class="fas fa-book-open i_ultim_ninguno"></i>
+                                            </span>
+                                            <span>
+                                                Ninguna publicada aún
+                                            </span>
+                                        </div>
+                                        <div v-else v-for="(receta, index) in objActivReg.ultim_recetas" :key="index" class="callout callout-info user-block">
+                                            <img class="img-circle img-bordered-sm" :src="receta.imagen" alt="Foto de la receta">
+                                            <span class="username">
+                                                <a href="#" class="tit_receta" target="_blank" title="Acceder al detalle">{{ receta.titulo }}</a>, <small>por @{{ receta.user.username }}</small>
+                                            </span>
+                                            <span class="description">Publicada - {{ receta.created_at }}</span>
+                                        </div>
                                     </div>
                                 </div><!-- /.card -->
+
+                                <div class="card card-outline">
+                                    <div class="card-header">
+                                        <h5 class="m-0"><i class="fas fa-chart-line"></i> Recetas por Tipo</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <GChart
+                                            type="PieChart"
+                                            :data="chartRecetasXCateg_Data"
+                                            :options="chartRecetasXCateg_Options"
+                                            :resizeDebounce="500"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                             <!-- /.col-md-6 -->
                             <div class="col-lg-6">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h5 class="m-0"><i class="fas fa-chart-line"></i> Usuarios en el Mundo</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <GChart
+                                            type="GeoChart"
+                                            :data="chartUsuariosMundo_Data"
+                                            :options="chartUsuariosMundo_Options"
+                                            :resizeDebounce="500"
+                                        />
+                                    </div>
+                                </div>
 
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5 class="m-0">Gráfica de alta de Recetas</h5>
+                                        <h5 class="m-0"><i class="fas fa-chart-line"></i> Gráfica de alta de Recetas</h5>
                                     </div>
                                     <div class="card-body">
-                                            <form @submit.prevent="chartRecetasAltaXFechas()" novalidate>
+                                        <form @submit.prevent="chartRecetasAltaXFechas()" novalidate>
                                         <div class="row">
                                             <div class="col-4">
                                                 Fecha inicial
@@ -146,26 +193,16 @@
                                                 <button class="nav-link btn btn-primary txt_blanco" type="submit" title="Cargar gráfica con fechas elegidas"><i class="far fa-chart-bar"></i> Cargar</button>
                                             </div>
                                         </div>
-                                            </form>
+                                        </form>
+
                                         <GChart
                                             type="ColumnChart"
                                             :data="chartRecetasAltaXFechas_Data"
                                             :options="chartRecetasAltaXFechas_Options"
+                                            :resizeDebounce="500"
                                         />
                                     </div>
                                 </div>
-
-                                <!--<div class="card card-primary card-outline">
-                                    <div class="card-header">
-                                        <h5 class="m-0">Featured</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <h6 class="card-title">Special title treatment</h6>
-
-                                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>-->
                             </div>
                             <!-- /.col-md-6 -->
                         </div>
@@ -193,6 +230,7 @@
 
             //para cargar total de recursos al llegar al componente
             this.getTotRecursos();
+            this.getLastRegisterUsersRecipes();
             this.getCharts();
         },
 
@@ -204,8 +242,10 @@
         data() {
             return {
                 urlBase: '/admin/dashboard',
-                //variable para almacenar los datos del registro a almacenar
+                //variable para almacenar los datos totales de registros a mostrar
                 objTotRecursos: {},
+                //variable para almacenar los datos de última actividad a mostrar
+                objActivReg: {},
 
                 //Opciones para cada DatetimePicker
                 //  >> Rellenando con una fecha fija
@@ -249,12 +289,59 @@
                     ['0', 0,],
                 ],
                 chartRecetasAltaXFechas_Options: {
-                    chart: {
-                        title: 'Alta de Recetas en rango de Fechas',
-                        subtitle: 'Recetas registradas en un rango',
-                    },
+                    ////chart: {
+                    ////    title: 'Alta de Recetas en rango de Fechas',
+                    ////    subtitle: 'Recetas registradas en un rango',
+                    ////},
+                    title: 'Alta de Recetas en rango de Fechas',
+                    subtitle: 'Recetas registradas en un rango',
                     colors: ['#fed136'],
                 },
+                //-------------------------------------------------
+                //Gráfica Usuarios Registrados por el Mundo
+                chartUsuariosMundo_Data: [
+                    //Para poder traducir los nmbre de los lugares pasados
+                    //el mapa necesita una referencia que le indique a qué lugar se refiere
+                    //el texto traducido. Por ello, se debe pasar el código del país
+                    //antes de su nombre traducido
+                    //https://developers.google.com/chart/interactive/docs/gallery/geochart#continent-hierarchy-and-codes
+                    /*['Code', 'País', 'Registros'],
+                    ['FR', 'Francia', 1200],
+                    ['US', 'United States', 300],
+                    ['BR', 'Brazil', 400],
+                    ['CA', 'Canada', 500],
+                    ['RU', 'RU', 700],*/
+                    //SIN traducción de nombres
+                    ['País', 'Registros'],
+                    ['France', 1200],
+                    ['United States', 300],
+                    ['Brazil', 400],
+                    ['Canada', 500],
+                    ['RU', 700],
+                ],
+                chartUsuariosMundo_Options: {
+                    //Color de fondo del mapa
+                    backgroundColor: '#81d4fa',
+                    //Rango de colores para eje de valores (tantos colores como se desee)
+                    //por defecto, de gris a verde
+                    colorAxis: {colors: ['#fed136', '#00853f']},
+                },
+                //carga previa de resultados para gráfica "Usuarios en el Mundo"
+                objUsuariosMundo_previo: {},
+                //-------------------------------------------------
+                //Gráfica Recetas por Categoría
+                chartRecetasXCateg_Data: [
+                    ['Categoría', 'Total'],
+                    ['0', 0,],
+                ],
+                chartRecetasXCateg_Options: {
+                    title: 'Cantidades Totales (tot y %)',
+                    //Para hacerlo Tridimensional
+                    is3D: true,
+                },
+                //carga previa de resultados para gráfica "Recetas por Categoría"
+                objRecetasXCateg_previo: {},
+                //-------------------------------------------------
                 //posibles errores
                 errors: new Errors(),
             }
@@ -280,10 +367,99 @@
             },
 
             /**
+             * Cargando datos de última actividad de registro
+            */
+            getLastRegisterUsersRecipes() {
+                console.log('Cargando última actividad de registro de usuarios/recetas');
+                //Haciendo la petición de datos
+                let url = this.urlBase + '/last-register';
+                axios.get(url)
+                .then( response => {       //SI TODO OK
+                    console.log(response.data)
+                    this.objActivReg = response.data
+                })
+                .catch(error => {           //SI HAY ALGÚN ERROR
+                    console.log(error.response.data.errors);
+                });
+            },
+
+            /**
              * Carga de gráfica(s)
             */
             getCharts() {
+                this.chartRecetasXCateg();
+                this.chartUsuariosMundo();
                 this.chartRecetasAltaXFechas();
+            },
+
+            /**
+             * Carga de gráfica de Recetas por Categoría
+            */
+            chartRecetasXCateg() {
+                console.log(':: Se cargará la gráfica recetas por categoría ::');
+                //Reiniciando datos antes de un nueva carga
+                this.chartRecetasXCateg_Data = [
+                    ['Categoría', 'Total'],
+                ];
+
+                let url = this.urlBase + '/search-recipes-x-categ';
+                axios.get(url)
+                .then((response) => {       //SI TODO OK
+                    ////console.log('Resultados para Gráfica "Recetas por Categoría":', response.data)
+                    this.objRecetasXCateg_previo = response.data
+
+                    let elem_result;
+                    Object.keys(this.objRecetasXCateg_previo).forEach((elemKey) => {
+                        elem_result = this.objRecetasXCateg_previo[elemKey];
+                        //country | total_users
+
+                        this.chartRecetasXCateg_Data.push([
+                            elem_result.categoria,
+                            elem_result.total_recetas,
+                        ]);
+                    })
+                })
+                .catch(error => {           //SI HAY ALGÚN ERROR
+                    console.log(error.response.data.errors);
+                });
+            },
+
+            /**
+             * Carga de gráfica de Altas de Recetas
+             * dentro de un rango de fechas dado
+            */
+            chartUsuariosMundo() {
+                console.log(':: Se cargará la gráfica usuarios registrados por el mundo ::');
+                //Reiniciando datos antes de un nueva carga
+                this.chartUsuariosMundo_Data = [
+                    ['País', 'Registros'],
+                    ['France', 1200],
+                    ['United States', 300],
+                    ['Brazil', 400],
+                    ['Canada', 500],
+                    ['RU', 700],
+                ];
+
+                let url = this.urlBase + '/search-users-world';
+                axios.get(url)
+                .then((response) => {       //SI TODO OK
+                    ////console.log('Resultados para Gráfica "Usuarios por el Mundo":', response.data)
+                    this.objUsuariosMundo_previo = response.data
+
+                    let elem_result;
+                    Object.keys(this.objUsuariosMundo_previo).forEach((elemKey) => {
+                        elem_result = this.objUsuariosMundo_previo[elemKey];
+                        //country | total_users
+
+                        this.chartUsuariosMundo_Data.push([
+                            elem_result.country,
+                            elem_result.total_users,
+                        ]);
+                    })
+                })
+                .catch(error => {           //SI HAY ALGÚN ERROR
+                    console.log(error.response.data.errors);
+                });
             },
 
             /**
