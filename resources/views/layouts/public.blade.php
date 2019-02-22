@@ -46,12 +46,12 @@
                     <div class="col-md-4">
                         <ul class="list-inline social-buttons">
                             <li class="list-inline-item">
-                                <a href="#" target="_blank" title="Visitar nuestro Twitter">
+                                <a href="https://twitter.com/PaNPaS8" target="_blank" title="Visitar nuestro Twitter">
                                     <i class="fab fa-twitter" title="{{ config('app.name', 'PaNPaS') }} - Twitter"></i>
                                 </a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="#" target="_blank" title="Visitar nuestro Facebook">
+                                <a href="https://www.facebook.com/panpas.zm.3" target="_blank" title="Visitar nuestro Facebook">
                                     <i class="fab fa-facebook-f" title="{{ config('app.name', 'PaNPaS') }} - Facebook"></i>
                                 </a>
                             </li>
